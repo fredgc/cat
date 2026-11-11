@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Acerca de la demostración de TAC</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="css/doc_style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Acerca de la demostración de TAC</h1>
+</header>
+<p>La <strong>Herramienta de demostración de TAC</strong> es una
+aplicación educativa interactiva diseñada para ilustrar las matemáticas
+y la mecánica detrás de la tomografía axial computarizada (TAC) y la
+transformada de Radon.</p>
+<h2 id="historia-y-motivación">Historia y motivación</h2>
+<p>Esta aplicación estáinspirada y adaptada del applet de demostración
+original de Java de 1998/2006 creado por <strong>Fred
+Gylys-Colwell</strong>. La presentación se expuso por primera vez el 26
+de febrero de 1998.</p>
+<p>Esta aplicación está escrita en Dart con Flutter. El código fuente
+está disponible en GitHub en <a
+href="https://github.com/fredgc/cat">https://github.com/fredgc/cat</a>.</p>
+<p>¿Encontró un error o desea solicitar una función? <a
+href="https://github.com/fredgc/cat/issues">Abra un ticket en
+GitHub</a>.</p>
+<p>Puede encontrar otras aplicaciones y herramientas de dibujo en <a
+href="https://www.gchouse.org">www.gchouse.org</a>.</p>
+<h2 id="las-matemáticas-detrás-de-la-tac">Las matemáticas detrás de la
+TAC</h2>
+<p>Una tomografía axial computarizada por rayos X genera un corte
+transversal 2D del interior de un objeto o cuerpo humano desde el
+exterior sin cirugía invasiva.</p>
+<ol type="1">
+<li><strong>Atenuación de rayos X e integrales de línea</strong>:</li>
+</ol>
+<p>Un haz de rayos X se dirige a lo largo de una línea recta
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>
+a través del cuerpo. La proporción de radiación absorbida corresponde a
+la integral de línea del coeficiente de absorción
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f(x, y)</annotation></semantics></math>
+a lo largo de la línea
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>L</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∫</mo><mi>L</mi></msub><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">g(L) = \int_L f(x, y) \, ds</annotation></semantics></math></p>
+<ol start="2" type="1">
+<li><strong>Parametrización de líneas</strong>:</li>
+</ol>
+<p>Cada línea en el plano se puede parametrizar mediante su distancia
+con signo
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>
+desde el origen y suángulo normal
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\theta \in [0, 2\pi)</annotation></semantics></math>:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mrow><mi>cos</mi><mo>&#8289;</mo></mrow><mi>θ</mi><mo>+</mo><mi>y</mi><mrow><mi>sin</mi><mo>&#8289;</mo></mrow><mi>θ</mi><mo>=</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">x \cos\theta + y \sin\theta = r</annotation></semantics></math></p>
+<p>La transformada de Radon
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℛ</mi><mo stretchy="false" form="prefix">[</mo><mi>f</mi><mo stretchy="false" form="postfix">]</mo><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo>,</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal{R}[f](r, \theta)</annotation></semantics></math>
+registra las integrales de línea para todos los
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo>,</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(r, \theta)</annotation></semantics></math>.</p>
+<ol start="3" type="1">
+<li><p><strong>Dualidad del sinograma</strong>:</p>
+<ul>
+<li><p>Un solo punto en el espacio del sinograma
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>r</mi><mn>0</mn></msub><mo>,</mo><msub><mi>θ</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(r_0, \theta_0)</annotation></semantics></math>
+representa una sola línea en el espacio del objeto.</p></li>
+<li><p>Un solo punto
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mn>1</mn></msub><mo>,</mo><msub><mi>y</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(x_1, y_1)</annotation></semantics></math>
+en el espacio del objeto corresponde a una curva sinusoidal
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>x</mi><mn>1</mn></msub><mrow><mi>cos</mi><mo>&#8289;</mo></mrow><mi>θ</mi><mo>+</mo><msub><mi>y</mi><mn>1</mn></msub><mrow><mi>sin</mi><mo>&#8289;</mo></mrow><mi>θ</mi></mrow><annotation encoding="application/x-tex">r(\theta) = x_1 \cos\theta + y_1 \sin\theta</annotation></semantics></math>
+en el espacio del sinograma que representa todas las líneas que pasan
+por
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mn>1</mn></msub><mo>,</mo><msub><mi>y</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(x_1, y_1)</annotation></semantics></math>.</p></li>
+</ul></li>
+<li><p><strong>Retroproyección filtrada
+(reconstrucción)</strong>:</p></li>
+</ol>
+<p>La retroproyección simple dispersa las proyecciones sobre el plano de
+la imagen, provocando un desenfoque de
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi>r</mi></mrow><annotation encoding="application/x-tex">1/r</annotation></semantics></math>.
+Al convolucionar cada proyección con un filtro de rampa o paso alto
+(derivado por Frank Natterer), la retroproyección de los datos filtrados
+reconstruye con precisión los rasgos interiores
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>≈</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">f(x, y) \approx 1</annotation></semantics></math>
+dentro del objeto y
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>
+fuera).</p>
+<h2 id="privacidad-y-retención-de-datos">Privacidad y retención de
+datos</h2>
+<p>Este programa le permite personalizar ajustes que se guardan
+localmente en su dispositivo (mediante SharedPreferences /
+LocalStorage). No se recopilan datos personales.</p>
+<p>En Android, los ajustes locales se eliminan al desinstalar la
+aplicación. En la web, los ajustes se eliminan al borrar los datos
+locales del navegador.</p>
+</body>
+</html>

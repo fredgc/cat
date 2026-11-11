@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>À propos de la démonstration de tomodensitométrie</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="css/doc_style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">À propos de la démonstration de tomodensitométrie</h1>
+</header>
+<p>L’<strong>Outil de démonstration de tomodensitométrie</strong> est
+une application pédagogique interactive illustrant les mathématiques et
+mécanismes de la tomographie axiale calculée (scanner CT) et de la
+transformée de Radon.</p>
+<h2 id="histoire-et-motivation">Histoire et motivation</h2>
+<p>Cette application est inspirée et adaptée de l’applet Java originale
+de 1998/2006 de <strong>Fred Gylys-Colwell</strong>.
+L’exposéaétéprésentépour la première fois le 26 février 1998.</p>
+<p>Cette application est écrite en Dart avec Flutter. Le code source est
+disponible sur GitHub : <a
+href="https://github.com/fredgc/cat">https://github.com/fredgc/cat</a>.</p>
+<p>Un bug ou une suggestion ? <a
+href="https://github.com/fredgc/cat/issues">Signalez un problème sur
+GitHub</a>.</p>
+<p>D’autres applications sont disponibles sur <a
+href="https://www.gchouse.org">www.gchouse.org</a>.</p>
+<h2 id="les-mathématiques-de-la-tomodensitométrie">Les mathématiques de
+la tomodensitométrie</h2>
+<p>La tomodensitométrie aux rayons X reconstruit une coupe transversale
+2D de l’intérieur d’un objet sans chirurgie invasive.</p>
+<ol type="1">
+<li><strong>Atténuation des rayons X et intégrales de ligne</strong>
+:</li>
+</ol>
+<p>Un faisceau de rayons X est dirigéle long d’une droite
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>.
+La proportion de rayonnement absorbée correspondàl’intégrale de ligne du
+coefficient d’absorption
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f(x, y)</annotation></semantics></math>
+le long de la droite
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>
+:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>L</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∫</mo><mi>L</mi></msub><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">g(L) = \int_L f(x, y) \, ds</annotation></semantics></math></p>
+<ol start="2" type="1">
+<li><strong>Paramétrisation des droites</strong> :</li>
+</ol>
+<p>Toute droite dans le plan est paramétrée par sa distance signée
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>àl’origine
+et son angle normal
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\theta \in [0, 2\pi)</annotation></semantics></math>
+:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mrow><mi>cos</mi><mo>&#8289;</mo></mrow><mi>θ</mi><mo>+</mo><mi>y</mi><mrow><mi>sin</mi><mo>&#8289;</mo></mrow><mi>θ</mi><mo>=</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">x \cos\theta + y \sin\theta = r</annotation></semantics></math></p>
+<p>La transformée de Radon
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℛ</mi><mo stretchy="false" form="prefix">[</mo><mi>f</mi><mo stretchy="false" form="postfix">]</mo><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo>,</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal{R}[f](r, \theta)</annotation></semantics></math>
+enregistre les intégrales de ligne pour tous les
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo>,</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(r, \theta)</annotation></semantics></math>.</p>
+<ol start="3" type="1">
+<li><p><strong>Dualitédu sinogramme</strong> :</p>
+<ul>
+<li><p>Un point unique dans l’espace du sinogramme
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>r</mi><mn>0</mn></msub><mo>,</mo><msub><mi>θ</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(r_0, \theta_0)</annotation></semantics></math>
+représente une droite complète dans l’espace de l’objet.</p></li>
+<li><p>Un point
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mn>1</mn></msub><mo>,</mo><msub><mi>y</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(x_1, y_1)</annotation></semantics></math>
+dans l’espace de l’objet correspondàune sinusoïde
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>x</mi><mn>1</mn></msub><mrow><mi>cos</mi><mo>&#8289;</mo></mrow><mi>θ</mi><mo>+</mo><msub><mi>y</mi><mn>1</mn></msub><mrow><mi>sin</mi><mo>&#8289;</mo></mrow><mi>θ</mi></mrow><annotation encoding="application/x-tex">r(\theta) = x_1 \cos\theta + y_1 \sin\theta</annotation></semantics></math>
+dans l’espace du sinogramme représentant toutes les droites passant par
+ce point.</p></li>
+</ul></li>
+<li><p><strong>Rétroprojection filtrée (Reconstruction)</strong>
+:</p></li>
+</ol>
+<p>La rétroprojection simpleétale les données et crée un flou en
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi>r</mi></mrow><annotation encoding="application/x-tex">1/r</annotation></semantics></math>.
+En convoluant chaque projection avec un filtre rampe passe-haut (conçu
+par Frank Natterer), la rétroprojection filtrée reconstruit précisément
+les structures internes
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>≈</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">f(x, y) \approx 1</annotation></semantics></math>àl’intérieur,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>àl’extérieur).</p>
+<h2 id="confidentialité-et-conservation-des-données">Confidentialité et
+conservation des données</h2>
+<p>Ce programme enregistre vos préférences uniquement sur votre appareil
+(<code>SharedPreferences</code> / <code>localStorage</code>). Aucune
+donnée personnelle n’est collectée.</p>
+</body>
+</html>

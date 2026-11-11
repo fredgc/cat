@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>plan</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="../css/doc_style.css" />
+</head>
+<body>
+<h1 id="cat-scan-demonstration-tool-plan">CAT Scan Demonstration Tool
+Plan</h1>
+<p>This document outlines the strategic roadmap, architecture goals, and
+milestones for the <strong>CAT Scan</strong> Flutter application.
+Background information, history, and mathematical theory are located in
+<a href="README.md">README.md</a> .</p>
+<blockquote>
+<p><strong>Note</strong>: Active day-to-day tasks and issue tracking are
+managed &gt;</p>
+</blockquote>
+<p>dynamically using <code>~/bin/todo.py</code>. Run
+<code>~/bin/todo.py list</code> to view active &gt; tasks.</p>
+<hr />
+<h2 id="project-roadmap-milestone-status">1. Project Roadmap &amp;
+Milestone Status</h2>
+<ul class="task-list">
+<li><p><label><input type="checkbox" checked="" /><strong>Milestone 1:
+Project Setup, Tooling &amp; Initial Framework</strong>
+(Completed)</label></p>
+<ul>
+<li><p>Flutter web &amp; android project initialized with Material
+3.</p></li>
+<li><p>Dependencies configured: <code>shared_preferences</code>,
+<code>google_fonts</code>, <code>flex_color_picker</code>,
+<code>package_info_plus</code>, <code>url_launcher</code>,
+<code>html_tweak</code>.</p></li>
+<li><p>Development and build scripts integrated: <code>Makefile</code>,
+<code>html_tweak/</code>, <code>roll_build_number.sh</code>,
+<code>run-local-server.sh</code>,
+<code>run-local-release.sh</code>.</p></li>
+<li><p>Android and Web launcher icons generated from
+<code>icon.xcf</code>.</p></li>
+<li><p>Documentation structure created (<code>doc/info.md</code>,
+<code>README.md</code>, <code>GEMINI.md</code>,
+<code>plan.md</code>).</p></li>
+<li><p>Blank application shell in <code>lib/main.dart</code> with stage
+navigation (Stages 1–6) and passing widget smoke tests.</p></li>
+</ul></li>
+<li><p><label><input type="checkbox" checked="" /><strong>Milestone 2:
+Mathematical Engine &amp; Radon Model
+(<code>RadonEngine</code>)</strong> (Completed)</label></p>
+<ul>
+<li><p>Implemented phantom model (<code>lib/models/phantom.dart</code>)
+with analytical chord length calculations and translation
+bounds.</p></li>
+<li><p>Implemented mathematical transform engine
+(<code>lib/models/radon_engine.dart</code>) with discrete sampling
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>P</mi><mo>×</mo><mn>2</mn><mi>Q</mi></mrow><annotation encoding="application/x-tex">2P \times 2Q</annotation></semantics></math>),
+lookup tables, and probe modes.</p></li>
+<li><p>Implemented Frank Natterer ramp filter kernel
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mi>b</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>l</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">w_b(l)</annotation></semantics></math>
+and high-precision convolution.</p></li>
+<li><p>Implemented discrete backprojection integral verifying
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≈</mo><mn>1.0</mn></mrow><annotation encoding="application/x-tex">\approx 1.0</annotation></semantics></math>
+inside and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≈</mo><mn>0.0</mn></mrow><annotation encoding="application/x-tex">\approx 0.0</annotation></semantics></math>
+outside when filtered.</p></li>
+<li><p>Comprehensive unit test suite
+(<code>test/radon_engine_test.dart</code>) with 100% passing tests and 0
+analysis lints.</p></li>
+</ul></li>
+<li><p><label><input type="checkbox" checked="" /><strong>Milestone 3:
+Interactive Viewports &amp; Custom Painters</strong>
+(Completed)</label></p>
+<ul>
+<li><p>Implemented <code>ObjectCanvas</code>
+(<code>lib/widgets/object_canvas.dart</code>) with interactive phantom
+dragging, coordinate guides, and point/line probe overlays.</p></li>
+<li><p>Implemented <code>RadonCanvas</code>
+(<code>lib/widgets/radon_canvas.dart</code>) with real-time sinogram
+heatmap image caching (<code>ui.Image</code>), sinusoidal curve
+overlays, and border scrollbars.</p></li>
+<li><p>Implemented <code>GraphCanvas</code>
+(<code>lib/widgets/graph_canvas.dart</code>) for live 1D slice plotting,
+zero-baseline axes, and backprojection integral readout.</p></li>
+<li><p>Implemented colormaps and palette utilities
+(<code>lib/color.dart</code>).</p></li>
+<li><p>Added full widget test coverage
+(<code>test/widget_test.dart</code>) for canvases, interactions, and
+6-stage navigation.</p></li>
+</ul></li>
+<li><p><label><input type="checkbox" checked="" /><strong>Milestone 4:
+Stage Narrative Controller &amp; UI Integration</strong>
+(Completed)</label></p>
+<ul>
+<li><p>Implemented <code>StageStepper</code>
+(<code>lib/widgets/stage_stepper.dart</code>) with narrative cards,
+stage indicators, and contextual interaction hints.</p></li>
+<li><p>Connected <code>RadonEngine</code> state to the 6-stage
+presentation, synchronizing visibility (phantom in stages 4–6, 1D graph
+in stages 5–6, filtered in stage 6).</p></li>
+<li><p>Implemented keyboard shortcuts via <code>CallbackShortcuts</code>
+and <code>Focus</code> (digits <code>1</code>–<code>6</code>, Arrow
+Left/Right, and <code>F</code> for filter toggle).</p></li>
+<li><p>Fully verified with widget test suite
+(<code>test/widget_test.dart</code>) passing 100%.</p></li>
+</ul></li>
+<li><p><label><input type="checkbox" checked="" /><strong>Milestone 5:
+Settings &amp; Customization</strong> (Completed)</label></p>
+<ul>
+<li><p>Implemented <code>AppSettings</code>
+(<code>lib/settings.dart</code>) with persistent storage via
+<code>shared_preferences</code>.</p></li>
+<li><p>Implemented <code>SettingsDialog</code>
+(<code>lib/settings.dart</code>) for configuring theme (Dark, Light,
+System), sinogram colormaps (Classic, Grayscale, Viridis, Inferno), grid
+resolution
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>×</mo><mi>Q</mi></mrow><annotation encoding="application/x-tex">P \times Q</annotation></semantics></math>),
+and coordinate guides toggle.</p></li>
+<li><p>Implemented <code>AppAboutDialog</code>
+(<code>lib/widgets/about_dialog.dart</code>) with version readout, talk
+links, and compiled HTML viewer.</p></li>
+<li><p>Implemented <code>CatApp</code> in <code>lib/my_app.dart</code>
+listening to <code>AppSettings</code> to update MaterialApp themes
+reactively.</p></li>
+<li><p>Added comprehensive test suite in
+<code>test/settings_test.dart</code> passing 100%.</p></li>
+</ul></li>
+<li><p><label><input type="checkbox" checked="" /><strong>Milestone 6:
+Verification &amp; Quality Assurance</strong> (Completed)</label></p>
+<ul>
+<li><p>Complete test suite passing 100% across unit, widget, and
+settings tests (23 passing tests).</p></li>
+<li><p>Codebase verified with <code>flutter analyze</code> with 0 errors
+and 0 warnings.</p></li>
+<li><p>Production release build verified via <code>make build_all</code>
+(<code>flutter build web</code>).</p></li>
+</ul></li>
+<li><p><label><input type="checkbox" /><strong>Milestone 7: Deployment
+&amp; Public Release</strong> (NEXT STEP)</label></p>
+<ul>
+<li><p>Configure Firebase hosting (<code>fredgc-cat</code>).</p></li>
+<li><p>Verify staging deployment via <code>make stage</code>.</p></li>
+<li><p>Create and configure public GitHub repository.</p></li>
+</ul></li>
+</ul>
+<hr />
+<h2 id="immediate-next-steps-milestone-2-execution-plan">2. Immediate
+Next Steps (Milestone 2 Execution Plan)</h2>
+<h3 id="step-2.1-implement-phantom-model-libmodelsphantom.dart">Step
+2.1: Implement Phantom Model (<code>lib/models/phantom.dart</code>)</h3>
+<ul>
+<li><p>Define <code>PhantomDisk</code> representing a circular disk
+phantom:</p>
+<ul>
+<li><p>Center coordinates:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mn>0</mn></msub><mo>,</mo><msub><mi>y</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(x_0, y_0)</annotation></semantics></math>,
+default
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>0.2</mn><mo>,</mo><mn>0.3</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(0.2, 0.3)</annotation></semantics></math>
+to match the original Java applet.</p></li>
+<li><p>Radius:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>r</mi><mi>p</mi></msub><annotation encoding="application/x-tex">r_p</annotation></semantics></math>,
+default
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.1</mn><annotation encoding="application/x-tex">0.1</annotation></semantics></math>.</p></li>
+<li><p>Attenuation density: default
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1.0</mn><annotation encoding="application/x-tex">1.0</annotation></semantics></math>.</p></li>
+</ul></li>
+<li><p>Method
+<code>double chordLength(double r, double cosTheta, double sinTheta)</code>:</p>
+<ul>
+<li><p>Evaluates distance to line:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>s</mi><mi>c</mi></msub><mo>=</mo><msub><mi>x</mi><mn>0</mn></msub><mrow><mi>cos</mi><mo>&#8289;</mo></mrow><mi>θ</mi><mo>+</mo><msub><mi>y</mi><mn>0</mn></msub><mrow><mi>sin</mi><mo>&#8289;</mo></mrow><mi>θ</mi></mrow><annotation encoding="application/x-tex">s_c = x_0 \cos\theta + y_0 \sin\theta</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><mi>s</mi><mo>=</mo><mi>r</mi><mo>−</mo><msub><mi>s</mi><mi>c</mi></msub></mrow><annotation encoding="application/x-tex">\Delta s = r - s_c</annotation></semantics></math>.</p></li>
+<li><p>Returns
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><msqrt><mrow><msubsup><mi>r</mi><mi>p</mi><mn>2</mn></msubsup><mo>−</mo><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Δ</mi><mi>s</mi><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow></msqrt></mrow><annotation encoding="application/x-tex">2\sqrt{r_p^2 - (\Delta s)^2}</annotation></semantics></math>
+if
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi mathvariant="normal">Δ</mi><mi>s</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><msub><mi>r</mi><mi>p</mi></msub></mrow><annotation encoding="application/x-tex">|\Delta s| &lt; r_p</annotation></semantics></math>,
+else
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.0</mn><annotation encoding="application/x-tex">0.0</annotation></semantics></math>.</p></li>
+</ul></li>
+<li><p>Support translation
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mn>0</mn></msub><mo>,</mo><msub><mi>y</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(x_0, y_0)</annotation></semantics></math>
+bounded within
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mi>−</mi><mn>0.8</mn><mo>,</mo><mn>0.8</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[-0.8, 0.8]</annotation></semantics></math>.</p></li>
+</ul>
+<h3
+id="step-2.2-implement-mathematical-engine-libmodelsradon_engine.dart">Step
+2.2: Implement Mathematical Engine
+(<code>lib/models/radon_engine.dart</code>)</h3>
+<ul>
+<li><p>Discretization grid:</p>
+<ul>
+<li><p>Angle samples:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>P</mi></mrow><annotation encoding="application/x-tex">2P</annotation></semantics></math>
+(default
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>=</mo><mn>50</mn><mo>⟹</mo><mn>100</mn></mrow><annotation encoding="application/x-tex">P = 50 \implies 100</annotation></semantics></math>
+angles),
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>θ</mi><mi>j</mi></msub><mo>=</mo><mi>π</mi><mi>j</mi><mi>/</mi><mi>P</mi></mrow><annotation encoding="application/x-tex">\theta_j =
+\pi j / P</annotation></semantics></math> for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo>,</mo><mi>…</mi><mo>,</mo><mn>2</mn><mi>P</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">j \in \{0, \dots, 2P - 1\}</annotation></semantics></math>.</p></li>
+<li><p>Radial samples:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>Q</mi></mrow><annotation encoding="application/x-tex">2Q</annotation></semantics></math>
+(default
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo>=</mo><mn>50</mn><mo>⟹</mo><mn>100</mn></mrow><annotation encoding="application/x-tex">Q = 50 \implies 100</annotation></semantics></math>
+samples),
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mi>i</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo>−</mo><mi>Q</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mi>Q</mi></mrow><annotation encoding="application/x-tex">r_i = (i -
+Q)/Q</annotation></semantics></math> for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo>,</mo><mi>…</mi><mo>,</mo><mn>2</mn><mi>Q</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">i \in \{0, \dots, 2Q - 1\}</annotation></semantics></math>,
+step
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>=</mo><mn>1</mn><mi>/</mi><mi>Q</mi></mrow><annotation encoding="application/x-tex">h = 1/Q</annotation></semantics></math>.</p></li>
+</ul></li>
+<li><p>Lookup tables:</p>
+<ul>
+<li><p>Precompute
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi>cos</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>θ</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\cos(\theta_j)</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi>sin</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>θ</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\sin(\theta_j)</annotation></semantics></math>
+for all
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>P</mi></mrow><annotation encoding="application/x-tex">2P</annotation></semantics></math>
+angles.</p></li>
+<li><p>Precompute centered disk profile
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ψ</mi><mo stretchy="false" form="prefix">[</mo><mi>i</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\psi[i]</annotation></semantics></math>
+for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mi>Q</mi></mrow><annotation encoding="application/x-tex">4Q</annotation></semantics></math>
+radial points:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ψ</mi><mo stretchy="false" form="prefix">[</mo><mi>i</mi><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>2</mn><msqrt><mrow><msubsup><mi>r</mi><mi>p</mi><mn>2</mn></msubsup><mo>−</mo><msup><mi>s</mi><mn>2</mn></msup></mrow></msqrt><mspace width="1.0em"></mspace><mrow><mtext mathvariant="normal">where </mtext><mspace width="0.333em"></mspace></mrow><mi>s</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo>−</mo><mn>2</mn><mi>Q</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mi>Q</mi></mrow><annotation encoding="application/x-tex">\psi[i] = 2\sqrt{r_p^2 - s^2} \quad \text{where } s = (i - 2Q)/Q</annotation></semantics></math></p></li>
+</ul></li>
+<li><p>Natterer ramp filter kernel
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mi>b</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>l</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">w_b(l)</annotation></semantics></math>
+(Natterer Eq. 1.23, p. 111):</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mi>b</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>l</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><msup><mi>b</mi><mn>2</mn></msup><mrow><msup><mi>π</mi><mn>4</mn></msup><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mn>4</mn><msup><mi>l</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mo>,</mo><mspace width="1.0em"></mspace><mi>b</mi><mo>=</mo><mi>π</mi><mi>Q</mi><mo>,</mo><mspace width="1.0em"></mspace><mi>l</mi><mo>∈</mo><mi>ℤ</mi></mrow><annotation encoding="application/x-tex">w_b(l) = \frac{b^2}{\pi^4(1 - 4l^2)}, \quad b = \pi Q, \quad l \in \mathbb{Z}</annotation></semantics></math></p></li>
+<li><p>Filtered disk profile
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>w</mi><mi>ψ</mi><mo stretchy="false" form="prefix">[</mo><mi>k</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">w\psi[k]</annotation></semantics></math>:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>w</mi><mi>ψ</mi><mo stretchy="false" form="prefix">[</mo><mi>k</mi><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mi>h</mi><munderover><mo>∑</mo><mrow><mi>l</mi><mo>=</mo><mn>0</mn></mrow><mrow><mn>4</mn><mi>Q</mi><mo>−</mo><mn>1</mn></mrow></munderover><mi>ψ</mi><mo stretchy="false" form="prefix">[</mo><mi>l</mi><mo stretchy="false" form="postfix">]</mo><mo>⋅</mo><msub><mi>w</mi><mi>b</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo>−</mo><mi>l</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">w\psi[k] = h \sum_{l = 0}^{4Q - 1} \psi[l] \cdot w_b(k - l)</annotation></semantics></math></p></li>
+<li><p>Fast sinogram generation:</p>
+<ul>
+<li><p>Unfiltered sinogram lookup:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>r</mi><mi>i</mi></msub><mo>,</mo><msub><mi>θ</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>ψ</mi><mo stretchy="false" form="prefix">[</mo><mi>Q</mi><mo>+</mo><mi>i</mi><mo>−</mo><mtext mathvariant="normal">round</mtext><mo stretchy="false" form="prefix">(</mo><mi>Q</mi><mo>⋅</mo><msub><mi>s</mi><mi>c</mi></msub><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">g(r_i, \theta_j) = \psi[Q + i -
+\text{round}(Q \cdot s_c)]</annotation></semantics></math>.</p></li>
+<li><p>Filtered sinogram lookup:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>g</mi><mtext mathvariant="normal">filtered</mtext></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>r</mi><mi>i</mi></msub><mo>,</mo><msub><mi>θ</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>w</mi><mi>ψ</mi><mo stretchy="false" form="prefix">[</mo><mi>Q</mi><mo>+</mo><mi>i</mi><mo>−</mo><mtext mathvariant="normal">round</mtext><mo stretchy="false" form="prefix">(</mo><mi>Q</mi><mo>⋅</mo><msub><mi>s</mi><mi>c</mi></msub><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">g_{\text{filtered}}(r_i, \theta_j) = w\psi[Q +
+i - \text{round}(Q \cdot s_c)]</annotation></semantics></math>.</p></li>
+</ul></li>
+<li><p>Active probe modes:</p>
+<ul>
+<li><p><code>ProbeMode.none</code>: No active selection.</p></li>
+<li><p><code>ProbeMode.point</code>: Point
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mi>p</mi></msub><mo>,</mo><msub><mi>y</mi><mi>p</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(x_p, y_p)</annotation></semantics></math>
+selected in object space
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>→</mo><annotation encoding="application/x-tex">\to</annotation></semantics></math>
+sinusoid
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>θ</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>x</mi><mi>p</mi></msub><mrow><mi>cos</mi><mo>&#8289;</mo></mrow><msub><mi>θ</mi><mi>j</mi></msub><mo>+</mo><msub><mi>y</mi><mi>p</mi></msub><mrow><mi>sin</mi><mo>&#8289;</mo></mrow><msub><mi>θ</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">r(\theta_j) = x_p \cos\theta_j + y_p \sin\theta_j</annotation></semantics></math>.</p></li>
+<li><p><code>ProbeMode.line</code>: Line
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>r</mi><mi>s</mi></msub><mo>,</mo><msub><mi>θ</mi><mi>k</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(r_s, \theta_k)</annotation></semantics></math>
+selected in sinogram
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>→</mo><annotation encoding="application/x-tex">\to</annotation></semantics></math>
+line
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mrow><mi>cos</mi><mo>&#8289;</mo></mrow><msub><mi>θ</mi><mi>k</mi></msub><mo>+</mo><mi>y</mi><mrow><mi>sin</mi><mo>&#8289;</mo></mrow><msub><mi>θ</mi><mi>k</mi></msub><mo>=</mo><msub><mi>r</mi><mi>s</mi></msub></mrow><annotation encoding="application/x-tex">x\cos\theta_k + y\sin\theta_k = r_s</annotation></semantics></math>
+and origin normal.</p></li>
+<li><p><code>ProbeMode.theta</code>: Constant angle
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>θ</mi><mi>k</mi></msub><mo>→</mo></mrow><annotation encoding="application/x-tex">\theta_k \to</annotation></semantics></math>
+family of parallel lines across all
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>.</p></li>
+<li><p><code>ProbeMode.sline</code>: Constant offset
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mi>s</mi></msub><mo>→</mo></mrow><annotation encoding="application/x-tex">r_s \to</annotation></semantics></math>
+family of lines tangent to circle of radius
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><msub><mi>r</mi><mi>s</mi></msub><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">|r_s|</annotation></semantics></math>.</p></li>
+</ul></li>
+<li><p>1D Slice Extraction &amp; Backprojection Integral:</p>
+<ul>
+<li><p>Compute 1D profile array
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">[</mo><mi>j</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">f[j]</annotation></semantics></math>
+along the active trajectory.</p></li>
+<li><p>Compute the backprojection integral:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">Integral</mtext><mo>=</mo><mfrac><mn>1</mn><mrow><mn>2</mn><mi>P</mi></mrow></mfrac><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>0</mn></mrow><mrow><mn>2</mn><mi>P</mi><mo>−</mo><mn>1</mn></mrow></munderover><mi>f</mi><mo stretchy="false" form="prefix">[</mo><mi>j</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\text{Integral} = \frac{1}{2P} \sum_{j=0}^{2P - 1} f[j]</annotation></semantics></math></p></li>
+<li><p>When filtered, returns
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≈</mo><mn>1.0</mn></mrow><annotation encoding="application/x-tex">\approx 1.0</annotation></semantics></math>
+inside the phantom disk, and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≈</mo><mn>0.0</mn></mrow><annotation encoding="application/x-tex">\approx
+0.0</annotation></semantics></math> outside.</p></li>
+</ul></li>
+</ul>
+<h3 id="step-2.3-implement-unit-tests-testradon_engine_test.dart">Step
+2.3: Implement Unit Tests
+(<code>test/radon_engine_test.dart</code>)</h3>
+<ul>
+<li><p>Validate grid generation and trigonometric tables.</p></li>
+<li><p>Test phantom line integral calculations against known analytical
+values.</p></li>
+<li><p>Verify filter kernel
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mi>b</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>l</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">w_b(l)</annotation></semantics></math>
+properties:</p>
+<ul>
+<li><p>Symmetric:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mi>b</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>l</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>w</mi><mi>b</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mi>l</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">w_b(l) = w_b(-l)</annotation></semantics></math>.</p></li>
+<li><p>Decay:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mi>b</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>l</mi><mo stretchy="false" form="postfix">)</mo><mo>∼</mo><mi>−</mi><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>4</mn><msup><mi>π</mi><mn>2</mn></msup><msup><mi>l</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">w_b(l) \sim -1 / (4 \pi^2 l^2)</annotation></semantics></math>
+for large
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>l</mi><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">|l|</annotation></semantics></math>.</p></li>
+</ul></li>
+<li><p>Test 1D backprojection integral:</p>
+<ul>
+<li><p>Filtered integral inside phantom evaluates close to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1.0</mn><annotation encoding="application/x-tex">1.0</annotation></semantics></math>
+(within
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>±</mi><mn>0.05</mn></mrow><annotation encoding="application/x-tex">\pm
+0.05</annotation></semantics></math>).</p></li>
+<li><p>Filtered integral outside phantom evaluates close to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.0</mn><annotation encoding="application/x-tex">0.0</annotation></semantics></math>
+(within
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>±</mi><mn>0.05</mn></mrow><annotation encoding="application/x-tex">\pm
+0.05</annotation></semantics></math>).</p></li>
+</ul></li>
+<li><p>Run <code>flutter test</code> and <code>flutter analyze</code> to
+guarantee 100% clean passes.</p></li>
+</ul>
+</body>
+</html>
