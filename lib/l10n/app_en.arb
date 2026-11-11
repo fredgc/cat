@@ -1,0 +1,601 @@
+{
+  "@@locale": "en",
+  "aboutAuthor": "Original Java Applet presented as a talk at Ball State University February 26, 1998 by Fred Gylys-Colwell",
+  "@aboutAuthor": {
+    "description": "Historical author attribution in the about dialog"
+  },
+  "aboutSummary": "An interactive visualization of the Radon Transform, line integrals, sinogram duality, and Frank Natterer’s Filtered Backprojection (FBP).",
+  "@aboutSummary": {
+    "description": "Summary description shown in the about dialog"
+  },
+  "aboutTooltip": "About",
+  "@aboutTooltip": {
+    "description": "Tooltip for the About action button in the app bar"
+  },
+  "appTitle": "CAT Scan Demonstration",
+  "@appTitle": {
+    "description": "Title displayed on the application header"
+  },
+  "close": "Close",
+  "@close": {
+    "description": "Generic close button label"
+  },
+  "collapseMainTextTooltip": "Collapse main text",
+  "@collapseMainTextTooltip": {
+    "description": "Tooltip on the collapse narrative chevron"
+  },
+  "colormapClassic": "Classic (1998 Java)",
+  "@colormapClassic": {
+    "description": "Display name for the 1998 Java applet colormap"
+  },
+  "colormapGrayscale": "Grayscale (Medical CT)",
+  "@colormapGrayscale": {
+    "description": "Display name for the medical CT grayscale colormap"
+  },
+  "colormapInferno": "Inferno",
+  "@colormapInferno": {
+    "description": "Display name for the Inferno colormap"
+  },
+  "colormapSection": "Sinogram Colormap",
+  "@colormapSection": {
+    "description": "Section header for colormap selector in settings dialog"
+  },
+  "colormapViridis": "Viridis",
+  "@colormapViridis": {
+    "description": "Display name for the Viridis colormap"
+  },
+  "done": "Done",
+  "@done": {
+    "description": "Button label to close settings dialog"
+  },
+  "expandMainTextTooltip": "Expand main text",
+  "@expandMainTextTooltip": {
+    "description": "Tooltip on the expand narrative chevron"
+  },
+  "filteredCheckbox": "Filter",
+  "@filteredCheckbox": {
+    "description": "Short label for filter toggle checkbox in narrow layout"
+  },
+  "filteredCheckboxWide": "Filtered Sinogram [F]",
+  "@filteredCheckboxWide": {
+    "description": "Checkbox label with shortcut key hint for filtered sinogram in wide layout"
+  },
+  "githubButton": "GitHub (fredgc/cat)",
+  "@githubButton": {
+    "description": "Button link to GitHub repository"
+  },
+  "graphCanvasSemantics": "1D profile plot showing cross sections and backprojection integral.",
+  "@graphCanvasSemantics": {
+    "description": "Accessibility semantic label for the 1D profile plot canvas"
+  },
+  "graphFilteredPrefix": "Filtered wb * g: ",
+  "@graphFilteredPrefix": {
+    "description": "Prefix in graph header when filtered reconstruction is active"
+  },
+  "graphLineTrajectory": "Ray Absorption (Green) | Line (r = {r}, θ = {theta}) | Total Absorption: {val}",
+  "@graphLineTrajectory": {
+    "description": "Graph header text for line probe",
+    "placeholders": {
+      "r": {
+        "type": "String",
+        "example": "0.50"
+      },
+      "theta": {
+        "type": "String",
+        "example": "1.57"
+      },
+      "val": {
+        "type": "String",
+        "example": "1.002"
+      }
+    }
+  },
+  "graphPointTrajectory": "{prefix}Point Trajectory ({x}, {y}) | Integral over θ: {val} {status}",
+  "@graphPointTrajectory": {
+    "description": "Graph header text for point probe trajectory",
+    "placeholders": {
+      "prefix": {
+        "type": "String",
+        "example": "Filtered wb * g: "
+      },
+      "x": {
+        "type": "String",
+        "example": "0.20"
+      },
+      "y": {
+        "type": "String",
+        "example": "0.30"
+      },
+      "val": {
+        "type": "String",
+        "example": "0.985"
+      },
+      "status": {
+        "type": "String",
+        "example": "(inside phantom)"
+      }
+    }
+  },
+  "graphSelectPrompt": "Select a point or line to display 1D cross section.",
+  "@graphSelectPrompt": {
+    "description": "Prompt displayed in graph header when no probe is active"
+  },
+  "graphSlineTrajectory": "{prefix}Tangent slice at radius r = {r} | Integral: {val}",
+  "@graphSlineTrajectory": {
+    "description": "Graph header text for tangent radius probe",
+    "placeholders": {
+      "prefix": {
+        "type": "String",
+        "example": "Unfiltered g: "
+      },
+      "r": {
+        "type": "String",
+        "example": "0.50"
+      },
+      "val": {
+        "type": "String",
+        "example": "0.750"
+      }
+    }
+  },
+  "graphThetaTrajectory": "{prefix}Projection slice at θ = {theta} rad | Integral: {val}",
+  "@graphThetaTrajectory": {
+    "description": "Graph header text for fixed theta projection probe",
+    "placeholders": {
+      "prefix": {
+        "type": "String",
+        "example": "Filtered wb * g: "
+      },
+      "theta": {
+        "type": "String",
+        "example": "0.00"
+      },
+      "val": {
+        "type": "String",
+        "example": "0.000"
+      }
+    }
+  },
+  "graphUnfilteredPrefix": "Unfiltered: ",
+  "@graphUnfilteredPrefix": {
+    "description": "Prefix in graph header when unfiltered backprojection is active"
+  },
+  "insidePhantom": "(inside phantom)",
+  "@insidePhantom": {
+    "description": "Status suffix indicating the probe point lies within the phantom disk"
+  },
+  "issuesButton": "Issues",
+  "@issuesButton": {
+    "description": "Button link to report GitHub issues"
+  },
+  "keyboardShortcutsList": "• [Enter]: Advance instruction step or next stage\n• [N] / [→]: Next stage\n• [P] / [←]: Previous stage\n• [1] - [7]: Jump to stage 1 through 7\n• [Space]: Play / Pause angle sweep rotation\n• [F]: Toggle filtered reconstruction mode",
+  "@keyboardShortcutsList": {
+    "description": "List of available keyboard shortcuts in the about dialog"
+  },
+  "keyboardShortcutsTitle": "Keyboard Shortcuts:",
+  "@keyboardShortcutsTitle": {
+    "description": "Title preceding keyboard shortcuts list in the about dialog"
+  },
+  "languageAuto": "Auto (System)",
+  "@languageAuto": {
+    "description": "Menu option to automatically follow system or browser locale"
+  },
+  "languageEnglish": "English",
+  "@languageEnglish": {
+    "description": "Menu option for English language"
+  },
+  "languageSpanish": "Español",
+  "@languageSpanish": {
+    "description": "Menu option for Spanish language"
+  },
+  "next": "Next",
+  "@next": {
+    "description": "Button label to navigate to the next stage"
+  },
+  "nextStepTooltip": "Next instruction step",
+  "@nextStepTooltip": {
+    "description": "Tooltip on the chevron to advance to next instruction step"
+  },
+  "objectCanvasSemantics": "Object space viewport. Interactive coordinate plane showing X-ray projection lines and phantom.",
+  "@objectCanvasSemantics": {
+    "description": "Accessibility semantic label for the Object Space coordinate canvas"
+  },
+  "outsidePhantom": "(outside phantom)",
+  "@outsidePhantom": {
+    "description": "Status suffix indicating the probe point lies outside the phantom disk"
+  },
+  "previous": "Previous",
+  "@previous": {
+    "description": "Button label to navigate to the previous stage"
+  },
+  "previousStepTooltip": "Previous instruction step",
+  "@previousStepTooltip": {
+    "description": "Tooltip on the chevron to return to previous instruction step"
+  },
+  "privacyPolicyButton": "Privacy Policy",
+  "@privacyPolicyButton": {
+    "description": "Button link opening the privacy policy"
+  },
+  "radonCanvasSemantics": "Sinogram radon space viewport. 2D projection data display with angle theta on vertical axis and radial offset r on horizontal axis.",
+  "@radonCanvasSemantics": {
+    "description": "Accessibility semantic label for the Sinogram / Radon canvas"
+  },
+  "replayAnimationCueTooltip": "Replay animation cue",
+  "@replayAnimationCueTooltip": {
+    "description": "Tooltip on button to replay the visual interaction gesture cue"
+  },
+  "res100Label": "100 (200×200)",
+  "@res100Label": {
+    "description": "Segment label for 100 resolution (200x200 grid)"
+  },
+  "res100Tooltip": "Ultra resolution",
+  "@res100Tooltip": {
+    "description": "Tooltip for 100 resolution segment"
+  },
+  "res25Label": "25 (50×50)",
+  "@res25Label": {
+    "description": "Segment label for 25 resolution (50x50 grid)"
+  },
+  "res25Tooltip": "Fast performance",
+  "@res25Tooltip": {
+    "description": "Tooltip for 25 resolution segment"
+  },
+  "res50Label": "50 (100×100)",
+  "@res50Label": {
+    "description": "Segment label for 50 resolution (100x100 grid)"
+  },
+  "res50Tooltip": "Standard resolution",
+  "@res50Tooltip": {
+    "description": "Tooltip for 50 resolution segment"
+  },
+  "res75Label": "75 (150×150)",
+  "@res75Label": {
+    "description": "Segment label for 75 resolution (150x150 grid)"
+  },
+  "res75Tooltip": "High resolution",
+  "@res75Tooltip": {
+    "description": "Tooltip for 75 resolution segment"
+  },
+  "resetDefaults": "Reset Defaults",
+  "@resetDefaults": {
+    "description": "Button label in settings to reset all preferences"
+  },
+  "resolutionSection": "Sampling Resolution (P × Q)",
+  "@resolutionSection": {
+    "description": "Section header for sampling resolution in settings dialog"
+  },
+  "settingsTitle": "Settings & Display",
+  "@settingsTitle": {
+    "description": "Dialog title for user settings and preferences"
+  },
+  "settingsTooltip": "Settings & Display",
+  "@settingsTooltip": {
+    "description": "Tooltip on the settings action button in the app bar"
+  },
+  "showGuidesSubtitle": "Display axes and circular bounds on canvases",
+  "@showGuidesSubtitle": {
+    "description": "Subtitle description under coordinate guides switch in settings"
+  },
+  "showGuidesTitle": "Show Coordinate Guides",
+  "@showGuidesTitle": {
+    "description": "Title label for coordinate guides switch in settings"
+  },
+  "stage1Description": "An X-Ray CAT scan (Computed Axial Tomography) non-invasively reconstructs the 2D interior of an object by transmitting X-ray beams through it from all angles θ. Detectors measure transmitted intensity, which by the Beer-Lambert law yields the mathematical line integral of the absorption coefficient f(x, y) along each line L: g(L) = ∫_L f ds. The core tomography challenge is inverting these line integrals to recover the interior.",
+  "@stage1Description": {
+    "description": "Full description text for Stage 1 in wide layout"
+  },
+  "stage1Instruction1": "Click or drag in Object Space to see all lines passing through that point. Click \"Next\" or Stage 2 above to continue.",
+  "@stage1Instruction1": {
+    "description": "Interaction prompt for Stage 1 in wide layout"
+  },
+  "stage1NarrowDescription": "A CAT scan reconstructs the 2D interior of an object non-invasively by transmitting X-rays through it at many angles θ. Detectors measure absorbed intensity, yielding the line integral of absorption f(x, y) along each line L: g(L) = ∫_L f ds.",
+  "@stage1NarrowDescription": {
+    "description": "Concise description text for Stage 1 in narrow layout"
+  },
+  "stage1NarrowInstruction1": "Tap or drag in Object Space to see lines through that point. Tap \"Next\" or Stage 2 above to continue.",
+  "@stage1NarrowInstruction1": {
+    "description": "Interaction prompt for Stage 1 in narrow layout"
+  },
+  "stage1NarrowSubtitle": "Overview & Radon Transform",
+  "@stage1NarrowSubtitle": {
+    "description": "Subtitle for Stage 1 in narrow layout"
+  },
+  "stage1NarrowTitle": "Tomography Overview",
+  "@stage1NarrowTitle": {
+    "description": "Short title for Stage 1 in narrow layout"
+  },
+  "stage1Subtitle": "Overview & The Radon Transform",
+  "@stage1Subtitle": {
+    "description": "Subtitle for Stage 1 in wide layout"
+  },
+  "stage1Title": "Computed Axial Tomography",
+  "@stage1Title": {
+    "description": "Title for Stage 1 in wide layout"
+  },
+  "stage2Description": "Every straight line in 2D space is parameterized by two variables: its signed perpendicular distance r from the origin, and its normal angle θ: x·cos(θ) + y·sin(θ) = r. The left viewport displays physical Object Space (x, y), and the right viewport displays Sinogram Space (r, θ). Each individual point (r, θ) in sinogram space represents a complete straight X-ray line traversing object space.",
+  "@stage2Description": {
+    "description": "Full description text for Stage 2 in wide layout"
+  },
+  "stage2Instruction1": "Step 1 of 3: Click or drag anywhere in the Sinogram on the right to see the corresponding line x·cos(θ) + y·sin(θ) = r and normal on the left.",
+  "@stage2Instruction1": {
+    "description": "Step 1 interaction prompt for Stage 2 in wide layout"
+  },
+  "stage2Instruction2": "Step 2 of 3: Drag left and right in the Sinogram to vary radial distance r (-1 to 1). Notice how the line translates in Object Space.",
+  "@stage2Instruction2": {
+    "description": "Step 2 interaction prompt for Stage 2 in wide layout"
+  },
+  "stage2Instruction3": "Step 3 of 3: Drag up and down in the Sinogram to vary angle θ (0 to 2π). Notice how the line rotates in Object Space.",
+  "@stage2Instruction3": {
+    "description": "Step 3 interaction prompt for Stage 2 in wide layout"
+  },
+  "stage2NarrowDescription": "Every straight line in the plane is parameterized by its signed perpendicular distance r from the origin and normal angle θ: x·cos(θ) + y·sin(θ) = r. A single point (r, θ) in the bottom canvas represents a complete line traversing object space on the top.",
+  "@stage2NarrowDescription": {
+    "description": "Concise description text for Stage 2 in narrow layout"
+  },
+  "stage2NarrowInstruction1": "Step 1 of 3: Click or drag in the Sinogram on the bottom to see the corresponding line and normal on the top.",
+  "@stage2NarrowInstruction1": {
+    "description": "Step 1 interaction prompt for Stage 2 in narrow layout"
+  },
+  "stage2NarrowInstruction2": "Step 2 of 3: Drag left and right in the Sinogram to vary radial distance r (-1 to 1). Notice the line translation.",
+  "@stage2NarrowInstruction2": {
+    "description": "Step 2 interaction prompt for Stage 2 in narrow layout"
+  },
+  "stage2NarrowInstruction3": "Step 3 of 3: Drag up and down in the Sinogram to vary angle θ (0 to 2π). Notice the line rotation.",
+  "@stage2NarrowInstruction3": {
+    "description": "Step 3 interaction prompt for Stage 2 in narrow layout"
+  },
+  "stage2NarrowSubtitle": "Line Equation: x·cos(θ) + y·sin(θ) = r",
+  "@stage2NarrowSubtitle": {
+    "description": "Subtitle for Stage 2 in narrow layout"
+  },
+  "stage2NarrowTitle": "Object on Top, Data on Bottom",
+  "@stage2NarrowTitle": {
+    "description": "Short title for Stage 2 in narrow layout"
+  },
+  "stage2Subtitle": "Line Parameterization: x·cos(θ) + y·sin(θ) = r",
+  "@stage2Subtitle": {
+    "description": "Subtitle for Stage 2 in wide layout"
+  },
+  "stage2Title": "Object on Left, Data on Right",
+  "@stage2Title": {
+    "description": "Title for Stage 2 in wide layout"
+  },
+  "stage3Description": "All lines passing through a single fixed point (x, y) satisfy r(θ) = x·cos(θ) + y·sin(θ). As the projection angle θ varies from 0 to 2π, this family of lines forms an exact sinusoidal wave in (r, θ) sinogram space. This duality is fundamental: a point in object space maps to a sinusoid in sinogram space, while a point in sinogram space maps to a line in object space. Clicking the border bars shows lines with constant θ or constant r.",
+  "@stage3Description": {
+    "description": "Full description text for Stage 3 in wide layout"
+  },
+  "stage3Instruction1": "Step 1 of 3: Click or drag in Object Space on the left to move the probe point and watch its sinusoidal dual curve on the right.",
+  "@stage3Instruction1": {
+    "description": "Step 1 interaction prompt for Stage 3 in wide layout"
+  },
+  "stage3Instruction2": "Step 2 of 3: Click the right border bar in the Sinogram to display a family of parallel lines across all r at fixed angle θ.",
+  "@stage3Instruction2": {
+    "description": "Step 2 interaction prompt for Stage 3 in wide layout"
+  },
+  "stage3Instruction3": "Step 3 of 3: Click the bottom border bar in the Sinogram to view lines tangent to a concentric circle of radius |r|.",
+  "@stage3Instruction3": {
+    "description": "Step 3 interaction prompt for Stage 3 in wide layout"
+  },
+  "stage3NarrowDescription": "Every line passing through a fixed point (x, y) satisfies r(θ) = x·cos(θ) + y·sin(θ). As θ varies from 0 to 2π, this family of lines forms an exact sinusoidal wave in (r, θ) space.",
+  "@stage3NarrowDescription": {
+    "description": "Concise description text for Stage 3 in narrow layout"
+  },
+  "stage3NarrowInstruction1": "Step 1 of 3: Click or drag in Object Space on the top to move the probe point and watch its sinusoidal dual curve on the bottom.",
+  "@stage3NarrowInstruction1": {
+    "description": "Step 1 interaction prompt for Stage 3 in narrow layout"
+  },
+  "stage3NarrowInstruction2": "Step 2 of 3: Click the right border bar in the Sinogram to display a family of parallel lines at fixed angle θ.",
+  "@stage3NarrowInstruction2": {
+    "description": "Step 2 interaction prompt for Stage 3 in narrow layout"
+  },
+  "stage3NarrowInstruction3": "Step 3 of 3: Click the bottom border bar in the Sinogram to view lines tangent to a circle of radius |r|.",
+  "@stage3NarrowInstruction3": {
+    "description": "Step 3 interaction prompt for Stage 3 in narrow layout"
+  },
+  "stage3NarrowSubtitle": "Points Trace Sinusoids in Sinogram",
+  "@stage3NarrowSubtitle": {
+    "description": "Subtitle for Stage 3 in narrow layout"
+  },
+  "stage3Subtitle": "Points in Object Space Trace Sinusoids in Sinogram Space",
+  "@stage3Subtitle": {
+    "description": "Subtitle for Stage 3 in wide layout"
+  },
+  "stage3Title": "Point Duality",
+  "@stage3Title": {
+    "description": "Title for Stage 3 in wide and narrow layouts"
+  },
+  "stage4Description": "A phantom object—a circular disk simulating interior structure—is placed in object space. Its X-ray attenuation creates a 2D shadow dataset g(r, θ) called a sinogram. There is faint intensity when an X-ray only skims the disk edge, and strong intensity when it passes through the diameter. Dragging the phantom shifts the amplitude and phase of its sinusoidal shadow band.",
+  "@stage4Description": {
+    "description": "Full description text for Stage 4 in wide layout"
+  },
+  "stage4Instruction1": "Step 1 of 2: Drag the red phantom disk in Object Space on the left to reposition it.",
+  "@stage4Instruction1": {
+    "description": "Step 1 interaction prompt for Stage 4 in wide layout"
+  },
+  "stage4Instruction2": "Step 2 of 2: Observe how the phantom’s 2D sinogram shadow immediately shifts on the right, encoding its location.",
+  "@stage4Instruction2": {
+    "description": "Step 2 interaction prompt for Stage 4 in wide layout"
+  },
+  "stage4NarrowDescription": "A phantom object (circular disk) is placed in object space. Its X-ray projections form a 2D shadow dataset g(r, θ) known as a sinogram. Dragging the phantom shifts its shadow band.",
+  "@stage4NarrowDescription": {
+    "description": "Concise description text for Stage 4 in narrow layout"
+  },
+  "stage4NarrowInstruction1": "Step 1 of 2: Drag the red phantom disk in Object Space on the top to reposition it.",
+  "@stage4NarrowInstruction1": {
+    "description": "Step 1 interaction prompt for Stage 4 in narrow layout"
+  },
+  "stage4NarrowInstruction2": "Step 2 of 2: Observe how the phantom’s sinogram shadow shifts on the bottom as you drag.",
+  "@stage4NarrowInstruction2": {
+    "description": "Step 2 interaction prompt for Stage 4 in narrow layout"
+  },
+  "stage4NarrowSubtitle": "Phantom & 2D Sinogram Shadow",
+  "@stage4NarrowSubtitle": {
+    "description": "Subtitle for Stage 4 in narrow layout"
+  },
+  "stage4NarrowTitle": "Object Shadow",
+  "@stage4NarrowTitle": {
+    "description": "Short title for Stage 4 in narrow layout"
+  },
+  "stage4Subtitle": "The Phantom Object & Its 2D Sinogram Shadow",
+  "@stage4Subtitle": {
+    "description": "Subtitle for Stage 4 in wide layout"
+  },
+  "stage4Title": "Object Produces Shadow",
+  "@stage4Title": {
+    "description": "Title for Stage 4 in wide layout"
+  },
+  "stage5Description": "The bottom graph displays 1D cross-sections of the sinogram g(r, θ). In particular, examining projections along the sinusoidal curve of a point (x, y) and summing them over all angles θ is called backprojection: ∫₀²π g(x·cos θ + y·sin θ, θ) dθ. If the point lies inside the phantom disk, the integral is large; if outside, it is small. However, unfiltered backprojection blurs features by a 1/|r| point-spread function.",
+  "@stage5Description": {
+    "description": "Full description text for Stage 5 in wide layout"
+  },
+  "stage5Instruction1": "Step 1 of 3: Click inside the phantom disk on the left. Notice the large backprojection integral value on the bottom graph.",
+  "@stage5Instruction1": {
+    "description": "Step 1 interaction prompt for Stage 5 in wide layout"
+  },
+  "stage5Instruction2": "Step 2 of 3: Click outside the phantom disk. Observe how the 1D profile values drop and the backprojection integral becomes small.",
+  "@stage5Instruction2": {
+    "description": "Step 2 interaction prompt for Stage 5 in wide layout"
+  },
+  "stage5Instruction3": "Step 3 of 3: Click the sinogram border bars on the right to examine 1D cross sections along constant θ or r.",
+  "@stage5Instruction3": {
+    "description": "Step 3 interaction prompt for Stage 5 in wide layout"
+  },
+  "stage5NarrowDescription": "The bottom graph displays the 1D cross section of g(r, θ) along the probe trajectory. Summing these projections over all angles (backprojection) yields a large integral inside the phantom and a smaller integral outside, but unfiltered backprojection produces a blurry 1/|r| image.",
+  "@stage5NarrowDescription": {
+    "description": "Concise description text for Stage 5 in narrow layout"
+  },
+  "stage5NarrowInstruction1": "Step 1 of 3: Click inside the phantom disk on the top. Notice the large backprojection integral on the bottom graph.",
+  "@stage5NarrowInstruction1": {
+    "description": "Step 1 interaction prompt for Stage 5 in narrow layout"
+  },
+  "stage5NarrowInstruction2": "Step 2 of 3: Click outside the phantom disk. Observe how profile values drop and the integral becomes small.",
+  "@stage5NarrowInstruction2": {
+    "description": "Step 2 interaction prompt for Stage 5 in narrow layout"
+  },
+  "stage5NarrowInstruction3": "Step 3 of 3: Click the sinogram border bars on the bottom to examine 1D cross sections along constant θ or r.",
+  "@stage5NarrowInstruction3": {
+    "description": "Step 3 interaction prompt for Stage 5 in narrow layout"
+  },
+  "stage5NarrowSubtitle": "1D Profiles & Backprojection",
+  "@stage5NarrowSubtitle": {
+    "description": "Subtitle for Stage 5 in narrow layout"
+  },
+  "stage5NarrowTitle": "Cross Section",
+  "@stage5NarrowTitle": {
+    "description": "Short title for Stage 5 in narrow layout"
+  },
+  "stage5Subtitle": "1D Profiles & Unfiltered Backprojection",
+  "@stage5Subtitle": {
+    "description": "Subtitle for Stage 5 in wide layout"
+  },
+  "stage5Title": "Cross Section of Data",
+  "@stage5Title": {
+    "description": "Title for Stage 5 in wide layout"
+  },
+  "stage6Description": "To remove the 1/|r| blur, projections are filtered before backprojection (Filtered Backprojection, FBP). Convolving each projection with Frank Natterer’s discrete ramp filter kernel w_b(l) = b² / (π⁴(1 - 4l²)) acts like an edge-sharpening derivative filter that adds negative side lobes. When backprojected, these negative lobes cancel the smearing exactly, yielding precise interior attenuation: ≈ 1.0 inside the phantom disk and ≈ 0.0 outside.",
+  "@stage6Description": {
+    "description": "Full description text for Stage 6 in wide layout"
+  },
+  "stage6Instruction1": "Step 1 of 2: Click inside the phantom disk. Observe the sharp edge lobes in the 1D profile and the reconstructed integral ≈ 1.0.",
+  "@stage6Instruction1": {
+    "description": "Step 1 interaction prompt for Stage 6 in wide layout"
+  },
+  "stage6Instruction2": "Step 2 of 2: Click outside the phantom disk. Notice how the negative side lobes cancel the smearing, yielding integral ≈ 0.0.",
+  "@stage6Instruction2": {
+    "description": "Step 2 interaction prompt for Stage 6 in wide layout"
+  },
+  "stage6NarrowDescription": "High-pass filtering the projections with Frank Natterer’s discrete filter kernel w_b(l) = b² / (π⁴(1 - 4l²)) sharpens the sinogram. Backprojecting the filtered data reconstructs the exact interior attenuation values: ≈ 1.0 inside the phantom and ≈ 0.0 outside.",
+  "@stage6NarrowDescription": {
+    "description": "Concise description text for Stage 6 in narrow layout"
+  },
+  "stage6NarrowInstruction1": "Step 1 of 2: Click inside the phantom disk. Observe the sharp edge lobes in the 1D profile and integral ≈ 1.0.",
+  "@stage6NarrowInstruction1": {
+    "description": "Step 1 interaction prompt for Stage 6 in narrow layout"
+  },
+  "stage6NarrowInstruction2": "Step 2 of 2: Click outside the phantom disk. Negative side lobes cancel smearing, yielding integral ≈ 0.0.",
+  "@stage6NarrowInstruction2": {
+    "description": "Step 2 interaction prompt for Stage 6 in narrow layout"
+  },
+  "stage6NarrowSubtitle": "Filtered Backprojection (FBP)",
+  "@stage6NarrowSubtitle": {
+    "description": "Subtitle for Stage 6 in narrow layout"
+  },
+  "stage6NarrowTitle": "Filtered Reconstruction",
+  "@stage6NarrowTitle": {
+    "description": "Short title for Stage 6 in narrow layout"
+  },
+  "stage6Subtitle": "Filtered Backprojection (FBP) with Natterer Ramp Kernel",
+  "@stage6Subtitle": {
+    "description": "Subtitle for Stage 6 in wide layout"
+  },
+  "stage6Title": "Filtered Data Reconstruction",
+  "@stage6Title": {
+    "description": "Title for Stage 6 in wide layout"
+  },
+  "stageIndicator": "Stage {stageNumber} of 6",
+  "@stageIndicator": {
+    "description": "Stage number pill indicator in narrative card",
+    "placeholders": {
+      "stageNumber": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "stageTitle": "Stage {stageNumber}: {title}",
+  "@stageTitle": {
+    "description": "AppBar title combining stage number and title",
+    "placeholders": {
+      "stageNumber": {
+        "type": "int",
+        "example": "1"
+      },
+      "title": {
+        "type": "String",
+        "example": "Computed Axial Tomography"
+      }
+    }
+  },
+  "switchLanguageTooltip": "Switch language",
+  "@switchLanguageTooltip": {
+    "description": "Tooltip for language switcher popup menu in app bar"
+  },
+  "moreInfoButton": "More Info",
+  "@moreInfoButton": {
+    "description": "Button linking to info.html documentation"
+  },
+  "termsOfServiceButton": "Terms of Service",
+  "@termsOfServiceButton": {
+    "description": "Button link opening terms of service"
+  },
+  "themeDark": "Dark",
+  "@themeDark": {
+    "description": "Segment label for dark theme mode"
+  },
+  "themeLight": "Light",
+  "@themeLight": {
+    "description": "Segment label for light theme mode"
+  },
+  "themeSection": "Theme",
+  "@themeSection": {
+    "description": "Section header for theme selector in settings dialog"
+  },
+  "themeSystem": "System",
+  "@themeSystem": {
+    "description": "Segment label for system theme mode"
+  },
+  "versionLabel": "Version {version}",
+  "@versionLabel": {
+    "description": "Version string display in about dialog",
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "example": "2.0.0+15"
+      }
+    }
+  },
+  "websiteButton": "www.gchouse.org",
+  "@websiteButton": {
+    "description": "Button link to GC House homepage"
+  }
+}

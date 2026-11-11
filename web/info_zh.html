@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>关于计算机断层扫描演示</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="css/doc_style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">关于计算机断层扫描演示</h1>
+</header>
+<p><strong>计算机断层扫描演示工具</strong>是一款交互式教育应用，旨在阐明计算机轴向断层扫描（CT）与氡变换（Radon
+Transform）背后的数学与工程机制。</p>
+<h2 id="历史与背景">历史与背景</h2>
+<p>本应用灵感来自<strong>Fred
+Gylys-Colwell</strong>于1998/2006年创作的原始Java
+Applet，并在Flutter中进行了现代化重构。该演
+讲于1998年2月26日首次展示。</p>
+<p>本项目采用 Dart 和 Flutter 开发，源码托管在 GitHub： <a
+href="https://github.com/fredgc/cat">https://github.com/fredgc/cat</a>。</p>
+<p>如发现缺陷或有功能建议，欢迎 <a
+href="https://github.com/fredgc/cat/issues">在 GitHub 提交
+Issue</a>。</p>
+<p>了解更多应用与图形工具，请访问 <a
+href="https://www.gchouse.org">www.gchouse.org</a>。</p>
+<h2 id="ct-扫描的数学原理">CT 扫描的数学原理</h2>
+<p>X射线计算机断层扫描无需手术即可无创重建体内二维截面：</p>
+<ol type="1">
+<li><strong>X射线衰减与线积分</strong>:</li>
+</ol>
+<p>X射线束沿直线<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>穿过物体，吸收比例对应吸收系数<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f(x, y)</annotation></semantics></math>沿直线<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>的数学线积分：</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>L</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∫</mo><mi>L</mi></msub><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">g(L) = \int_L f(x, y) \, ds</annotation></semantics></math></p>
+<ol start="2" type="1">
+<li><strong>直线参数化</strong>:</li>
+</ol>
+<p>平面中的每条直线都可以由距原点的有向距离<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>与法线角<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\theta \in [0, 2\pi)</annotation></semantics></math>参数化：</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mrow><mi>cos</mi><mo>&#8289;</mo></mrow><mi>θ</mi><mo>+</mo><mi>y</mi><mrow><mi>sin</mi><mo>&#8289;</mo></mrow><mi>θ</mi><mo>=</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">x \cos\theta + y \sin\theta = r</annotation></semantics></math></p>
+<p>氡变换<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℛ</mi><mo stretchy="false" form="prefix">[</mo><mi>f</mi><mo stretchy="false" form="postfix">]</mo><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo>,</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal{R}[f](r, \theta)</annotation></semantics></math>记录所有<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo>,</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(r, \theta)</annotation></semantics></math>的线积分。</p>
+<ol start="3" type="1">
+<li><p><strong>正弦图对偶性</strong>:</p>
+<ul>
+<li><p>正弦图空间中的一个点<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>r</mi><mn>0</mn></msub><mo>,</mo><msub><mi>θ</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(r_0, \theta_0)</annotation></semantics></math>代表物体空间中的一条直线。</p></li>
+<li><p>物体空间中的一个点<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mn>1</mn></msub><mo>,</mo><msub><mi>y</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(x_1, y_1)</annotation></semantics></math>对应正弦图中的一条正弦曲线<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>x</mi><mn>1</mn></msub><mrow><mi>cos</mi><mo>&#8289;</mo></mrow><mi>θ</mi><mo>+</mo><msub><mi>y</mi><mn>1</mn></msub><mrow><mi>sin</mi><mo>&#8289;</mo></mrow><mi>θ</mi></mrow><annotation encoding="application/x-tex">r(\theta) = x_1 \cos\theta + y_1
+\sin\theta</annotation></semantics></math>。</p></li>
+</ul></li>
+<li><p><strong>滤波反投影(重建)</strong>:</p></li>
+</ol>
+<p>直接反投影会使图像产生<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi>r</mi></mrow><annotation encoding="application/x-tex">1/r</annotation></semantics></math>的模糊。通过将每个投影与Frank
+Natterer设计的斜坡高通滤波核卷积，滤波反投影可以精确重建内部衰减特征（物体内部
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≈</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\approx 1</annotation></semantics></math>，外部为<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>）。</p>
+<h2 id="隐私与数据留存">隐私与数据留存</h2>
+<p>用户偏好设置仅在本地设备存储（<code>SharedPreferences</code> /
+<code>localStorage</code>）。不收集任何个人身份信息。</p>
+</body>
+</html>
