@@ -1,7 +1,7 @@
 name: cat
 description: "Interactive Radon Transform & X-Ray CAT Scan Demonstration"
 publish_to: 'none'
-version: 2.1.0+0
+version: 2.1.2+0
 
 environment:
   sdk: ">=3.13.5 <4.0.0"
