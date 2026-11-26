@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cat/l10n/l10n_extension.dart';
@@ -51,7 +52,7 @@ void main() {
       );
       expect(find.text('Siguiente'), findsOneWidget);
       expect(find.text('Anterior'), findsOneWidget);
-      expect(find.text('Etapa 1 de 6'), findsOneWidget);
+      expect(find.text('Etapa 1 de 7'), findsOneWidget);
     });
 
     testWidgets('Language switcher switches between English and Spanish', (
@@ -125,6 +126,48 @@ void main() {
       }
     });
 
+    testWidgets('Stage 7 renders localized text in all non-English locales', (
+      tester,
+    ) async {
+      for (final locale in LocaleController.supportedLocales.where(
+        (l) => l.languageCode != 'en',
+      )) {
+        final l10n = lookupAppLocalizations(locale);
+        LocaleController.currentLocale.value = locale;
+        await tester.pumpWidget(const CatApp());
+        await tester.pumpAndSettle();
+
+        await tester.sendKeyEvent(LogicalKeyboardKey.digit7);
+        await tester.pumpAndSettle();
+
+        expect(
+          find.textContaining('Free Play & Custom Phantoms'),
+          findsNothing,
+          reason: 'Stage 7 title should be translated for ${locale.languageCode}',
+        );
+        expect(
+          find.textContaining(l10n.stage7Title),
+          findsOneWidget,
+          reason: 'Expected localized Stage 7 title for ${locale.languageCode}',
+        );
+        expect(
+          find.text(l10n.stageIndicator(7)),
+          findsOneWidget,
+          reason: 'Expected localized Stage 7 of 7 indicator for ${locale.languageCode}',
+        );
+        expect(
+          find.text(l10n.modeProbe),
+          findsOneWidget,
+          reason: 'Expected localized Probe label for ${locale.languageCode}',
+        );
+        expect(
+          find.text(l10n.modePhantom),
+          findsOneWidget,
+          reason: 'Expected localized Phantom label for ${locale.languageCode}',
+        );
+      }
+    });
+
     test('LocaleController initializes persisted locale', () async {
       SharedPreferences.setMockInitialValues({'app_locale': 'es'});
       await LocaleController.initialize();
@@ -136,5 +179,67 @@ void main() {
       await LocaleController.setLocale(null);
       expect(LocaleController.currentLocale.value, isNull);
     });
+
+    testWidgets(
+      'Localized More Info reference doc loads and formats cleanly in all locales',
+      (tester) async {
+        final expectedHeadings = <String, String>{
+          'en': 'Mathematical Reference',
+          'es': 'Referencia matemática',
+          'de': 'Mathematische Referenz',
+          'fr': 'Référence mathématique',
+          'ja': '数学リファレンス',
+          'lt': 'Matematinis žinynas',
+          'pt': 'Referência matemática',
+          'zh': '数学参考',
+        };
+
+        for (final locale in LocaleController.supportedLocales) {
+          late String loadedHtml;
+          await tester.pumpWidget(
+            MaterialApp(
+              locale: locale,
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              supportedLocales: AppLocalizations.supportedLocales,
+              home: Builder(
+                builder: (context) {
+                  return FutureBuilder<String>(
+                    future: loadLocalizedHtmlAsset(context, 'info'),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        loadedHtml = snapshot.data!;
+                        return Text(formatDocumentHtml(loadedHtml));
+                      }
+                      return const SizedBox.shrink();
+                    },
+                  );
+                },
+              ),
+            ),
+          );
+          await tester.pumpAndSettle();
+
+          final formatted = formatDocumentHtml(loadedHtml);
+          expect(
+            formatted,
+            contains(expectedHeadings[locale.languageCode]!),
+            reason: 'Expected localized heading for ${locale.languageCode}',
+          );
+          if (locale.languageCode != 'en') {
+            expect(
+              formatted,
+              isNot(contains('Mathematical Reference')),
+              reason: '${locale.languageCode} should not fall back to English',
+            );
+          }
+          expect(
+            formatted,
+            isNot(contains(r'\int_L')),
+            reason:
+                'Raw TeX annotation should be stripped for ${locale.languageCode}',
+          );
+        }
+      },
+    );
   });
 }

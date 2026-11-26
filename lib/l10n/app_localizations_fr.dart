@@ -21,6 +21,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get aboutTooltip => 'À propos';
 
   @override
+  String get addPhantomTooltip => 'Ajouter un disque fantôme';
+
+  @override
   String get appTitle => 'Démonstration de tomographie axiale calculée';
 
   @override
@@ -45,6 +48,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get colormapViridis => 'Viridis';
 
   @override
+  String get deletePhantomTooltip => 'Supprimer le fantôme sélectionné';
+
+  @override
   String get done => 'Terminé';
 
   @override
@@ -60,6 +66,15 @@ class AppLocalizationsFr extends AppLocalizations {
   String get githubButton => 'GitHub (fredgc/cat)';
 
   @override
+  String get graphAxisAngle => 'Angle θ ∈ [0, 2π)';
+
+  @override
+  String get graphAxisRadialOffset => 'Distance radiale r ∈ [-1, 1]';
+
+  @override
+  String get graphAxisRayPath => 'Trajet le long du rayon s ∈ [-1, 1]';
+
+  @override
   String get graphCanvasSemantics =>
       'Graphique de profil 1D montrant les coupes transversales et l\'intégrale de rétroprojection.';
 
@@ -67,8 +82,17 @@ class AppLocalizationsFr extends AppLocalizations {
   String get graphFilteredPrefix => 'Filtré wb * g : ';
 
   @override
+  String get graphLegendFiltered => '— Filtré (noyau rampe)';
+
+  @override
+  String get graphLegendUnfilteredPoint => '— Non filtré g(θ)';
+
+  @override
+  String get graphLegendUnfilteredTheta => '— Non filtré P_θ(r)';
+
+  @override
   String graphLineTrajectory(String r, String theta, String val) {
-    return 'Ray Absorption (Green) | Ligne (r = $r, θ = $theta) | Absorption totale : $val';
+    return 'Absorption du rayon (Vert) | Ligne (r = $r, θ = $theta) | Absorption totale : $val';
   }
 
   @override
@@ -79,7 +103,12 @@ class AppLocalizationsFr extends AppLocalizations {
     String val,
     String status,
   ) {
-    return '${prefix}Point Trajectory ($x, $y) | Intégrale sur θ : $val $status';
+    return '${prefix}Trajectoire du point ($x, $y) | Intégrale sur θ : $val $status';
+  }
+
+  @override
+  String graphRawValue(String val) {
+    return '[Brut : $val]';
   }
 
   @override
@@ -97,7 +126,7 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get graphUnfilteredPrefix => 'Non filtré g : ';
+  String get graphUnfilteredPrefix => 'Non filtré : ';
 
   @override
   String get insidePhantom => '(à l\'intérieur du fantôme)';
@@ -107,7 +136,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get keyboardShortcutsList =>
-      '• [Entrée] : Étape d\'instruction ou niveau suivant\n• [N] / [→] : Niveau suivant\n• [P] / [←] : Niveau précédent\n• [1] - [7] : Aller au niveau 1 à 7\n• [Espace] : Lecture / Pause du balayage rotatif\n• [F] : Basculer le mode de reconstruction filtrée';
+      '• [Entrée] / [N] : Étape d\'instruction ou niveau suivant\n• [→] : Niveau suivant\n• [P] / [←] : Niveau précédent\n• [1] - [7] : Aller au niveau 1 à 7\n• [Espace] : Lecture / Pause du balayage rotatif\n• [F] : Basculer le mode de reconstruction filtrée';
 
   @override
   String get keyboardShortcutsTitle => 'Raccourcis clavier :';
@@ -122,6 +151,15 @@ class AppLocalizationsFr extends AppLocalizations {
   String get languageSpanish => 'Español';
 
   @override
+  String get modePhantom => 'Fantôme';
+
+  @override
+  String get modeProbe => 'Sonde';
+
+  @override
+  String get moreInfoButton => 'Plus d\'informations';
+
+  @override
   String get next => 'Suivant';
 
   @override
@@ -132,7 +170,22 @@ class AppLocalizationsFr extends AppLocalizations {
       'Espace de l\'objet. Plan de coordonnées interactif montrant les lignes de projection de rayons X et le fantôme.';
 
   @override
+  String get openInBrowser => 'Ouvrir dans le navigateur';
+
+  @override
   String get outsidePhantom => '(à l\'extérieur du fantôme)';
+
+  @override
+  String get pauseScan => 'Pause';
+
+  @override
+  String get pauseScanWide => 'Pause [Espace]';
+
+  @override
+  String get playScan => 'Lancer le balayage';
+
+  @override
+  String get playScanWide => 'Lancer le balayage [Espace]';
 
   @override
   String get previous => 'Précédent';
@@ -194,12 +247,18 @@ class AppLocalizationsFr extends AppLocalizations {
   String get showGuidesTitle => 'Afficher les repères de coordonnées';
 
   @override
+  String get skip => 'Passer';
+
+  @override
+  String get skipStageTooltip => 'Passer au niveau suivant';
+
+  @override
   String get stage1Description =>
       'Un tomodensitomètre (TDM) reconstruit de manière non invasive l\'intérieur 2D d\'un objet en transmettant des rayons X sous tous les angles θ. Les détecteurs mesurent l\'intensité transmise, produisant l\'intégrale de ligne mathématique du coefficient d\'absorption f(x, y) le long de chaque ligne L : g(L) = ∫_L f ds.';
 
   @override
   String get stage1Instruction1 =>
-      'Cliquez ou glissez dans l\'Espace Objet pour voir les lignes passant par ce point. Cliquez sur « Suivant » ou sur le Niveau 2 ci-dessus pour continuer.';
+      'Cliquez sur « Suivant » ci-dessus pour passer au niveau suivant.';
 
   @override
   String get stage1NarrowDescription =>
@@ -207,7 +266,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get stage1NarrowInstruction1 =>
-      'Touchez ou glissez dans l\'Espace Objet pour voir les lignes. Touchez « Suivant » ou le Niveau 2 pour continuer.';
+      'Touchez « Suivant » ci-dessus pour passer au niveau suivant.';
 
   @override
   String get stage1NarrowSubtitle => 'Aperçu & Transformée de Radon';
@@ -311,7 +370,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get stage4Description =>
-      'Un objet fantôme — un disque circulaire simulant une structure interne — est placé dans l\'espace objet. Son难道atténuation de rayons X produit un ensemble de données d\'ombre 2D g(r, θ) appelé sinogramme. Déplacer le fantôme modifie l\'amplitude et la phase de son ombre.';
+      'Un objet fantôme — un disque circulaire simulant une structure interne — est placé dans l\'espace objet. Son atténuation de rayons X produit un ensemble de données d\'ombre 2D g(r, θ) appelé sinogramme. Déplacer le fantôme modifie l\'amplitude et la phase de son ombre.';
 
   @override
   String get stage4Instruction1 =>
@@ -352,15 +411,19 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get stage5Instruction1 =>
-      'Étape 1 sur 3 : Cliquez à l\'intérieur du fantôme à gauche. Notez la valeur élevée de l\'intégrale en bas.';
+      'Étape 1 sur 4 : Glissez la sonde à l\'intérieur du disque fantôme à gauche. Observez l\'augmentation de l\'intégrale de rétroprojection en bas.';
 
   @override
   String get stage5Instruction2 =>
-      'Étape 2 sur 3 : Cliquez à l\'extérieur du fantôme. Notez la diminution des valeurs 1D et de l\'intégrale.';
+      'Étape 2 sur 4 : Cliquez n\'importe où dans le sinogramme pour sélectionner un seul rayon X. Observez l\'impulsion verte montrant l\'intensité d\'absorption le long de ce rayon.';
 
   @override
   String get stage5Instruction3 =>
-      'Étape 3 sur 3 : Cliquez sur les bordures du sinogramme à droite pour examiner les coupes à θ ou r constant.';
+      'Étape 3 sur 4 : Cliquez sur la bordure droite du sinogramme pour voir une famille parallèle de rayons X sur tout r à angle fixe θ (courbe cyan).';
+
+  @override
+  String get stage5Instruction4 =>
+      'Étape 4 sur 4 : Cliquez sur « Lancer le balayage » ou appuyez sur [Espace] pour balayer la famille parallèle sur tous les angles θ et animer la courbe de projection 1D.';
 
   @override
   String get stage5NarrowDescription =>
@@ -368,15 +431,19 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get stage5NarrowInstruction1 =>
-      'Étape 1 sur 3 : Cliquez dans le fantôme en haut. Notez la grande intégrale en bas.';
+      'Étape 1 sur 4 : Glissez la sonde dans le fantôme en haut. Observez l\'augmentation de l\'intégrale.';
 
   @override
   String get stage5NarrowInstruction2 =>
-      'Étape 2 sur 3 : Cliquez à l\'extérieur. Notez la chute des valeurs.';
+      'Étape 2 sur 4 : Cliquez dans le sinogramme pour sélectionner un seul rayon. Observez l\'impulsion verte d\'absorption.';
 
   @override
   String get stage5NarrowInstruction3 =>
-      'Étape 3 sur 3 : Cliquez sur les bordures en bas pour examiner les coupes.';
+      'Étape 3 sur 4 : Cliquez sur la bordure droite du sinogramme pour voir une famille parallèle à angle fixe θ (courbe cyan).';
+
+  @override
+  String get stage5NarrowInstruction4 =>
+      'Étape 4 sur 4 : Touchez « Lancer le balayage » pour balayer la famille parallèle sur tous les angles θ.';
 
   @override
   String get stage5NarrowSubtitle => 'Profils 1D & Rétroprojection';
@@ -396,11 +463,15 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get stage6Instruction1 =>
-      'Étape 1 sur 2 : Cliquez dans le fantôme. Observez les lobes nets et l\'intégrale reconstruite ≈ 1.0.';
+      'Étape 1 sur 3 : Observez le graphique du bas pour la famille parallèle : la courbe orange montre le résultat filtré avec des lobes négatifs nets qui annulent le flou.';
 
   @override
   String get stage6Instruction2 =>
-      'Étape 2 sur 2 : Cliquez à l\'extérieur. Les lobes négatifs annulent le flou (intégrale ≈ 0.0).';
+      'Étape 2 sur 3 : Cliquez sur « Lancer le balayage » ou appuyez sur [Espace] pour observer le balayage dynamique des projections filtrées lors de la rotation de l\'angle.';
+
+  @override
+  String get stage6Instruction3 =>
+      'Étape 3 sur 3 : Cliquez sur des points sondes dans l\'Espace Objet. La rétroprojection filtrée reconstruit l\'atténuation intérieure exacte : ≈ 1.0 dedans et ≈ 0.0 dehors.';
 
   @override
   String get stage6NarrowDescription =>
@@ -408,11 +479,15 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get stage6NarrowInstruction1 =>
-      'Étape 1 sur 2 : Cliquez dans le fantôme. Observez les lobes nets et l\'intégrale ≈ 1.0.';
+      'Étape 1 sur 3 : Le graphique du bas affiche la courbe filtrée orange avec des lobes négatifs nets qui annulent le flou.';
 
   @override
   String get stage6NarrowInstruction2 =>
-      'Étape 2 sur 2 : Cliquez dehors. Les lobes négatifs annulent le flou (intégrale ≈ 0.0).';
+      'Étape 2 sur 3 : Touchez « Lancer le balayage » pour voir les projections filtrées tourner dynamiquement.';
+
+  @override
+  String get stage6NarrowInstruction3 =>
+      'Étape 3 sur 3 : Touchez des points sondes dans l\'Espace Objet. La rétroprojection filtrée donne ≈ 1.0 dedans et ≈ 0.0 dehors.';
 
   @override
   String get stage6NarrowSubtitle => 'Rétroprojection filtrée (FBP)';
@@ -428,8 +503,53 @@ class AppLocalizationsFr extends AppLocalizations {
   String get stage6Title => 'Reconstruction de données filtrées';
 
   @override
+  String get stage7Description =>
+      'En mode Jeu libre, concevez vos propres scènes avec plusieurs disques fantômes. Ajoutez des disques avec « + », faites-les glisser en position et observez comment chaque disque ajoute une bande sinusoïdale au sinogramme. Utilisez la rétroprojection filtrée pour reconstruire vos scènes personnalisées et vérifier les densités intérieures.';
+
+  @override
+  String get stage7Instruction1 =>
+      'Étape 1 sur 3 : Touchez « + » en haut à droite de l\'Espace Objet pour créer d\'autres disques fantômes. Sélectionnez et glissez les disques dans le cercle.';
+
+  @override
+  String get stage7Instruction2 =>
+      'Étape 2 sur 3 : Inspectez le sinogramme. Chaque fantôme génère sa propre trace sinusoïdale et les zones superposées s\'additionnent linéairement.';
+
+  @override
+  String get stage7Instruction3 =>
+      'Étape 3 sur 3 : Passez en mode « Sonde » dans l\'Espace Objet pour tester les rétroprojections ponctuelles. Basculez le Filtre [F] pour voir comment les lobes négatifs reconstruisent chaque fantôme.';
+
+  @override
+  String get stage7NarrowDescription =>
+      'Créez des scènes personnalisées avec plusieurs disques fantômes. Utilisez « + » pour ajouter des disques, déplacez-les et explorez leurs sinogrammes additifs et leur reconstruction FBP.';
+
+  @override
+  String get stage7NarrowInstruction1 =>
+      'Étape 1 sur 3 : Touchez « + » dans l\'Espace Objet pour créer des disques fantômes et placez-les dans le cercle.';
+
+  @override
+  String get stage7NarrowInstruction2 =>
+      'Étape 2 sur 3 : Inspectez le sinogramme pour voir comment plusieurs fantômes s\'additionnent linéairement dans l\'espace de Radon.';
+
+  @override
+  String get stage7NarrowInstruction3 =>
+      'Étape 3 sur 3 : Passez en mode « Sonde » et basculez Filtre [F] pour reconstruire vos fantômes personnalisés.';
+
+  @override
+  String get stage7NarrowSubtitle => 'Bac à sable multi-fantômes';
+
+  @override
+  String get stage7NarrowTitle => 'Jeu libre';
+
+  @override
+  String get stage7Subtitle =>
+      'Construire des scènes multi-fantômes et explorer la reconstruction';
+
+  @override
+  String get stage7Title => 'Jeu libre et fantômes personnalisés';
+
+  @override
   String stageIndicator(int stageNumber) {
-    return 'Niveau $stageNumber sur 6';
+    return 'Niveau $stageNumber sur 7';
   }
 
   @override
@@ -439,9 +559,6 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get switchLanguageTooltip => 'Changer de langue';
-
-  @override
-  String get moreInfoButton => 'Plus d\'informations';
 
   @override
   String get termsOfServiceButton => 'Conditions d\'utilisation';
@@ -457,6 +574,11 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get themeSystem => 'Système';
+
+  @override
+  String unableToLoadDocument(String title) {
+    return 'Impossible de charger le document $title.';
+  }
 
   @override
   String versionLabel(String version) {

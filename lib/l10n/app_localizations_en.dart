@@ -21,6 +21,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get aboutTooltip => 'About';
 
   @override
+  String get addPhantomTooltip => 'Add phantom disk';
+
+  @override
   String get appTitle => 'CAT Scan Demonstration';
 
   @override
@@ -45,6 +48,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get colormapViridis => 'Viridis';
 
   @override
+  String get deletePhantomTooltip => 'Delete selected phantom';
+
+  @override
   String get done => 'Done';
 
   @override
@@ -60,11 +66,29 @@ class AppLocalizationsEn extends AppLocalizations {
   String get githubButton => 'GitHub (fredgc/cat)';
 
   @override
+  String get graphAxisAngle => 'Angle θ ∈ [0, 2π)';
+
+  @override
+  String get graphAxisRadialOffset => 'Radial offset r ∈ [-1, 1]';
+
+  @override
+  String get graphAxisRayPath => 'Path along ray s ∈ [-1, 1]';
+
+  @override
   String get graphCanvasSemantics =>
       '1D profile plot showing cross sections and backprojection integral.';
 
   @override
   String get graphFilteredPrefix => 'Filtered wb * g: ';
+
+  @override
+  String get graphLegendFiltered => '— Filtered (Ramp kernel)';
+
+  @override
+  String get graphLegendUnfilteredPoint => '— Unfiltered g(θ)';
+
+  @override
+  String get graphLegendUnfilteredTheta => '— Unfiltered P_θ(r)';
 
   @override
   String graphLineTrajectory(String r, String theta, String val) {
@@ -80,6 +104,11 @@ class AppLocalizationsEn extends AppLocalizations {
     String status,
   ) {
     return '${prefix}Point Trajectory ($x, $y) | Integral over θ: $val $status';
+  }
+
+  @override
+  String graphRawValue(String val) {
+    return '[Raw: $val]';
   }
 
   @override
@@ -107,7 +136,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get keyboardShortcutsList =>
-      '• [Enter]: Advance instruction step or next stage\n• [N] / [→]: Next stage\n• [P] / [←]: Previous stage\n• [1] - [7]: Jump to stage 1 through 7\n• [Space]: Play / Pause angle sweep rotation\n• [F]: Toggle filtered reconstruction mode';
+      '• [Enter] / [N]: Advance instruction step or next stage\n• [→]: Next stage\n• [P] / [←]: Previous stage\n• [1] - [7]: Jump to stage 1 through 7\n• [Space]: Play / Pause angle sweep rotation\n• [F]: Toggle filtered reconstruction mode';
 
   @override
   String get keyboardShortcutsTitle => 'Keyboard Shortcuts:';
@@ -122,6 +151,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get languageSpanish => 'Español';
 
   @override
+  String get modePhantom => 'Phantom';
+
+  @override
+  String get modeProbe => 'Probe';
+
+  @override
+  String get moreInfoButton => 'More Info';
+
+  @override
   String get next => 'Next';
 
   @override
@@ -132,7 +170,22 @@ class AppLocalizationsEn extends AppLocalizations {
       'Object space viewport. Interactive coordinate plane showing X-ray projection lines and phantom.';
 
   @override
+  String get openInBrowser => 'Open in browser';
+
+  @override
   String get outsidePhantom => '(outside phantom)';
+
+  @override
+  String get pauseScan => 'Pause';
+
+  @override
+  String get pauseScanWide => 'Pause [Space]';
+
+  @override
+  String get playScan => 'Play Scan';
+
+  @override
+  String get playScanWide => 'Play Scan [Space]';
 
   @override
   String get previous => 'Previous';
@@ -194,12 +247,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get showGuidesTitle => 'Show Coordinate Guides';
 
   @override
+  String get skip => 'Skip';
+
+  @override
+  String get skipStageTooltip => 'Skip to next stage';
+
+  @override
   String get stage1Description =>
       'An X-Ray CAT scan (Computed Axial Tomography) non-invasively reconstructs the 2D interior of an object by transmitting X-ray beams through it from all angles θ. Detectors measure transmitted intensity, which by the Beer-Lambert law yields the mathematical line integral of the absorption coefficient f(x, y) along each line L: g(L) = ∫_L f ds. The core tomography challenge is inverting these line integrals to recover the interior.';
 
   @override
   String get stage1Instruction1 =>
-      'Click or drag in Object Space to see all lines passing through that point. Click \"Next\" or Stage 2 above to continue.';
+      'Click \'Next\' above to continue to the next stage.';
 
   @override
   String get stage1NarrowDescription =>
@@ -207,7 +266,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get stage1NarrowInstruction1 =>
-      'Tap or drag in Object Space to see lines through that point. Tap \"Next\" or Stage 2 above to continue.';
+      'Tap \'Next\' above to continue to the next stage.';
 
   @override
   String get stage1NarrowSubtitle => 'Overview & Radon Transform';
@@ -349,15 +408,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get stage5Instruction1 =>
-      'Step 1 of 3: Click inside the phantom disk on the left. Notice the large backprojection integral value on the bottom graph.';
+      'Step 1 of 4: Drag the probe inside the phantom disk on the left. Notice how the backprojection integral on the bottom graph increases.';
 
   @override
   String get stage5Instruction2 =>
-      'Step 2 of 3: Click outside the phantom disk. Observe how the 1D profile values drop and the backprojection integral becomes small.';
+      'Step 2 of 4: Click anywhere in the Sinogram to select a single X-ray ray. Notice the green pulse showing absorption intensity along that ray.';
 
   @override
   String get stage5Instruction3 =>
-      'Step 3 of 3: Click the sinogram border bars on the right to examine 1D cross sections along constant θ or r.';
+      'Step 3 of 4: Click the right border bar in the Sinogram to view a parallel family of X-rays across all r at fixed angle θ (cyan curve).';
+
+  @override
+  String get stage5Instruction4 =>
+      'Step 4 of 4: Click \"Play Scan\" or press [Space] to sweep the parallel family across all angles θ, animating the live 1D projection curve.';
 
   @override
   String get stage5NarrowDescription =>
@@ -365,15 +428,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get stage5NarrowInstruction1 =>
-      'Step 1 of 3: Click inside the phantom disk on the top. Notice the large backprojection integral on the bottom graph.';
+      'Step 1 of 4: Drag the probe inside the phantom disk on the top. Notice how the backprojection integral increases.';
 
   @override
   String get stage5NarrowInstruction2 =>
-      'Step 2 of 3: Click outside the phantom disk. Observe how profile values drop and the integral becomes small.';
+      'Step 2 of 4: Click in the Sinogram to select a single ray. Notice the green pulse showing absorption intensity along that ray.';
 
   @override
   String get stage5NarrowInstruction3 =>
-      'Step 3 of 3: Click the sinogram border bars on the bottom to examine 1D cross sections along constant θ or r.';
+      'Step 3 of 4: Click the right border bar in the Sinogram to view a parallel family of X-rays at fixed angle θ (cyan curve).';
+
+  @override
+  String get stage5NarrowInstruction4 =>
+      'Step 4 of 4: Tap \"Play Scan\" to sweep the parallel family across all angles θ, animating the live 1D projection curve.';
 
   @override
   String get stage5NarrowSubtitle => '1D Profiles & Backprojection';
@@ -393,11 +460,15 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get stage6Instruction1 =>
-      'Step 1 of 2: Click inside the phantom disk. Observe the sharp edge lobes in the 1D profile and the reconstructed integral ≈ 1.0.';
+      'Step 1 of 3: Check the bottom graph for the parallel family: the orange curve shows the filtered result with sharp negative lobes that cancel blur.';
 
   @override
   String get stage6Instruction2 =>
-      'Step 2 of 2: Click outside the phantom disk. Notice how the negative side lobes cancel the smearing, yielding integral ≈ 0.0.';
+      'Step 2 of 3: Click \"Play Scan\" or press [Space] to watch the filtered projections dynamically sweep as the projection angle rotates.';
+
+  @override
+  String get stage6Instruction3 =>
+      'Step 3 of 3: Click probe points in Object Space. Notice that filtered backprojection reconstructs exact interior attenuation: ≈ 1.0 inside and ≈ 0.0 outside.';
 
   @override
   String get stage6NarrowDescription =>
@@ -405,11 +476,15 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get stage6NarrowInstruction1 =>
-      'Step 1 of 2: Click inside the phantom disk. Observe the sharp edge lobes in the 1D profile and integral ≈ 1.0.';
+      'Step 1 of 3: The bottom graph displays the orange filtered curve with sharp negative lobes that cancel out blur.';
 
   @override
   String get stage6NarrowInstruction2 =>
-      'Step 2 of 2: Click outside the phantom disk. Negative side lobes cancel smearing, yielding integral ≈ 0.0.';
+      'Step 2 of 3: Tap \"Play Scan\" to watch the filtered projections dynamically sweep as the projection angle rotates.';
+
+  @override
+  String get stage6NarrowInstruction3 =>
+      'Step 3 of 3: Tap probe points in Object Space. Filtered backprojection reconstructs exact attenuation: ≈ 1.0 inside and ≈ 0.0 outside.';
 
   @override
   String get stage6NarrowSubtitle => 'Filtered Backprojection (FBP)';
@@ -425,8 +500,53 @@ class AppLocalizationsEn extends AppLocalizations {
   String get stage6Title => 'Filtered Data Reconstruction';
 
   @override
+  String get stage7Description =>
+      'In Free Play mode, design your own scenes using multiple phantom disks. Add disks with \"+\", drag them into position, and observe how each disk contributes an additive sinusoidal band to the sinogram. Use Filtered Backprojection to reconstruct your custom scenes and verify interior densities.';
+
+  @override
+  String get stage7Instruction1 =>
+      'Step 1 of 3: Tap \"+ Add\" in the top-right of Object Space to create additional phantom disks. Select and drag disks to position them anywhere inside the circle.';
+
+  @override
+  String get stage7Instruction2 =>
+      'Step 2 of 3: Inspect the Sinogram. Notice how each phantom generates its own sinusoidal trace, and overlapping areas sum linearly.';
+
+  @override
+  String get stage7Instruction3 =>
+      'Step 3 of 3: Switch to \"Probe\" mode in Object Space to test point backprojections. Toggle the Filter [F] to observe how negative lobes reconstruct each individual phantom.';
+
+  @override
+  String get stage7NarrowDescription =>
+      'Design custom scenes with multiple phantom disks. Use \"+\" to add disks, drag them into position, and explore their additive sinograms and filtered backprojection reconstruction.';
+
+  @override
+  String get stage7NarrowInstruction1 =>
+      'Step 1 of 3: Tap \"+ Add\" in Object Space to create phantom disks. Drag them into position inside the circle.';
+
+  @override
+  String get stage7NarrowInstruction2 =>
+      'Step 2 of 3: Inspect the Sinogram to see how multiple phantoms sum linearly in Radon space.';
+
+  @override
+  String get stage7NarrowInstruction3 =>
+      'Step 3 of 3: Switch to \"Probe\" mode and toggle Filter [F] to reconstruct your custom phantoms.';
+
+  @override
+  String get stage7NarrowSubtitle => 'Multi-Phantom Sandbox';
+
+  @override
+  String get stage7NarrowTitle => 'Free Play';
+
+  @override
+  String get stage7Subtitle =>
+      'Construct Multi-Phantom Scenes and Explore Reconstruction';
+
+  @override
+  String get stage7Title => 'Free Play & Custom Phantoms';
+
+  @override
   String stageIndicator(int stageNumber) {
-    return 'Stage $stageNumber of 6';
+    return 'Stage $stageNumber of 7';
   }
 
   @override
@@ -436,9 +556,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get switchLanguageTooltip => 'Switch language';
-
-  @override
-  String get moreInfoButton => 'More Info';
 
   @override
   String get termsOfServiceButton => 'Terms of Service';
@@ -454,6 +571,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get themeSystem => 'System';
+
+  @override
+  String unableToLoadDocument(String title) {
+    return 'Unable to load $title document.';
+  }
 
   @override
   String versionLabel(String version) {

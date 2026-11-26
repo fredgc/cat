@@ -78,8 +78,7 @@ class StageData {
 
   String titleFor({BuildContext? context, required bool isWide}) {
     final canonical = isWide ? title : (narrowTitle ?? title);
-    if (context == null ||
-        Localizations.localeOf(context).languageCode == 'en') {
+    if (context == null) {
       return canonical;
     }
     final l10n = context.l10n;
@@ -96,6 +95,8 @@ class StageData {
         return isWide ? l10n.stage5Title : l10n.stage5NarrowTitle;
       case 6:
         return isWide ? l10n.stage6Title : l10n.stage6NarrowTitle;
+      case 7:
+        return isWide ? l10n.stage7Title : l10n.stage7NarrowTitle;
       default:
         return canonical;
     }
@@ -103,8 +104,7 @@ class StageData {
 
   String subtitleFor({BuildContext? context, required bool isWide}) {
     final canonical = isWide ? subtitle : (narrowSubtitle ?? subtitle);
-    if (context == null ||
-        Localizations.localeOf(context).languageCode == 'en') {
+    if (context == null) {
       return canonical;
     }
     final l10n = context.l10n;
@@ -121,6 +121,8 @@ class StageData {
         return isWide ? l10n.stage5Subtitle : l10n.stage5NarrowSubtitle;
       case 6:
         return isWide ? l10n.stage6Subtitle : l10n.stage6NarrowSubtitle;
+      case 7:
+        return isWide ? l10n.stage7Subtitle : l10n.stage7NarrowSubtitle;
       default:
         return canonical;
     }
@@ -128,8 +130,7 @@ class StageData {
 
   String descriptionFor({BuildContext? context, required bool isWide}) {
     final canonical = isWide ? description : (narrowDescription ?? description);
-    if (context == null ||
-        Localizations.localeOf(context).languageCode == 'en') {
+    if (context == null) {
       return canonical;
     }
     final l10n = context.l10n;
@@ -146,6 +147,8 @@ class StageData {
         return isWide ? l10n.stage5Description : l10n.stage5NarrowDescription;
       case 6:
         return isWide ? l10n.stage6Description : l10n.stage6NarrowDescription;
+      case 7:
+        return isWide ? l10n.stage7Description : l10n.stage7NarrowDescription;
       default:
         return canonical;
     }
@@ -162,8 +165,7 @@ class StageData {
     final canonical = instructions.isEmpty
         ? ''
         : instructions[safeStep].textFor(isWide: isWide);
-    if (context == null ||
-        Localizations.localeOf(context).languageCode == 'en') {
+    if (context == null) {
       return canonical;
     }
     final l10n = context.l10n;
@@ -238,7 +240,9 @@ class StageData {
                 ? l10n.stage5Instruction3
                 : l10n.stage5NarrowInstruction3;
           case 3:
-            return canonical;
+            return isWide
+                ? l10n.stage5Instruction4
+                : l10n.stage5NarrowInstruction4;
           default:
             return canonical;
         }
@@ -252,10 +256,33 @@ class StageData {
             return isWide
                 ? l10n.stage6Instruction2
                 : l10n.stage6NarrowInstruction2;
+          case 2:
+            return isWide
+                ? l10n.stage6Instruction3
+                : l10n.stage6NarrowInstruction3;
           default:
             return isWide
                 ? l10n.stage6Instruction1
                 : l10n.stage6NarrowInstruction1;
+        }
+      case 7:
+        switch (stepIndex) {
+          case 0:
+            return isWide
+                ? l10n.stage7Instruction1
+                : l10n.stage7NarrowInstruction1;
+          case 1:
+            return isWide
+                ? l10n.stage7Instruction2
+                : l10n.stage7NarrowInstruction2;
+          case 2:
+            return isWide
+                ? l10n.stage7Instruction3
+                : l10n.stage7NarrowInstruction3;
+          default:
+            return isWide
+                ? l10n.stage7Instruction1
+                : l10n.stage7NarrowInstruction1;
         }
       default:
         return canonical;
@@ -558,6 +585,7 @@ class StageStepper extends StatefulWidget {
   final ValueChanged<int> onStageSelected;
   final VoidCallback? onPrev;
   final VoidCallback? onNext;
+  final VoidCallback? onSkipStage;
   final bool? isWide;
   final int currentInstructionStep;
   final ValueChanged<int>? onInstructionStepChanged;
@@ -569,6 +597,7 @@ class StageStepper extends StatefulWidget {
     required this.onStageSelected,
     this.onPrev,
     this.onNext,
+    this.onSkipStage,
     this.isWide,
     this.currentInstructionStep = 0,
     this.onInstructionStepChanged,
@@ -582,6 +611,10 @@ class StageStepper extends StatefulWidget {
 class _StageStepperState extends State<StageStepper> {
   bool _isExpanded = true;
   int _localInstructionIndex = 0;
+  late final List<GlobalKey> _stageChipKeys = List.generate(
+    demoStages.length,
+    (_) => GlobalKey(),
+  );
 
   int get _activeStepIndex => widget.onInstructionStepChanged != null
       ? widget.currentInstructionStep
@@ -597,11 +630,34 @@ class _StageStepperState extends State<StageStepper> {
     }
   }
 
+  void _scrollToCurrentStage({required bool animate}) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      final idx = widget.currentStageIndex;
+      if (idx < 0 || idx >= _stageChipKeys.length) return;
+      final chipContext = _stageChipKeys[idx].currentContext;
+      if (chipContext == null) return;
+      Scrollable.ensureVisible(
+        chipContext,
+        alignment: 0.5,
+        duration: animate ? const Duration(milliseconds: 250) : Duration.zero,
+        curve: Curves.easeInOut,
+      );
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollToCurrentStage(animate: false);
+  }
+
   @override
   void didUpdateWidget(covariant StageStepper oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.currentStageIndex != widget.currentStageIndex) {
       _localInstructionIndex = 0;
+      _scrollToCurrentStage(animate: true);
     }
   }
 
@@ -616,6 +672,10 @@ class _StageStepperState extends State<StageStepper> {
       math.max(0, instructionCount - 1),
     );
 
+    final bool hasMoreStepsInStage =
+        activeInstructionIndex < instructionCount - 1;
+    final bool showSkip = hasMoreStepsInStage && widget.onSkipStage != null;
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -628,18 +688,49 @@ class _StageStepperState extends State<StageStepper> {
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           child: Row(
             children: [
-              FilledButton.tonalIcon(
-                icon: const Icon(Icons.arrow_back, size: 16),
-                label: Text(context.l10n.previous),
-                onPressed: widget.onPrev,
-              ),
+              if (wide)
+                FilledButton.tonalIcon(
+                  icon: const Icon(Icons.arrow_back, size: 16),
+                  label: Text(context.l10n.previous),
+                  onPressed: widget.onPrev,
+                )
+              else
+                IconButton.filledTonal(
+                  icon: const Icon(Icons.arrow_back, size: 18),
+                  tooltip: context.l10n.previous,
+                  onPressed: widget.onPrev,
+                  visualDensity: VisualDensity.compact,
+                ),
               const SizedBox(width: 8),
-              FilledButton.tonalIcon(
+              FilledButton.icon(
                 icon: const Icon(Icons.arrow_forward, size: 16),
                 label: Text(context.l10n.next),
                 onPressed: widget.onNext,
               ),
-              const SizedBox(width: 12),
+              if (showSkip) ...[
+                const SizedBox(width: 4),
+                Tooltip(
+                  message: context.l10n.skipStageTooltip,
+                  child: TextButton.icon(
+                    icon: const Icon(Icons.skip_next, size: 15),
+                    label: Text(
+                      context.l10n.skip,
+                      style: const TextStyle(fontSize: 12),
+                    ),
+                    onPressed: widget.onSkipStage,
+                    style: TextButton.styleFrom(
+                      visualDensity: VisualDensity.compact,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 6,
+                        vertical: 4,
+                      ),
+                      minimumSize: Size.zero,
+                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    ),
+                  ),
+                ),
+              ],
+              const SizedBox(width: 8),
               Expanded(
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
@@ -649,6 +740,7 @@ class _StageStepperState extends State<StageStepper> {
                       final isSelected = idx == widget.currentStageIndex;
                       final stg = demoStages[idx];
                       return Padding(
+                        key: _stageChipKeys[idx],
                         padding: const EdgeInsets.symmetric(horizontal: 3.0),
                         child: ChoiceChip(
                           label: Text('${stg.number}'),
@@ -788,51 +880,14 @@ class _StageStepperState extends State<StageStepper> {
                               ),
                             ),
                             if (instructionCount > 1) ...[
-                              const SizedBox(width: 4),
-                              Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  IconButton(
-                                    padding: EdgeInsets.zero,
-                                    constraints: const BoxConstraints(
-                                      minWidth: 24,
-                                      minHeight: 24,
-                                    ),
-                                    iconSize: 18,
-                                    tooltip: context.l10n.previousStepTooltip,
-                                    icon: const Icon(Icons.chevron_left),
-                                    onPressed: activeInstructionIndex > 0
-                                        ? () => _setStepIndex(
-                                            activeInstructionIndex - 1,
-                                          )
-                                        : null,
-                                  ),
-                                  Text(
-                                    '${activeInstructionIndex + 1}/$instructionCount',
-                                    style: TextStyle(
-                                      fontSize: 11,
-                                      fontWeight: FontWeight.bold,
-                                      color: theme.colorScheme.primary,
-                                    ),
-                                  ),
-                                  IconButton(
-                                    padding: EdgeInsets.zero,
-                                    constraints: const BoxConstraints(
-                                      minWidth: 24,
-                                      minHeight: 24,
-                                    ),
-                                    iconSize: 18,
-                                    tooltip: context.l10n.nextStepTooltip,
-                                    icon: const Icon(Icons.chevron_right),
-                                    onPressed:
-                                        activeInstructionIndex <
-                                            instructionCount - 1
-                                        ? () => _setStepIndex(
-                                            activeInstructionIndex + 1,
-                                          )
-                                        : null,
-                                  ),
-                                ],
+                              const SizedBox(width: 6),
+                              Text(
+                                '${activeInstructionIndex + 1}/$instructionCount',
+                                style: TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.bold,
+                                  color: theme.colorScheme.primary,
+                                ),
                               ),
                             ],
                             if (widget.onReplayCue != null) ...[

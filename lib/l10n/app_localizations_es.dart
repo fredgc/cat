@@ -21,6 +21,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get aboutTooltip => 'Acerca de';
 
   @override
+  String get addPhantomTooltip => 'Añadir disco fantoma';
+
+  @override
   String get appTitle => 'Demostración de tomografía axial computarizada';
 
   @override
@@ -45,6 +48,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get colormapViridis => 'Viridis';
 
   @override
+  String get deletePhantomTooltip => 'Eliminar fantoma seleccionado';
+
+  @override
   String get done => 'Listo';
 
   @override
@@ -60,11 +66,29 @@ class AppLocalizationsEs extends AppLocalizations {
   String get githubButton => 'GitHub (fredgc/cat)';
 
   @override
+  String get graphAxisAngle => 'Ángulo θ ∈ [0, 2π)';
+
+  @override
+  String get graphAxisRadialOffset => 'Distancia radial r ∈ [-1, 1]';
+
+  @override
+  String get graphAxisRayPath => 'Trayectoria del rayo s ∈ [-1, 1]';
+
+  @override
   String get graphCanvasSemantics =>
       'Gráfico de perfil 1D que muestra secciones transversales y la integral de retroproyección.';
 
   @override
   String get graphFilteredPrefix => 'Filtrado wb * g: ';
+
+  @override
+  String get graphLegendFiltered => '— Filtrado (núcleo de rampa)';
+
+  @override
+  String get graphLegendUnfilteredPoint => '— Sin filtrar g(θ)';
+
+  @override
+  String get graphLegendUnfilteredTheta => '— Sin filtrar P_θ(r)';
 
   @override
   String graphLineTrajectory(String r, String theta, String val) {
@@ -83,6 +107,11 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
+  String graphRawValue(String val) {
+    return '[Bruto: $val]';
+  }
+
+  @override
   String get graphSelectPrompt =>
       'Selecciona un punto o línea para mostrar la sección transversal 1D.';
 
@@ -97,7 +126,7 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String get graphUnfilteredPrefix => 'Sin filtrar g: ';
+  String get graphUnfilteredPrefix => 'Sin filtrar: ';
 
   @override
   String get insidePhantom => '(dentro del fantoma)';
@@ -107,7 +136,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get keyboardShortcutsList =>
-      '• [Enter]: Avanzar paso de instrucción o siguiente etapa\n• [N] / [→]: Siguiente etapa\n• [P] / [←]: Etapa anterior\n• [1] - [7]: Saltar a etapa 1 a 7\n• [Espacio]: Reproducir / Pausar rotación de barrido angular\n• [F]: Alternar modo de reconstrucción filtrada';
+      '• [Enter] / [N]: Avanzar paso de instrucción o siguiente etapa\n• [→]: Siguiente etapa\n• [P] / [←]: Etapa anterior\n• [1] - [7]: Saltar a etapa 1 a 7\n• [Espacio]: Reproducir / Pausar rotación de barrido angular\n• [F]: Alternar modo de reconstrucción filtrada';
 
   @override
   String get keyboardShortcutsTitle => 'Atajos de teclado:';
@@ -122,6 +151,15 @@ class AppLocalizationsEs extends AppLocalizations {
   String get languageSpanish => 'Español';
 
   @override
+  String get modePhantom => 'Fantoma';
+
+  @override
+  String get modeProbe => 'Sonda';
+
+  @override
+  String get moreInfoButton => 'Más información';
+
+  @override
   String get next => 'Siguiente';
 
   @override
@@ -132,7 +170,22 @@ class AppLocalizationsEs extends AppLocalizations {
       'Espacio del objeto. Plano de coordenadas interactivo que muestra las líneas de proyección de rayos X y el fantoma.';
 
   @override
+  String get openInBrowser => 'Abrir en el navegador';
+
+  @override
   String get outsidePhantom => '(fuera del fantoma)';
+
+  @override
+  String get pauseScan => 'Pausar';
+
+  @override
+  String get pauseScanWide => 'Pausar [Espacio]';
+
+  @override
+  String get playScan => 'Iniciar barrido';
+
+  @override
+  String get playScanWide => 'Iniciar barrido [Espacio]';
 
   @override
   String get previous => 'Anterior';
@@ -194,12 +247,18 @@ class AppLocalizationsEs extends AppLocalizations {
   String get showGuidesTitle => 'Mostrar guías de coordenadas';
 
   @override
+  String get skip => 'Saltar';
+
+  @override
+  String get skipStageTooltip => 'Saltar a la siguiente etapa';
+
+  @override
   String get stage1Description =>
       'Una tomografía axial computarizada por rayos X (TAC) reconstruye de forma no invasiva el interior 2D de un objeto transmitiendo haces de rayos X a través de él desde todos los ángulos θ. Los detectores miden la intensidad transmitida, la cual, según la ley de Beer-Lambert, produce la integral de línea matemática del coeficiente de absorción f(x, y) a lo largo de cada línea L: g(L) = ∫_L f ds. El desafío fundamental de la tomografía consiste en invertir estas integrales de línea para recuperar el interior.';
 
   @override
   String get stage1Instruction1 =>
-      'Haz clic o arrastra en el Espacio del Objeto para ver todas las líneas que pasan por ese punto. Haz clic en \"Siguiente\" o en la Etapa 2 arriba para continuar.';
+      'Haz clic en «Siguiente» arriba para continuar a la siguiente etapa.';
 
   @override
   String get stage1NarrowDescription =>
@@ -207,7 +266,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get stage1NarrowInstruction1 =>
-      'Toca o arrastra en el Espacio del Objeto para ver las líneas que pasan por ese punto. Toca \"Siguiente\" o la Etapa 2 arriba para continuar.';
+      'Toca «Siguiente» arriba para continuar a la siguiente etapa.';
 
   @override
   String get stage1NarrowSubtitle =>
@@ -354,15 +413,19 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get stage5Instruction1 =>
-      'Paso 1 de 3: Haz clic dentro del disco fantoma a la izquierda. Observa el valor elevado de la integral de retroproyección en el gráfico inferior.';
+      'Paso 1 de 4: Arrastra la sonda dentro del disco fantoma a la izquierda. Observa cómo aumenta la integral de retroproyección en el gráfico inferior.';
 
   @override
   String get stage5Instruction2 =>
-      'Paso 2 de 3: Haz clic fuera del disco fantoma. Observa cómo los valores del perfil 1D caen y la integral de retroproyección disminuye.';
+      'Paso 2 de 4: Haz clic en cualquier lugar del sinograma para seleccionar un único rayo X. Observa el pulso verde que muestra la intensidad de absorción a lo largo de ese rayo.';
 
   @override
   String get stage5Instruction3 =>
-      'Paso 3 de 3: Haz clic en las barras de borde del sinograma a la derecha para examinar secciones transversales 1D con θ o r constantes.';
+      'Paso 3 de 4: Haz clic en la barra del borde derecho del sinograma para ver una familia paralela de rayos X en todo r con un ángulo fijo θ (curva cian).';
+
+  @override
+  String get stage5Instruction4 =>
+      'Paso 4 de 4: Haz clic en «Iniciar barrido» o pulsa [Espacio] para barrer la familia paralela por todos los ángulos θ, animando la curva de proyección 1D en vivo.';
 
   @override
   String get stage5NarrowDescription =>
@@ -370,15 +433,19 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get stage5NarrowInstruction1 =>
-      'Paso 1 de 3: Haz clic dentro del disco fantoma arriba. Observa la gran integral de retroproyección en el gráfico inferior.';
+      'Paso 1 de 4: Arrastra la sonda dentro del disco fantoma arriba. Observa cómo aumenta la integral de retroproyección.';
 
   @override
   String get stage5NarrowInstruction2 =>
-      'Paso 2 de 3: Haz clic fuera del disco fantoma. Observa cómo caen los valores del perfil y disminuye la integral.';
+      'Paso 2 de 4: Haz clic en el sinograma para seleccionar un único rayo. Observa el pulso verde que muestra la intensidad de absorción a lo largo de ese rayo.';
 
   @override
   String get stage5NarrowInstruction3 =>
-      'Paso 3 de 3: Haz clic en las barras de borde del sinograma abajo para examinar secciones transversales 1D con θ o r constantes.';
+      'Paso 3 de 4: Haz clic en la barra derecha del sinograma para ver una familia paralela de rayos X con un ángulo fijo θ (curva cian).';
+
+  @override
+  String get stage5NarrowInstruction4 =>
+      'Paso 4 de 4: Toca «Iniciar barrido» para barrer la familia paralela por todos los ángulos θ, animando la curva de proyección 1D en vivo.';
 
   @override
   String get stage5NarrowSubtitle => 'Perfiles 1D y retroproyección';
@@ -398,11 +465,15 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get stage6Instruction1 =>
-      'Paso 1 de 2: Haz clic dentro del disco fantoma. Observa los lóbulos de borde nítidos en el perfil 1D y la integral reconstruida ≈ 1.0.';
+      'Paso 1 de 3: Observa el gráfico inferior para la familia paralela: la curva naranja muestra el resultado filtrado con lóbulos negativos nítidos que cancelan el desenfoque.';
 
   @override
   String get stage6Instruction2 =>
-      'Paso 2 de 2: Haz clic fuera del disco fantoma. Observa cómo los lóbulos laterales negativos cancelan el emborronamiento, produciendo una integral ≈ 0.0.';
+      'Paso 2 de 3: Haz clic en «Iniciar barrido» o pulsa [Espacio] para ver cómo las proyecciones filtradas barren dinámicamente mientras gira el ángulo de proyección.';
+
+  @override
+  String get stage6Instruction3 =>
+      'Paso 3 de 3: Haz clic en puntos de sondeo en el Espacio del Objeto. Observa que la retroproyección filtrada reconstruye la atenuación interior exacta: ≈ 1.0 dentro y ≈ 0.0 fuera.';
 
   @override
   String get stage6NarrowDescription =>
@@ -410,11 +481,15 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get stage6NarrowInstruction1 =>
-      'Paso 1 de 2: Haz clic dentro del disco fantoma. Observa los lóbulos de borde nítidos en el perfil 1D y la integral ≈ 1.0.';
+      'Paso 1 de 3: El gráfico inferior muestra la curva filtrada naranja con lóbulos negativos nítidos que cancelan el desenfoque.';
 
   @override
   String get stage6NarrowInstruction2 =>
-      'Paso 2 de 2: Haz clic fuera del disco fantoma. Los lóbulos laterales negativos cancelan el emborronamiento, dando una integral ≈ 0.0.';
+      'Paso 2 de 3: Toca «Iniciar barrido» para ver cómo barren las proyecciones filtradas al girar el ángulo de proyección.';
+
+  @override
+  String get stage6NarrowInstruction3 =>
+      'Paso 3 de 3: Toca puntos de sondeo en el Espacio del Objeto. La retroproyección filtrada reconstruye la atenuación exacta: ≈ 1.0 dentro y ≈ 0.0 fuera.';
 
   @override
   String get stage6NarrowSubtitle => 'Retroproyección filtrada (FBP)';
@@ -430,8 +505,53 @@ class AppLocalizationsEs extends AppLocalizations {
   String get stage6Title => 'Reconstrucción de datos filtrados';
 
   @override
+  String get stage7Description =>
+      'En el modo de Juego libre, diseña tus propias escenas usando múltiples discos fantoma. Añade discos con «+», arrástralos a su posición y observa cómo cada disco aporta una banda sinusoidal aditiva al sinograma. Usa la retroproyección filtrada para reconstruir tus escenas personalizadas y verificar las densidades interiores.';
+
+  @override
+  String get stage7Instruction1 =>
+      'Paso 1 de 3: Pulsa «+» en la parte superior derecha del Espacio del Objeto para crear discos fantoma adicionales. Selecciona y arrastra discos para colocarlos en cualquier lugar dentro del círculo.';
+
+  @override
+  String get stage7Instruction2 =>
+      'Paso 2 de 3: Inspecciona el sinograma. Observa cómo cada fantoma genera su propia traza sinusoidal y las áreas superpuestas se suman linealmente.';
+
+  @override
+  String get stage7Instruction3 =>
+      'Paso 3 de 3: Cambia al modo «Sonda» en el Espacio del Objeto para probar retroproyecciones puntuales. Alterna el Filtro [F] para observar cómo los lóbulos negativos reconstruyen cada fantoma individual.';
+
+  @override
+  String get stage7NarrowDescription =>
+      'Diseña escenas personalizadas con múltiples discos fantoma. Usa «+» para añadir discos, arrástralos a su posición y explora sus sinogramas aditivos y la reconstrucción por retroproyección filtrada.';
+
+  @override
+  String get stage7NarrowInstruction1 =>
+      'Paso 1 de 3: Toca «+» en el Espacio del Objeto para crear discos fantoma. Arrástralos dentro del círculo.';
+
+  @override
+  String get stage7NarrowInstruction2 =>
+      'Paso 2 de 3: Inspecciona el sinograma para ver cómo varios fantomas se suman linealmente en el espacio de Radon.';
+
+  @override
+  String get stage7NarrowInstruction3 =>
+      'Paso 3 de 3: Cambia al modo «Sonda» y alterna el Filtro [F] para reconstruir tus fantomas personalizados.';
+
+  @override
+  String get stage7NarrowSubtitle => 'Entorno multi-fantoma';
+
+  @override
+  String get stage7NarrowTitle => 'Juego libre';
+
+  @override
+  String get stage7Subtitle =>
+      'Construye escenas multi-fantoma y explora la reconstrucción';
+
+  @override
+  String get stage7Title => 'Juego libre y fantomas personalizados';
+
+  @override
   String stageIndicator(int stageNumber) {
-    return 'Etapa $stageNumber de 6';
+    return 'Etapa $stageNumber de 7';
   }
 
   @override
@@ -441,9 +561,6 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get switchLanguageTooltip => 'Cambiar idioma';
-
-  @override
-  String get moreInfoButton => 'Más información';
 
   @override
   String get termsOfServiceButton => 'Condiciones del servicio';
@@ -459,6 +576,11 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get themeSystem => 'Sistema';
+
+  @override
+  String unableToLoadDocument(String title) {
+    return 'No se pudo cargar el documento $title.';
+  }
 
   @override
   String versionLabel(String version) {

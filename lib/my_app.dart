@@ -41,6 +41,24 @@ class _CatAppState extends State<CatApp> {
     LocaleController.initialize();
   }
 
+  ThemeData _buildTheme(Brightness brightness) {
+    final scheme = ColorScheme.fromSeed(
+      seedColor: Colors.blue,
+      brightness: brightness,
+    );
+    return ThemeData(
+      colorScheme: scheme,
+      scaffoldBackgroundColor: scheme.surface,
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: scheme.primaryContainer,
+          foregroundColor: scheme.onPrimaryContainer,
+        ),
+      ),
+      useMaterial3: true,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListenableBuilder(
@@ -66,17 +84,8 @@ class _CatAppState extends State<CatApp> {
               localizationsDelegates: AppLocalizations.localizationsDelegates,
               supportedLocales: AppLocalizations.supportedLocales,
               themeMode: _settings.themeMode,
-              theme: ThemeData(
-                brightness: Brightness.light,
-                colorSchemeSeed: Colors.blue,
-                useMaterial3: true,
-              ),
-              darkTheme: ThemeData(
-                brightness: Brightness.dark,
-                colorSchemeSeed: Colors.blue,
-                scaffoldBackgroundColor: const Color(0xFF121212),
-                useMaterial3: true,
-              ),
+              theme: _buildTheme(Brightness.light),
+              darkTheme: _buildTheme(Brightness.dark),
               home: CatScanHomePage(settings: _settings),
             );
           },

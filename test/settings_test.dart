@@ -145,11 +145,10 @@ void main() {
 
       expect(find.text('CAT Scan Demonstration'), findsOneWidget);
       expect(find.text('Version 2.0.0+7'), findsOneWidget);
+      expect(find.byType(SelectionArea), findsAtLeastNWidgets(2));
       expect(
-        find.text(
-          'Original Java Applet presented as a talk at Ball State University February 26, 1998 by Fred Gylys-Colwell',
-        ),
-        findsOneWidget,
+        find.textContaining('Original Java Applet presented'),
+        findsNothing,
       );
       expect(find.text('More Info'), findsOneWidget);
       expect(find.text('View HTML Doc'), findsNothing);
@@ -183,6 +182,18 @@ void main() {
 
       expect(find.text('Terms of Service'), findsAtLeast(1));
       // Close Terms of Service dialog
+      await tester.tap(find.text('Close').last);
+      await tester.pumpAndSettle();
+
+      // Open More Info (in-app math & UI reference)
+      await tester.ensureVisible(find.text('More Info'));
+      await tester.tap(find.text('More Info'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('More Info'), findsAtLeast(1));
+      expect(find.textContaining('Mathematical Reference'), findsOneWidget);
+      expect(find.textContaining('UI & Controls Reference'), findsOneWidget);
+      // Close More Info dialog
       await tester.tap(find.text('Close').last);
       await tester.pumpAndSettle();
     });

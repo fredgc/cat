@@ -142,6 +142,10 @@ String formatDocumentHtml(String html) {
     RegExp(r'<script[\s\S]*?</script>', caseSensitive: false),
     '',
   );
+  text = text.replaceAll(
+    RegExp(r'<annotation[\s\S]*?</annotation>', caseSensitive: false),
+    '',
+  );
 
   text = text.replaceAll(
     RegExp(r'<li[^>]*>\s*(?:<p[^>]*>)?', caseSensitive: false),
@@ -184,7 +188,8 @@ String formatDocumentHtml(String html) {
       .replaceAll('&rsquo;', "'")
       .replaceAll('&mdash;', '—')
       .replaceAll('&ndash;', '–')
-      .replaceAll('&nbsp;', ' ');
+      .replaceAll('&nbsp;', ' ')
+      .replaceAll('&#8289;', '');
 
   final paragraphs = text.split(RegExp(r'\n\s*\n'));
   final cleaned = <String>[];

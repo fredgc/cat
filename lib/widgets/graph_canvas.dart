@@ -98,7 +98,7 @@ class GraphCanvas extends StatelessWidget {
             : context.l10n.outsidePhantom;
         final String val = engine.filtered
             ? '${engine.filteredBackprojectionValue.toStringAsFixed(3)} '
-                '[Raw: ${engine.unfilteredBackprojectionValue.toStringAsFixed(3)}]'
+                '${context.l10n.graphRawValue(engine.unfilteredBackprojectionValue.toStringAsFixed(3))}'
             : engine.backprojectionValue.toStringAsFixed(3);
         return context.l10n.graphPointTrajectory(
           prefix,
@@ -157,52 +157,90 @@ class GraphCanvas extends StatelessWidget {
               ),
             ),
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                // Header description, integral readout, and play/pause button
-                Row(
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                final bool isNarrow = constraints.maxWidth <= 700;
+                final Widget playButton = _PlayButtonWithCue(
+                  isRotating: isRotating,
+                  onToggleRotation: onToggleRotation,
+                  compact: isNarrow,
+                  showCue:
+                      currentTarget == InstructionTarget.playButton &&
+                      !isCueDismissed &&
+                      !isRotating,
+                  onDismissCue: onDismissCue,
+                );
+
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Expanded(
-                      child: Text(
+                    // Header description, integral readout, and play/pause button
+                    if (isNarrow)
+                      Text(
                         _formatTrajectoryInfo(context),
                         style: TextStyle(
                           fontFamily: 'monospace',
-                          fontSize: 12,
+                          fontSize: 11,
                           fontWeight: FontWeight.w600,
                           color: headerColor,
                         ),
-                        maxLines: 1,
+                        maxLines: 3,
                         overflow: TextOverflow.ellipsis,
+                      )
+                    else
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              _formatTrajectoryInfo(context),
+                              style: TextStyle(
+                                fontFamily: 'monospace',
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                                color: headerColor,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          if (onToggleRotation != null) ...[
+                            const SizedBox(width: 8),
+                            playButton,
+                          ],
+                        ],
+                      ),
+                    const SizedBox(height: 4),
+
+                    // Canvas plot
+                    Expanded(
+                      child: CustomPaint(
+                        painter: GraphCanvasPainter(
+                          engine: engine,
+                          curveColor: headerColor,
+                          isLight: isLight,
+                          axisRayPathLabel: context.l10n.graphAxisRayPath,
+                          axisRadialOffsetLabel:
+                              context.l10n.graphAxisRadialOffset,
+                          axisAngleLabel: context.l10n.graphAxisAngle,
+                          legendFilteredLabel: context.l10n.graphLegendFiltered,
+                          legendUnfilteredPointLabel:
+                              context.l10n.graphLegendUnfilteredPoint,
+                          legendUnfilteredThetaLabel:
+                              context.l10n.graphLegendUnfilteredTheta,
+                        ),
                       ),
                     ),
-                    if (onToggleRotation != null) ...[
-                      const SizedBox(width: 8),
-                      _PlayButtonWithCue(
-                        isRotating: isRotating,
-                        onToggleRotation: onToggleRotation,
-                        showCue:
-                            currentTarget == InstructionTarget.playButton &&
-                            !isCueDismissed &&
-                            !isRotating,
-                        onDismissCue: onDismissCue,
+
+                    if (isNarrow && onToggleRotation != null) ...[
+                      const SizedBox(height: 4),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [playButton],
                       ),
                     ],
                   ],
-                ),
-                const SizedBox(height: 4),
-
-                // Canvas plot
-                Expanded(
-                  child: CustomPaint(
-                    painter: GraphCanvasPainter(
-                      engine: engine,
-                      curveColor: headerColor,
-                      isLight: isLight,
-                    ),
-                  ),
-                ),
-              ],
+                );
+              },
             ),
           ),
         );
@@ -216,11 +254,23 @@ class GraphCanvasPainter extends CustomPainter {
   final RadonEngine engine;
   final Color curveColor;
   final bool isLight;
+  final String axisRayPathLabel;
+  final String axisRadialOffsetLabel;
+  final String axisAngleLabel;
+  final String legendFilteredLabel;
+  final String legendUnfilteredPointLabel;
+  final String legendUnfilteredThetaLabel;
 
   GraphCanvasPainter({
     required this.engine,
     this.curveColor = const Color(0xFF69F0AE),
     this.isLight = false,
+    this.axisRayPathLabel = 'Path along ray s ∈ [-1, 1]',
+    this.axisRadialOffsetLabel = 'Radial offset r ∈ [-1, 1]',
+    this.axisAngleLabel = 'Angle θ ∈ [0, 2π)',
+    this.legendFilteredLabel = '— Filtered (Ramp kernel)',
+    this.legendUnfilteredPointLabel = '— Unfiltered g(θ)',
+    this.legendUnfilteredThetaLabel = '— Unfiltered P_θ(r)',
   });
 
   @override
@@ -250,7 +300,7 @@ class GraphCanvasPainter extends CustomPainter {
       case ProbeMode.line:
         minY = -0.1;
         maxY = 1.2;
-        xAxisLabel = 'Path along ray s ∈ [-1, 1]';
+        xAxisLabel = axisRayPathLabel;
         break;
       case ProbeMode.theta:
         if (engine.filtered) {
@@ -260,7 +310,7 @@ class GraphCanvasPainter extends CustomPainter {
           minY = -0.1;
           maxY = 0.7;
         }
-        xAxisLabel = 'Radial offset r ∈ [-1, 1]';
+        xAxisLabel = axisRadialOffsetLabel;
         break;
       case ProbeMode.point:
         if (engine.filtered) {
@@ -270,12 +320,12 @@ class GraphCanvasPainter extends CustomPainter {
           minY = -0.1;
           maxY = 0.8;
         }
-        xAxisLabel = 'Angle θ ∈ [0, 2π)';
+        xAxisLabel = axisAngleLabel;
         break;
       case ProbeMode.sline:
         minY = -0.3;
         maxY = 0.3;
-        xAxisLabel = 'Angle θ ∈ [0, 2π)';
+        xAxisLabel = axisAngleLabel;
         break;
       case ProbeMode.none:
         minY = -0.3;
@@ -387,13 +437,13 @@ class GraphCanvasPainter extends CustomPainter {
       }
 
       drawText(
-        '— Filtered (Ramp kernel)',
+        legendFilteredLabel,
         Offset(size.width - 165, 4),
         color: isLight ? const Color(0xFFE65100) : const Color(0xFFFFB74D),
       );
       final String unfiltLegend = engine.probeMode == ProbeMode.point
-          ? '— Unfiltered g(θ)'
-          : '— Unfiltered P_θ(r)';
+          ? legendUnfilteredPointLabel
+          : legendUnfilteredThetaLabel;
       drawText(
         unfiltLegend,
         Offset(size.width - 165, 16),
@@ -440,12 +490,14 @@ class GraphCanvasPainter extends CustomPainter {
 class _PlayButtonWithCue extends StatefulWidget {
   final bool isRotating;
   final VoidCallback? onToggleRotation;
+  final bool compact;
   final bool showCue;
   final VoidCallback? onDismissCue;
 
   const _PlayButtonWithCue({
     required this.isRotating,
     required this.onToggleRotation,
+    this.compact = false,
     required this.showCue,
     this.onDismissCue,
   });
@@ -493,6 +545,7 @@ class _PlayButtonWithCueState extends State<_PlayButtonWithCue>
     final theme = Theme.of(context);
     final bool isLight = theme.brightness == Brightness.light;
     final primary = theme.colorScheme.primary;
+    final error = theme.colorScheme.error;
     final Color cueColor = isLight
         ? const Color(0xFF42A5F5)
         : primary;
@@ -512,9 +565,9 @@ class _PlayButtonWithCueState extends State<_PlayButtonWithCue>
               : 0.0;
 
           final Color borderColor = widget.isRotating
-              ? Colors.redAccent
+              ? error
               : (widget.showCue
-                  ? Color.lerp(cueColor, Colors.white, 0.4 * pulse)!
+                  ? Color.lerp(cueColor, theme.colorScheme.onPrimary, 0.4 * pulse)!
                   : primary);
 
           return Container(
@@ -524,7 +577,7 @@ class _PlayButtonWithCueState extends State<_PlayButtonWithCue>
             ),
             decoration: BoxDecoration(
               color: widget.isRotating
-                  ? Colors.redAccent.withValues(alpha: 0.2)
+                  ? error.withValues(alpha: 0.2)
                   : (widget.showCue
                       ? cueColor.withValues(alpha: 0.15 + 0.2 * pulse)
                       : theme.colorScheme.primaryContainer
@@ -553,21 +606,21 @@ class _PlayButtonWithCueState extends State<_PlayButtonWithCue>
             Icon(
               widget.isRotating ? Icons.pause : Icons.play_arrow,
               size: 13,
-              color: widget.isRotating
-                  ? Colors.redAccent
-                  : theme.colorScheme.primary,
+              color: widget.isRotating ? error : primary,
             ),
             const SizedBox(width: 4),
             Text(
               widget.isRotating
-                  ? 'Pause [Space]'
-                  : 'Play Scan [Space]',
+                  ? (widget.compact
+                        ? context.l10n.pauseScan
+                        : context.l10n.pauseScanWide)
+                  : (widget.compact
+                        ? context.l10n.playScan
+                        : context.l10n.playScanWide),
               style: TextStyle(
                 fontSize: 11,
                 fontWeight: FontWeight.bold,
-                color: widget.isRotating
-                    ? Colors.redAccent
-                    : theme.colorScheme.primary,
+                color: widget.isRotating ? error : primary,
               ),
             ),
           ],
@@ -583,7 +636,7 @@ class _PlayButtonWithCueState extends State<_PlayButtonWithCue>
       animation: _controller,
       builder: (context, _) {
         final double t = _controller.value;
-        final double tapOffset = math.sin(t * math.pi) * 5.0;
+        final double tapOffset = -2.0 + math.sin(t * math.pi) * 5.0;
         final double rippleScale = 8.0 + 14.0 * t;
         final double rippleOpacity = (1.0 - t).clamp(0.0, 1.0);
 
@@ -593,45 +646,58 @@ class _PlayButtonWithCueState extends State<_PlayButtonWithCue>
           children: [
             button,
 
-            // Ripple expanding from the play button
-            Positioned(
-              left: 14.0 - rippleScale,
-              top: 10.0 - rippleScale,
+            // Ripple expanding from the center of the play button
+            Positioned.fill(
               child: IgnorePointer(
-                child: Container(
-                  width: rippleScale * 2,
-                  height: rippleScale * 2,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: cueColor.withValues(alpha: 0.6 * rippleOpacity),
-                      width: 1.5,
+                child: OverflowBox(
+                  minWidth: 0,
+                  minHeight: 0,
+                  maxWidth: double.infinity,
+                  maxHeight: double.infinity,
+                  alignment: Alignment.center,
+                  child: Container(
+                    width: rippleScale * 2,
+                    height: rippleScale * 2,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: cueColor.withValues(alpha: 0.6 * rippleOpacity),
+                        width: 1.5,
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
 
-            // Hovering / tapping hand icon over the play button
-            Positioned(
-              top: -14.0 + tapOffset,
-              left: 4.0,
+            // Hovering / tapping hand icon over the center of the play button
+            Positioned.fill(
               child: IgnorePointer(
-                child: Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.4),
-                        blurRadius: 4,
-                        offset: const Offset(1, 2),
+                child: OverflowBox(
+                  minWidth: 0,
+                  minHeight: 0,
+                  maxWidth: double.infinity,
+                  maxHeight: double.infinity,
+                  alignment: Alignment.center,
+                  child: Transform.translate(
+                    offset: Offset(0, tapOffset),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withValues(alpha: 0.4),
+                            blurRadius: 4,
+                            offset: const Offset(1, 2),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                  child: Icon(
-                    Icons.touch_app,
-                    size: 22,
-                    color: cueColor,
+                      child: Icon(
+                        Icons.touch_app,
+                        size: 22,
+                        color: cueColor,
+                      ),
+                    ),
                   ),
                 ),
               ),

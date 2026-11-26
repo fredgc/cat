@@ -21,6 +21,9 @@ class AppLocalizationsJa extends AppLocalizations {
   String get aboutTooltip => '情報';
 
   @override
+  String get addPhantomTooltip => 'ファントムディスクを追加';
+
+  @override
   String get appTitle => 'CTスキャン デモンストレーション';
 
   @override
@@ -45,6 +48,9 @@ class AppLocalizationsJa extends AppLocalizations {
   String get colormapViridis => 'Viridis';
 
   @override
+  String get deletePhantomTooltip => '選択したファントムを削除';
+
+  @override
   String get done => '完了';
 
   @override
@@ -60,14 +66,32 @@ class AppLocalizationsJa extends AppLocalizations {
   String get githubButton => 'GitHub (fredgc/cat)';
 
   @override
+  String get graphAxisAngle => '角度 θ ∈ [0, 2π)';
+
+  @override
+  String get graphAxisRadialOffset => '動径距離 r ∈ [-1, 1]';
+
+  @override
+  String get graphAxisRayPath => '光線経路 s ∈ [-1, 1]';
+
+  @override
   String get graphCanvasSemantics => '断面と逆投影積分を示す 1D プロファイルプロット。';
 
   @override
   String get graphFilteredPrefix => 'フィルタ済み wb * g: ';
 
   @override
+  String get graphLegendFiltered => '— フィルタ済み (ランプ核)';
+
+  @override
+  String get graphLegendUnfilteredPoint => '— 未フィルタ g(θ)';
+
+  @override
+  String get graphLegendUnfilteredTheta => '— 未フィルタ P_θ(r)';
+
+  @override
   String graphLineTrajectory(String r, String theta, String val) {
-    return 'Ray Absorption (Green) | 線 (r = $r, θ = $theta) | 合計吸収量: $val';
+    return 'X線吸収 (緑) | 直線 (r = $r, θ = $theta) | 合計吸収量: $val';
   }
 
   @override
@@ -78,7 +102,12 @@ class AppLocalizationsJa extends AppLocalizations {
     String val,
     String status,
   ) {
-    return '${prefix}Point Trajectory ($x, $y) | θ にわたる積分: $val $status';
+    return '$prefix点の軌跡 ($x, $y) | θ にわたる積分: $val $status';
+  }
+
+  @override
+  String graphRawValue(String val) {
+    return '[生値: $val]';
   }
 
   @override
@@ -95,7 +124,7 @@ class AppLocalizationsJa extends AppLocalizations {
   }
 
   @override
-  String get graphUnfilteredPrefix => 'フィルタ前 g: ';
+  String get graphUnfilteredPrefix => '未フィルタ: ';
 
   @override
   String get insidePhantom => '(ファントム内)';
@@ -105,7 +134,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get keyboardShortcutsList =>
-      '• [Enter]: ガイドステップまたは次のステージへ\n• [N] / [→]: 次のステージ\n• [P] / [←]: 前のステージ\n• [1] - [7]: ステージ 1〜7 へジャンプ\n• [スペース]: スキャン回転の再生/一時停止\n• [F]: フィルタ補正再構成モードの切り替え';
+      '• [Enter] / [N]: ガイドステップまたは次のステージへ\n• [→]: 次のステージ\n• [P] / [←]: 前のステージ\n• [1] - [7]: ステージ 1〜7 へジャンプ\n• [スペース]: スキャン回転の再生/一時停止\n• [F]: フィルタ補正再構成モードの切り替え';
 
   @override
   String get keyboardShortcutsTitle => 'キーボードショートカット:';
@@ -120,6 +149,15 @@ class AppLocalizationsJa extends AppLocalizations {
   String get languageSpanish => 'Español';
 
   @override
+  String get modePhantom => 'ファントム';
+
+  @override
+  String get modeProbe => 'プローブ';
+
+  @override
+  String get moreInfoButton => '詳細情報';
+
+  @override
   String get next => '次へ';
 
   @override
@@ -129,7 +167,22 @@ class AppLocalizationsJa extends AppLocalizations {
   String get objectCanvasSemantics => 'オブジェクト空間。X線投影線とファントムを示す座標平面。';
 
   @override
+  String get openInBrowser => 'ブラウザで開く';
+
+  @override
   String get outsidePhantom => '(ファントム外)';
+
+  @override
+  String get pauseScan => '一時停止';
+
+  @override
+  String get pauseScanWide => '一時停止 [スペース]';
+
+  @override
+  String get playScan => 'スキャン再生';
+
+  @override
+  String get playScanWide => 'スキャン再生 [スペース]';
 
   @override
   String get previous => '前へ';
@@ -190,20 +243,24 @@ class AppLocalizationsJa extends AppLocalizations {
   String get showGuidesTitle => '座標ガイドを表示';
 
   @override
+  String get skip => 'スキップ';
+
+  @override
+  String get skipStageTooltip => '次のステージへスキップ';
+
+  @override
   String get stage1Description =>
       'X線コンピュータ断層撮影 (CT) は、全方向からX線を照射することで物体の2D内部を非破壊的に再構成します。検出器が吸収後の強度を測定し、各直線 L に沿った吸収係数 f(x, y) の線積分 g(L) = ∫_L f ds を得ます。';
 
   @override
-  String get stage1Instruction1 =>
-      'オブジェクト空間をクリックまたはドラッグして、その点を通るすべての線を表示します。「次へ」または上のステージ2をクリックして進みます。';
+  String get stage1Instruction1 => '上の「次へ」をクリックして次のステージに進みます。';
 
   @override
   String get stage1NarrowDescription =>
       'CT は全方向からX線を照射して2D内部を再構成します。検出器が吸収強度を測定し、線積分 g(L) = ∫_L f ds を生成します。';
 
   @override
-  String get stage1NarrowInstruction1 =>
-      'オブジェクト空間をタップまたはドラッグして線を表示します。「次へ」またはステージ2をタップして進みます。';
+  String get stage1NarrowInstruction1 => '上の「次へ」をタップして次のステージに進みます。';
 
   @override
   String get stage1NarrowSubtitle => '概要とラドン変換';
@@ -334,14 +391,19 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get stage5Instruction1 =>
-      'ステップ 1/3: 左側のファントム内をクリックし、下の逆投影積分の高い値を確認します。';
+      'ステップ 1/4: 左側のファントムディスク内にプローブをドラッグします。下のグラフで逆投影積分が大きくなることを確認します。';
 
   @override
   String get stage5Instruction2 =>
-      'ステップ 2/3: ファントム外をクリックし、1D プロファイルと積分値が低下することを確認します。';
+      'ステップ 2/4: シノグラムの任意の場所をクリックして1本のX線を選択します。その光線に沿った吸収強度を示す緑色のパルスに注目してください。';
 
   @override
-  String get stage5Instruction3 => 'ステップ 3/3: 右側のシノグラム端をクリックして 1D 断面を確認します。';
+  String get stage5Instruction3 =>
+      'ステップ 3/4: シノグラムの右端バーをクリックして、固定角 θ における全 r の平行X線群（シアン曲線）を表示します。';
+
+  @override
+  String get stage5Instruction4 =>
+      'ステップ 4/4: 「スキャン再生」をクリックするか [スペース] を押して、平行線群を全角度 θ にわたって掃引し、1D 投影曲線をアニメーション表示します。';
 
   @override
   String get stage5NarrowDescription =>
@@ -349,13 +411,19 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get stage5NarrowInstruction1 =>
-      'ステップ 1/3: 上のファントム内をクリックし、下の高い積分値を確認します。';
+      'ステップ 1/4: 上のファントム内にプローブをドラッグします。逆投影積分が大きくなることを確認します。';
 
   @override
-  String get stage5NarrowInstruction2 => 'ステップ 2/3: ファントム外をクリックし、値の低下を確認します。';
+  String get stage5NarrowInstruction2 =>
+      'ステップ 2/4: シノグラムをクリックして1本の光線を選択し、吸収を示す緑色のパルスを確認します。';
 
   @override
-  String get stage5NarrowInstruction3 => 'ステップ 3/3: 下のシノグラム端をクリックして断面を確認します。';
+  String get stage5NarrowInstruction3 =>
+      'ステップ 3/4: シノグラムの右端バーをクリックして固定角 θ の平行X線群（シアン曲線）を表示します。';
+
+  @override
+  String get stage5NarrowInstruction4 =>
+      'ステップ 4/4: 「スキャン再生」をタップして平行線群を全角度 θ にわたって掃引します。';
 
   @override
   String get stage5NarrowSubtitle => '1D プロファイルと逆投影';
@@ -375,11 +443,15 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get stage6Instruction1 =>
-      'ステップ 1/2: ファントム内をクリックします。シャープなエッジと再構成積分 ≈ 1.0 を確認します。';
+      'ステップ 1/3: 下のグラフで平行線群を確認します。オレンジ色の曲線がボケを打ち消す鋭い負のサイドローブを持つフィルタ結果です。';
 
   @override
   String get stage6Instruction2 =>
-      'ステップ 2/2: ファントム外をクリックします。負のサイドローブがボケを打ち消し、積分 ≈ 0.0 となります。';
+      'ステップ 2/3: 「スキャン再生」をクリックするか [スペース] を押して、投影角の回転に合わせてフィルタ済み投影が動的に変化する様子を観察します。';
+
+  @override
+  String get stage6Instruction3 =>
+      'ステップ 3/3: オブジェクト空間のプローブ点をクリックします。フィルタ補正逆投影が内部減衰を正確に再構成することを確認します（内部 ≈ 1.0、外部 ≈ 0.0）。';
 
   @override
   String get stage6NarrowDescription =>
@@ -387,11 +459,15 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get stage6NarrowInstruction1 =>
-      'ステップ 1/2: ファントム内をクリックして積分 ≈ 1.0 を確認します。';
+      'ステップ 1/3: 下のグラフにはボケを打ち消す鋭い負のサイドローブを持つオレンジ色のフィルタ曲線が表示されます。';
 
   @override
   String get stage6NarrowInstruction2 =>
-      'ステップ 2/2: ファントム外をクリックして積分 ≈ 0.0 を確認します。';
+      'ステップ 2/3: 「スキャン再生」をタップして、角度回転に伴うフィルタ済み投影の変化を観察します。';
+
+  @override
+  String get stage6NarrowInstruction3 =>
+      'ステップ 3/3: オブジェクト空間の点をタップします。フィルタ補正逆投影は内部 ≈ 1.0、外部 ≈ 0.0 を正確に再構成します。';
 
   @override
   String get stage6NarrowSubtitle => 'フィルタ補正逆投影 (FBP)';
@@ -406,8 +482,52 @@ class AppLocalizationsJa extends AppLocalizations {
   String get stage6Title => 'フィルタ補正データ再構成';
 
   @override
+  String get stage7Description =>
+      'フリープレイモードでは、複数のファントムディスクを使って独自のシーンを作成できます。「+」でディスクを追加してドラッグで配置し、各ディスクがシノグラムに正弦波状の帯を加算する様子を観察しましょう。フィルタ補正逆投影でカスタムシーンを再構成し、内部密度を確認できます。';
+
+  @override
+  String get stage7Instruction1 =>
+      'ステップ 1/3: オブジェクト空間の右上にある「+」をタップしてファントムディスクを追加します。ディスクを選択して円内の好きな位置へドラッグしてください。';
+
+  @override
+  String get stage7Instruction2 =>
+      'ステップ 2/3: シノグラムを観察します。各ファントムが独自の正弦波軌跡を生成し、重なり合う領域が線形に加算されることを確認します。';
+
+  @override
+  String get stage7Instruction3 =>
+      'ステップ 3/3: オブジェクト空間で「プローブ」モードに切り替え、点の逆投影をテストします。フィルタ [F] を切り替えて、負のサイドローブが各ファントムをどのように再構成するか確認します。';
+
+  @override
+  String get stage7NarrowDescription =>
+      '複数のファントムディスクでカスタムシーンを作成します。「+」で追加して配置し、加算シノグラムとフィルタ補正逆投影を探索できます。';
+
+  @override
+  String get stage7NarrowInstruction1 =>
+      'ステップ 1/3: オブジェクト空間の「+」をタップしてファントムディスクを追加し、円内にドラッグして配置します。';
+
+  @override
+  String get stage7NarrowInstruction2 =>
+      'ステップ 2/3: シノグラムを観察し、複数のファントムがラドン空間で線形に加算される様子を確認します。';
+
+  @override
+  String get stage7NarrowInstruction3 =>
+      'ステップ 3/3: 「プローブ」モードに切り替え、フィルタ [F] をオン・オフしてカスタムファントムを再構成します。';
+
+  @override
+  String get stage7NarrowSubtitle => 'マルチファントム サンドボックス';
+
+  @override
+  String get stage7NarrowTitle => 'フリープレイ';
+
+  @override
+  String get stage7Subtitle => '複数ファントムシーンの作成と再構成の探索';
+
+  @override
+  String get stage7Title => 'フリープレイとカスタムファントム';
+
+  @override
   String stageIndicator(int stageNumber) {
-    return 'ステージ $stageNumber / 6';
+    return 'ステージ $stageNumber / 7';
   }
 
   @override
@@ -417,9 +537,6 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get switchLanguageTooltip => '言語を切り替える';
-
-  @override
-  String get moreInfoButton => '詳細情報';
 
   @override
   String get termsOfServiceButton => '利用規約';
@@ -435,6 +552,11 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get themeSystem => 'システム';
+
+  @override
+  String unableToLoadDocument(String title) {
+    return '$title ドキュメントを読み込めませんでした。';
+  }
 
   @override
   String versionLabel(String version) {

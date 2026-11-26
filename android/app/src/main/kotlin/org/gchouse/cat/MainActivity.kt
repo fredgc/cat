@@ -1,4 +1,4 @@
-package com.gchouse.cat
+package org.gchouse.cat
 
 import io.flutter.embedding.android.FlutterActivity
 

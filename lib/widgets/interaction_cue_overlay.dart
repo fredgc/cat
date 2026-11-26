@@ -30,6 +30,7 @@ class InteractionCueOverlay extends StatefulWidget {
   final VoidCallback? onDismiss;
   final Offset? targetNormalizedPos;
   final Axis? dragAxis;
+  final double unitMargin;
 
   const InteractionCueOverlay({
     super.key,
@@ -41,6 +42,7 @@ class InteractionCueOverlay extends StatefulWidget {
     this.onDismiss,
     this.targetNormalizedPos,
     this.dragAxis,
+    this.unitMargin = ObjectCanvas.unitMargin,
   });
 
   @override
@@ -222,8 +224,10 @@ class _InteractionCueOverlayState extends State<InteractionCueOverlay>
                         Offset dragDelta = Offset.zero;
 
                         if (widget.targetNormalizedPos != null) {
-                          final double unitRadius =
-                              squareSize * 0.5 - ObjectCanvas.unitMargin;
+                          final double unitRadius = math.max(
+                            1.0,
+                            squareSize * 0.5 - widget.unitMargin,
+                          );
                           pointerPos = Offset(
                             center.dx +
                                 widget.targetNormalizedPos!.dx * unitRadius,

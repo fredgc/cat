@@ -188,6 +188,30 @@ class _CatScanHomePageState extends State<CatScanHomePage>
     }
   }
 
+  void _prevStepOrStage() {
+    if (_currentInstructionStep > 0) {
+      setState(() {
+        _currentInstructionStep--;
+        _cueDismissed = false;
+      });
+    } else if (_currentStageIndex > 0) {
+      final int prevStageIndex = _currentStageIndex - 1;
+      final int prevInstructionCount =
+          demoStages[prevStageIndex].instructions.length;
+      if (_rotationController.isAnimating) {
+        _rotationController.stop();
+      }
+      setState(() {
+        _currentStageIndex = prevStageIndex;
+        _currentInstructionStep = prevInstructionCount > 0
+            ? prevInstructionCount - 1
+            : 0;
+        _cueDismissed = false;
+        _applyStageConfig(prevStageIndex);
+      });
+    }
+  }
+
   void _advanceStepOrStage() {
     final int instructionCount = currentStage.instructions.length;
     if (_currentInstructionStep < instructionCount - 1) {
@@ -245,7 +269,7 @@ class _CatScanHomePageState extends State<CatScanHomePage>
         const SingleActivator(LogicalKeyboardKey.arrowLeft): _prevStage,
         const SingleActivator(LogicalKeyboardKey.arrowRight): _nextStage,
         const SingleActivator(LogicalKeyboardKey.keyP): _prevStage,
-        const SingleActivator(LogicalKeyboardKey.keyN): _nextStage,
+        const SingleActivator(LogicalKeyboardKey.keyN): _advanceStepOrStage,
         const SingleActivator(LogicalKeyboardKey.enter): _advanceStepOrStage,
         const SingleActivator(LogicalKeyboardKey.numpadEnter):
             _advanceStepOrStage,
@@ -375,8 +399,18 @@ class _CatScanHomePageState extends State<CatScanHomePage>
                     StageStepper(
                       currentStageIndex: _currentStageIndex,
                       onStageSelected: _setStage,
-                      onPrev: _currentStageIndex > 0 ? _prevStage : null,
-                      onNext: _currentStageIndex < demoStages.length - 1
+                      onPrev:
+                          (_currentStageIndex > 0 ||
+                              _currentInstructionStep > 0)
+                          ? _prevStepOrStage
+                          : null,
+                      onNext:
+                          (_currentStageIndex < demoStages.length - 1 ||
+                              _currentInstructionStep <
+                                  stage.instructions.length - 1)
+                          ? _advanceStepOrStage
+                          : null,
+                      onSkipStage: _currentStageIndex < demoStages.length - 1
                           ? _nextStage
                           : null,
                       isWide: isWide,
@@ -400,6 +434,10 @@ class _CatScanHomePageState extends State<CatScanHomePage>
                         builder: (context, constraints) {
                           final showPhantom = stage.number >= 4;
                           final showSinogram = stage.number >= 4;
+                          final bool verticalControls = !isWide;
+                          final double objectUnitMargin = verticalControls
+                              ? ObjectCanvas.compactUnitMargin
+                              : ObjectCanvas.unitMargin;
 
                           final objectView = Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -413,12 +451,14 @@ class _CatScanHomePageState extends State<CatScanHomePage>
                               isDismissed: _cueDismissed,
                               targetNormalizedPos: targetPos,
                               dragAxis: activeInstruction?.dragAxis,
+                              unitMargin: objectUnitMargin,
                               onDismiss: () =>
                                   setState(() => _cueDismissed = true),
                               child: ObjectCanvas(
                                 engine: _engine,
                                 showPhantom: showPhantom,
                                 showGuides: _settings.showGuides,
+                                verticalControls: verticalControls,
                               ),
                             ),
                           );
@@ -483,7 +523,7 @@ class _CatScanHomePageState extends State<CatScanHomePage>
                     if (stage.number >= 5)
                       GraphCanvas(
                         engine: _engine,
-                        height: 130,
+                        height: isWide ? 130 : 152,
                         isRotating: _rotationController.isAnimating,
                         onToggleRotation: _toggleRotation,
                         currentTarget: currentTarget,
