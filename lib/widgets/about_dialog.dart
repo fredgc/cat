@@ -60,7 +60,7 @@ void showDocumentDialog(
               final raw = snapshot.data ?? '';
               if (raw.isEmpty) {
                 return Center(
-                  child: Text('Unable to load $title document.'),
+                  child: Text(context.l10n.unableToLoadDocument(title)),
                 );
               }
               final formattedText = formatDocumentHtml(raw);
@@ -77,7 +77,7 @@ void showDocumentDialog(
           if (kIsWeb)
             TextButton.icon(
               icon: const Icon(Icons.open_in_new, size: 14),
-              label: const Text('Open in browser'),
+              label: Text(context.l10n.openInBrowser),
               onPressed: () {
                 final locale = Localizations.localeOf(context).languageCode;
                 final file = locale != 'en'
@@ -117,6 +117,16 @@ void showTermsOfServiceDialog(BuildContext context) {
   );
 }
 
+/// Displays the Math & UI Reference ("More Info") document modal dialog.
+void showMoreInfoDialog(BuildContext context) {
+  showDocumentDialog(
+    context,
+    assetName: 'info',
+    title: context.l10n.moreInfoButton,
+    icon: Icons.menu_book_outlined,
+  );
+}
+
 /// Shows the rich About Dialog for the CAT Scan demonstration application.
 void showAppAboutDialog(BuildContext context, {String? version}) async {
   String resolvedVersion = version ?? '';
@@ -144,8 +154,12 @@ class AppAboutDialog extends StatelessWidget {
 
   Future<void> _launchUrl(String url) async {
     final uri = Uri.parse(url);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    final launched = await launchUrl(
+      uri,
+      mode: LaunchMode.externalApplication,
+    );
+    if (!launched) {
+      await launchUrl(uri, mode: LaunchMode.platformDefault);
     }
   }
 
@@ -158,12 +172,7 @@ class AppAboutDialog extends StatelessWidget {
   }
 
   void _openMoreInfo(BuildContext context) {
-    final locale = Localizations.localeOf(context).languageCode;
-    final file = locale != 'en' ? 'info_$locale.html' : 'info.html';
-    final uri = kIsWeb
-        ? Uri.base.resolve(file)
-        : Uri.parse('https://www.gchouse.org/cat/$file');
-    launchUrl(uri, mode: LaunchMode.platformDefault);
+    showMoreInfoDialog(context);
   }
 
   @override
@@ -181,17 +190,22 @@ class AppAboutDialog extends StatelessWidget {
                 const Icon(Icons.blur_circular, size: 32),
           ),
           const SizedBox(width: 12),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(context.l10n.appTitle, style: const TextStyle(fontSize: 18)),
-              Text(
-                context.l10n.versionLabel(version),
-                style: theme.textTheme.bodySmall?.copyWith(
-                  color: theme.colorScheme.onSurfaceVariant,
+          SelectionArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  context.l10n.appTitle,
+                  style: const TextStyle(fontSize: 18),
                 ),
-              ),
-            ],
+                Text(
+                  context.l10n.versionLabel(version),
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: theme.colorScheme.onSurfaceVariant,
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -202,36 +216,30 @@ class AppAboutDialog extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
-                context.l10n.aboutSummary,
-                style: const TextStyle(fontSize: 13, height: 1.4),
-              ),
-              const SizedBox(height: 12),
-              Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: theme.colorScheme.surfaceContainerHighest.withValues(
-                    alpha: 0.5,
-                  ),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Text(
-                  context.l10n.aboutAuthor,
-                  style: const TextStyle(fontSize: 12, height: 1.3),
-                ),
-              ),
-              const SizedBox(height: 12),
-              Text(
-                context.l10n.keyboardShortcutsTitle,
-                style: theme.textTheme.titleSmall?.copyWith(fontSize: 13),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                context.l10n.keyboardShortcutsList,
-                style: const TextStyle(
-                  fontSize: 12,
-                  height: 1.4,
-                  fontFamily: 'monospace',
+              SelectionArea(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      context.l10n.aboutSummary,
+                      style: const TextStyle(fontSize: 13, height: 1.4),
+                    ),
+                    const SizedBox(height: 12),
+                    Text(
+                      context.l10n.keyboardShortcutsTitle,
+                      style: theme.textTheme.titleSmall?.copyWith(fontSize: 13),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      context.l10n.keyboardShortcutsList,
+                      style: const TextStyle(
+                        fontSize: 12,
+                        height: 1.4,
+                        fontFamily: 'monospace',
+                      ),
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(height: 14),

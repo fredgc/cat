@@ -128,6 +128,12 @@ abstract class AppLocalizations {
   /// **'About'**
   String get aboutTooltip;
 
+  /// Tooltip for button that adds a new phantom disk in Object Space
+  ///
+  /// In en, this message translates to:
+  /// **'Add phantom disk'**
+  String get addPhantomTooltip;
+
   /// Title displayed on the application header
   ///
   /// In en, this message translates to:
@@ -176,6 +182,12 @@ abstract class AppLocalizations {
   /// **'Viridis'**
   String get colormapViridis;
 
+  /// Tooltip for button that deletes the selected phantom disk
+  ///
+  /// In en, this message translates to:
+  /// **'Delete selected phantom'**
+  String get deletePhantomTooltip;
+
   /// Button label to close settings dialog
   ///
   /// In en, this message translates to:
@@ -206,6 +218,24 @@ abstract class AppLocalizations {
   /// **'GitHub (fredgc/cat)'**
   String get githubButton;
 
+  /// X-axis label in 1D graph when plotting against projection angle theta
+  ///
+  /// In en, this message translates to:
+  /// **'Angle θ ∈ [0, 2π)'**
+  String get graphAxisAngle;
+
+  /// X-axis label in 1D graph when plotting against radial offset r
+  ///
+  /// In en, this message translates to:
+  /// **'Radial offset r ∈ [-1, 1]'**
+  String get graphAxisRadialOffset;
+
+  /// X-axis label in 1D graph when plotting absorption along a single ray
+  ///
+  /// In en, this message translates to:
+  /// **'Path along ray s ∈ [-1, 1]'**
+  String get graphAxisRayPath;
+
   /// Accessibility semantic label for the 1D profile plot canvas
   ///
   /// In en, this message translates to:
@@ -217,6 +247,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Filtered wb * g: '**
   String get graphFilteredPrefix;
+
+  /// Legend label for the filtered curve in dual-curve graph mode
+  ///
+  /// In en, this message translates to:
+  /// **'— Filtered (Ramp kernel)'**
+  String get graphLegendFiltered;
+
+  /// Legend label for the unfiltered point trajectory curve
+  ///
+  /// In en, this message translates to:
+  /// **'— Unfiltered g(θ)'**
+  String get graphLegendUnfilteredPoint;
+
+  /// Legend label for the unfiltered parallel projection curve
+  ///
+  /// In en, this message translates to:
+  /// **'— Unfiltered P_θ(r)'**
+  String get graphLegendUnfilteredTheta;
 
   /// Graph header text for line probe
   ///
@@ -235,6 +283,12 @@ abstract class AppLocalizations {
     String val,
     String status,
   );
+
+  /// Bracketed unfiltered backprojection value shown beside the filtered value
+  ///
+  /// In en, this message translates to:
+  /// **'[Raw: {val}]'**
+  String graphRawValue(String val);
 
   /// Prompt displayed in graph header when no probe is active
   ///
@@ -275,7 +329,7 @@ abstract class AppLocalizations {
   /// List of available keyboard shortcuts in the about dialog
   ///
   /// In en, this message translates to:
-  /// **'• [Enter]: Advance instruction step or next stage\n• [N] / [→]: Next stage\n• [P] / [←]: Previous stage\n• [1] - [7]: Jump to stage 1 through 7\n• [Space]: Play / Pause angle sweep rotation\n• [F]: Toggle filtered reconstruction mode'**
+  /// **'• [Enter] / [N]: Advance instruction step or next stage\n• [→]: Next stage\n• [P] / [←]: Previous stage\n• [1] - [7]: Jump to stage 1 through 7\n• [Space]: Play / Pause angle sweep rotation\n• [F]: Toggle filtered reconstruction mode'**
   String get keyboardShortcutsList;
 
   /// Title preceding keyboard shortcuts list in the about dialog
@@ -302,7 +356,25 @@ abstract class AppLocalizations {
   /// **'Español'**
   String get languageSpanish;
 
-  /// Button label to navigate to the next stage
+  /// Segment label for Phantom dragging mode in Object Space
+  ///
+  /// In en, this message translates to:
+  /// **'Phantom'**
+  String get modePhantom;
+
+  /// Segment label for Probe point mode in Object Space
+  ///
+  /// In en, this message translates to:
+  /// **'Probe'**
+  String get modeProbe;
+
+  /// Button linking to info.html documentation
+  ///
+  /// In en, this message translates to:
+  /// **'More Info'**
+  String get moreInfoButton;
+
+  /// Button label to navigate to the next step or stage
   ///
   /// In en, this message translates to:
   /// **'Next'**
@@ -320,13 +392,43 @@ abstract class AppLocalizations {
   /// **'Object space viewport. Interactive coordinate plane showing X-ray projection lines and phantom.'**
   String get objectCanvasSemantics;
 
+  /// Action button to open a document in a browser tab
+  ///
+  /// In en, this message translates to:
+  /// **'Open in browser'**
+  String get openInBrowser;
+
   /// Status suffix indicating the probe point lies outside the phantom disk
   ///
   /// In en, this message translates to:
   /// **'(outside phantom)'**
   String get outsidePhantom;
 
-  /// Button label to navigate to the previous stage
+  /// Compact button label to pause angle sweep animation
+  ///
+  /// In en, this message translates to:
+  /// **'Pause'**
+  String get pauseScan;
+
+  /// Wide button label with shortcut hint to pause angle sweep animation
+  ///
+  /// In en, this message translates to:
+  /// **'Pause [Space]'**
+  String get pauseScanWide;
+
+  /// Compact button label to start angle sweep animation
+  ///
+  /// In en, this message translates to:
+  /// **'Play Scan'**
+  String get playScan;
+
+  /// Wide button label with shortcut hint to start angle sweep animation
+  ///
+  /// In en, this message translates to:
+  /// **'Play Scan [Space]'**
+  String get playScanWide;
+
+  /// Button label to navigate to the previous step or stage
   ///
   /// In en, this message translates to:
   /// **'Previous'**
@@ -440,6 +542,18 @@ abstract class AppLocalizations {
   /// **'Show Coordinate Guides'**
   String get showGuidesTitle;
 
+  /// Compact button label to skip remaining steps and jump to the next stage
+  ///
+  /// In en, this message translates to:
+  /// **'Skip'**
+  String get skip;
+
+  /// Tooltip on the skip button to jump directly to the next stage
+  ///
+  /// In en, this message translates to:
+  /// **'Skip to next stage'**
+  String get skipStageTooltip;
+
   /// Full description text for Stage 1 in wide layout
   ///
   /// In en, this message translates to:
@@ -449,7 +563,7 @@ abstract class AppLocalizations {
   /// Interaction prompt for Stage 1 in wide layout
   ///
   /// In en, this message translates to:
-  /// **'Click or drag in Object Space to see all lines passing through that point. Click \"Next\" or Stage 2 above to continue.'**
+  /// **'Click \'Next\' above to continue to the next stage.'**
   String get stage1Instruction1;
 
   /// Concise description text for Stage 1 in narrow layout
@@ -461,7 +575,7 @@ abstract class AppLocalizations {
   /// Interaction prompt for Stage 1 in narrow layout
   ///
   /// In en, this message translates to:
-  /// **'Tap or drag in Object Space to see lines through that point. Tap \"Next\" or Stage 2 above to continue.'**
+  /// **'Tap \'Next\' above to continue to the next stage.'**
   String get stage1NarrowInstruction1;
 
   /// Subtitle for Stage 1 in narrow layout
@@ -695,20 +809,26 @@ abstract class AppLocalizations {
   /// Step 1 interaction prompt for Stage 5 in wide layout
   ///
   /// In en, this message translates to:
-  /// **'Step 1 of 3: Click inside the phantom disk on the left. Notice the large backprojection integral value on the bottom graph.'**
+  /// **'Step 1 of 4: Drag the probe inside the phantom disk on the left. Notice how the backprojection integral on the bottom graph increases.'**
   String get stage5Instruction1;
 
   /// Step 2 interaction prompt for Stage 5 in wide layout
   ///
   /// In en, this message translates to:
-  /// **'Step 2 of 3: Click outside the phantom disk. Observe how the 1D profile values drop and the backprojection integral becomes small.'**
+  /// **'Step 2 of 4: Click anywhere in the Sinogram to select a single X-ray ray. Notice the green pulse showing absorption intensity along that ray.'**
   String get stage5Instruction2;
 
   /// Step 3 interaction prompt for Stage 5 in wide layout
   ///
   /// In en, this message translates to:
-  /// **'Step 3 of 3: Click the sinogram border bars on the right to examine 1D cross sections along constant θ or r.'**
+  /// **'Step 3 of 4: Click the right border bar in the Sinogram to view a parallel family of X-rays across all r at fixed angle θ (cyan curve).'**
   String get stage5Instruction3;
+
+  /// Step 4 interaction prompt for Stage 5 in wide layout
+  ///
+  /// In en, this message translates to:
+  /// **'Step 4 of 4: Click \"Play Scan\" or press [Space] to sweep the parallel family across all angles θ, animating the live 1D projection curve.'**
+  String get stage5Instruction4;
 
   /// Concise description text for Stage 5 in narrow layout
   ///
@@ -719,20 +839,26 @@ abstract class AppLocalizations {
   /// Step 1 interaction prompt for Stage 5 in narrow layout
   ///
   /// In en, this message translates to:
-  /// **'Step 1 of 3: Click inside the phantom disk on the top. Notice the large backprojection integral on the bottom graph.'**
+  /// **'Step 1 of 4: Drag the probe inside the phantom disk on the top. Notice how the backprojection integral increases.'**
   String get stage5NarrowInstruction1;
 
   /// Step 2 interaction prompt for Stage 5 in narrow layout
   ///
   /// In en, this message translates to:
-  /// **'Step 2 of 3: Click outside the phantom disk. Observe how profile values drop and the integral becomes small.'**
+  /// **'Step 2 of 4: Click in the Sinogram to select a single ray. Notice the green pulse showing absorption intensity along that ray.'**
   String get stage5NarrowInstruction2;
 
   /// Step 3 interaction prompt for Stage 5 in narrow layout
   ///
   /// In en, this message translates to:
-  /// **'Step 3 of 3: Click the sinogram border bars on the bottom to examine 1D cross sections along constant θ or r.'**
+  /// **'Step 3 of 4: Click the right border bar in the Sinogram to view a parallel family of X-rays at fixed angle θ (cyan curve).'**
   String get stage5NarrowInstruction3;
+
+  /// Step 4 interaction prompt for Stage 5 in narrow layout
+  ///
+  /// In en, this message translates to:
+  /// **'Step 4 of 4: Tap \"Play Scan\" to sweep the parallel family across all angles θ, animating the live 1D projection curve.'**
+  String get stage5NarrowInstruction4;
 
   /// Subtitle for Stage 5 in narrow layout
   ///
@@ -767,14 +893,20 @@ abstract class AppLocalizations {
   /// Step 1 interaction prompt for Stage 6 in wide layout
   ///
   /// In en, this message translates to:
-  /// **'Step 1 of 2: Click inside the phantom disk. Observe the sharp edge lobes in the 1D profile and the reconstructed integral ≈ 1.0.'**
+  /// **'Step 1 of 3: Check the bottom graph for the parallel family: the orange curve shows the filtered result with sharp negative lobes that cancel blur.'**
   String get stage6Instruction1;
 
   /// Step 2 interaction prompt for Stage 6 in wide layout
   ///
   /// In en, this message translates to:
-  /// **'Step 2 of 2: Click outside the phantom disk. Notice how the negative side lobes cancel the smearing, yielding integral ≈ 0.0.'**
+  /// **'Step 2 of 3: Click \"Play Scan\" or press [Space] to watch the filtered projections dynamically sweep as the projection angle rotates.'**
   String get stage6Instruction2;
+
+  /// Step 3 interaction prompt for Stage 6 in wide layout
+  ///
+  /// In en, this message translates to:
+  /// **'Step 3 of 3: Click probe points in Object Space. Notice that filtered backprojection reconstructs exact interior attenuation: ≈ 1.0 inside and ≈ 0.0 outside.'**
+  String get stage6Instruction3;
 
   /// Concise description text for Stage 6 in narrow layout
   ///
@@ -785,14 +917,20 @@ abstract class AppLocalizations {
   /// Step 1 interaction prompt for Stage 6 in narrow layout
   ///
   /// In en, this message translates to:
-  /// **'Step 1 of 2: Click inside the phantom disk. Observe the sharp edge lobes in the 1D profile and integral ≈ 1.0.'**
+  /// **'Step 1 of 3: The bottom graph displays the orange filtered curve with sharp negative lobes that cancel out blur.'**
   String get stage6NarrowInstruction1;
 
   /// Step 2 interaction prompt for Stage 6 in narrow layout
   ///
   /// In en, this message translates to:
-  /// **'Step 2 of 2: Click outside the phantom disk. Negative side lobes cancel smearing, yielding integral ≈ 0.0.'**
+  /// **'Step 2 of 3: Tap \"Play Scan\" to watch the filtered projections dynamically sweep as the projection angle rotates.'**
   String get stage6NarrowInstruction2;
+
+  /// Step 3 interaction prompt for Stage 6 in narrow layout
+  ///
+  /// In en, this message translates to:
+  /// **'Step 3 of 3: Tap probe points in Object Space. Filtered backprojection reconstructs exact attenuation: ≈ 1.0 inside and ≈ 0.0 outside.'**
+  String get stage6NarrowInstruction3;
 
   /// Subtitle for Stage 6 in narrow layout
   ///
@@ -818,10 +956,82 @@ abstract class AppLocalizations {
   /// **'Filtered Data Reconstruction'**
   String get stage6Title;
 
+  /// Full description text for Stage 7 in wide layout
+  ///
+  /// In en, this message translates to:
+  /// **'In Free Play mode, design your own scenes using multiple phantom disks. Add disks with \"+\", drag them into position, and observe how each disk contributes an additive sinusoidal band to the sinogram. Use Filtered Backprojection to reconstruct your custom scenes and verify interior densities.'**
+  String get stage7Description;
+
+  /// Step 1 interaction prompt for Stage 7 in wide layout
+  ///
+  /// In en, this message translates to:
+  /// **'Step 1 of 3: Tap \"+ Add\" in the top-right of Object Space to create additional phantom disks. Select and drag disks to position them anywhere inside the circle.'**
+  String get stage7Instruction1;
+
+  /// Step 2 interaction prompt for Stage 7 in wide layout
+  ///
+  /// In en, this message translates to:
+  /// **'Step 2 of 3: Inspect the Sinogram. Notice how each phantom generates its own sinusoidal trace, and overlapping areas sum linearly.'**
+  String get stage7Instruction2;
+
+  /// Step 3 interaction prompt for Stage 7 in wide layout
+  ///
+  /// In en, this message translates to:
+  /// **'Step 3 of 3: Switch to \"Probe\" mode in Object Space to test point backprojections. Toggle the Filter [F] to observe how negative lobes reconstruct each individual phantom.'**
+  String get stage7Instruction3;
+
+  /// Concise description text for Stage 7 in narrow layout
+  ///
+  /// In en, this message translates to:
+  /// **'Design custom scenes with multiple phantom disks. Use \"+\" to add disks, drag them into position, and explore their additive sinograms and filtered backprojection reconstruction.'**
+  String get stage7NarrowDescription;
+
+  /// Step 1 interaction prompt for Stage 7 in narrow layout
+  ///
+  /// In en, this message translates to:
+  /// **'Step 1 of 3: Tap \"+ Add\" in Object Space to create phantom disks. Drag them into position inside the circle.'**
+  String get stage7NarrowInstruction1;
+
+  /// Step 2 interaction prompt for Stage 7 in narrow layout
+  ///
+  /// In en, this message translates to:
+  /// **'Step 2 of 3: Inspect the Sinogram to see how multiple phantoms sum linearly in Radon space.'**
+  String get stage7NarrowInstruction2;
+
+  /// Step 3 interaction prompt for Stage 7 in narrow layout
+  ///
+  /// In en, this message translates to:
+  /// **'Step 3 of 3: Switch to \"Probe\" mode and toggle Filter [F] to reconstruct your custom phantoms.'**
+  String get stage7NarrowInstruction3;
+
+  /// Subtitle for Stage 7 in narrow layout
+  ///
+  /// In en, this message translates to:
+  /// **'Multi-Phantom Sandbox'**
+  String get stage7NarrowSubtitle;
+
+  /// Short title for Stage 7 in narrow layout
+  ///
+  /// In en, this message translates to:
+  /// **'Free Play'**
+  String get stage7NarrowTitle;
+
+  /// Subtitle for Stage 7 in wide layout
+  ///
+  /// In en, this message translates to:
+  /// **'Construct Multi-Phantom Scenes and Explore Reconstruction'**
+  String get stage7Subtitle;
+
+  /// Title for Stage 7 in wide layout
+  ///
+  /// In en, this message translates to:
+  /// **'Free Play & Custom Phantoms'**
+  String get stage7Title;
+
   /// Stage number pill indicator in narrative card
   ///
   /// In en, this message translates to:
-  /// **'Stage {stageNumber} of 6'**
+  /// **'Stage {stageNumber} of 7'**
   String stageIndicator(int stageNumber);
 
   /// AppBar title combining stage number and title
@@ -835,12 +1045,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Switch language'**
   String get switchLanguageTooltip;
-
-  /// Button linking to info.html documentation
-  ///
-  /// In en, this message translates to:
-  /// **'More Info'**
-  String get moreInfoButton;
 
   /// Button link opening terms of service
   ///
@@ -871,6 +1075,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'System'**
   String get themeSystem;
+
+  /// Error message shown when a documentation asset fails to load
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to load {title} document.'**
+  String unableToLoadDocument(String title);
 
   /// Version string display in about dialog
   ///

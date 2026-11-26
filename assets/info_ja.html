@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>CTスキャンデモについて</title>
+  <title>CTスキャン 数学・UI リファレンス</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -25,45 +25,154 @@
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title">CTスキャンデモについて</h1>
+<h1 class="title">CTスキャン 数学・UI リファレンス</h1>
 </header>
-<p><strong>CTスキャンデモツール</strong>は、コンピュータ断層撮影（CT）とラドン変換の数学的原理と仕組みを視覚的に学ぶための対話型教育アプリケーションです。</p>
-<h2 id="歴史と背景">歴史と背景</h2>
-<p>本アプリは、1998年/2006年に<strong>Fred
-Gylys-Colwell</strong>によって作成されたJavaアプレットから着想を得てFlutterで再設計され
-ました。最初の発表は1998年2月26日に行われました。</p>
-<p>ソースコードはGitHubで公開されています： <a
-href="https://github.com/fredgc/cat">https://github.com/fredgc/cat</a>。</p>
-<p>不具合の報告や機能要望はGitHubまで： <a
-href="https://github.com/fredgc/cat/issues">GitHub Issues</a>。</p>
-<p>その他のアプリや描画ツールは <a
-href="https://www.gchouse.org">www.gchouse.org</a> をご覧ください。</p>
-<h2 id="ctスキャンの数学的原理">CTスキャンの数学的原理</h2>
-<p>X線CTスキャンは、非侵襲的に物体の内部断面を2次元で再構成します。</p>
-<ol type="1">
-<li><strong>X線の減衰と線積分</strong>:</li>
-</ol>
-<p>直線<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>に沿って照射されたX線の吸収率は、線上の吸収係数<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">f(x, y)</annotation></semantics></math>の線積分に対応します：</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>L</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mo>∫</mo><mi>L</mi></msub><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="true" form="postfix">)</mo></mrow><mspace width="0.167em"></mspace><mi>d</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">g(L) = \int_L f(x, y) \, ds</annotation></semantics></math></p>
-<ol start="2" type="1">
-<li><strong>直線のパラメータ化</strong>:</li>
-</ol>
-<p>平面上の直線は原点からの距離<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>と法線角度<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\theta \in [0, 2\pi)</annotation></semantics></math>で表現されます：</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>cos</mo><mi>θ</mi><mo>+</mo><mi>y</mi><mo>sin</mo><mi>θ</mi><mo>=</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">x \cos\theta + y \sin\theta = r</annotation></semantics></math></p>
-<p>ラドン変換<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℛ</mi><mrow><mo stretchy="true" form="prefix">[</mo><mi>f</mi><mo stretchy="true" form="postfix">]</mo></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>r</mi><mo>,</mo><mi>θ</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal{R}[f](r, \theta)</annotation></semantics></math>は、すべての<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">(</mo><mi>r</mi><mo>,</mo><mi>θ</mi><mo stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(r, \theta)</annotation></semantics></math>に対する線積分を記録します。</p>
-<ol start="3" type="1">
-<li><p><strong>サイノグラムの双対性</strong>:</p>
+<p><strong>CTスキャン
+デモンストレーション</strong>は、コンピュータ断層撮影（CT）、ラドン変換、
+およびフィルタ補正逆投影（FBP）の対話型リファレンスです。</p>
+<h2 id="数学リファレンス">数学リファレンス</h2>
+<h3 id="x線減衰と線積分">1. X線減衰と線積分</h3>
+<p>直線
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>
+に沿って物体を通過するX線ビームは、ランベルト・ベールの法則に従って
+減衰します：</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mo>=</mo><msub><mi>I</mi><mn>0</mn></msub><mrow><mi>exp</mi><mo>&#8289;</mo></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>−</mi><msub><mo>∫</mo><mi>L</mi></msub><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>s</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">I = I_0 \exp\left(-\int_L f(x, y) \, ds\right)</annotation></semantics></math></p>
+<p>入射強度
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>I</mi><mn>0</mn></msub><annotation encoding="application/x-tex">I_0</annotation></semantics></math>
+と透過強度
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>I</mi><annotation encoding="application/x-tex">I</annotation></semantics></math>
+の比から、吸収係数
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f(x, y)</annotation></semantics></math>
+の線積分が得られます：</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>L</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>−</mi><mrow><mi>ln</mi><mo>&#8289;</mo></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mi>I</mi><msub><mi>I</mi><mn>0</mn></msub></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mo>∫</mo><mi>L</mi></msub><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">g(L) = -\ln\left(\frac{I}{I_0}\right) = \int_L f(x, y) \, ds</annotation></semantics></math></p>
+<h3 id="直線のパラメータ化とラドン変換">2.
+直線のパラメータ化とラドン変換</h3>
+<p>2D平面
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mi>−</mi><mn>1</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">]</mo><mo>×</mo><mo stretchy="false" form="prefix">[</mo><mi>−</mi><mn>1</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[-1, 1] \times [-1, 1]</annotation></semantics></math>
+上の直線は、原点からの符号付き垂直距離
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mi>−</mi><mn>1</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">r \in [-1, 1]</annotation></semantics></math>
+と法線角
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\theta \in [0, 2\pi)</annotation></semantics></math>
+で表されます：</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mrow><mi>cos</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>y</mi><mrow><mi>sin</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">x \cos(\theta) + y \sin(\theta) = r</annotation></semantics></math></p>
+<p><strong>ラドン変換</strong>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℛ</mi><mo stretchy="false" form="prefix">[</mo><mi>f</mi><mo stretchy="false" form="postfix">]</mo><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo>,</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo>,</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal{R}[f](r, \theta) = g(r, \theta)</annotation></semantics></math>
+はすべての線積分を
+<strong>シノグラム</strong>と呼ばれる2Dデータに記録し、<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>Q</mi><mo>×</mo><mn>2</mn><mi>P</mi></mrow><annotation encoding="application/x-tex">2Q \times 2P</annotation></semantics></math>
+格子
+（<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>=</mo><mn>1</mn><mi>/</mi><mi>Q</mi></mrow><annotation encoding="application/x-tex">h = 1/Q</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mi>i</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo>−</mo><mi>Q</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mi>Q</mi></mrow><annotation encoding="application/x-tex">r_i = (i - Q)/Q</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>θ</mi><mi>j</mi></msub><mo>=</mo><mi>π</mi><mi>j</mi><mi>/</mi><mi>P</mi></mrow><annotation encoding="application/x-tex">\theta_j = \pi j / P</annotation></semantics></math>）で離散化されます。</p>
+<h3 id="シノグラム双対性">3. シノグラム双対性</h3>
 <ul>
-<li><p>サイノグラム上の点<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>r</mi><mn>0</mn></msub><mo>,</mo><msub><mi>θ</mi><mn>0</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(r_0, \theta_0)</annotation></semantics></math>は、物体空間の1本の直線を表します。</p></li>
-<li><p>物体空間の点<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>x</mi><mn>1</mn></msub><mo>,</mo><msub><mi>y</mi><mn>1</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(x_1, y_1)</annotation></semantics></math>は、サイノグラム上の正弦曲線<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>θ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mi>x</mi><mn>1</mn></msub><mo>cos</mo><mi>θ</mi><mo>+</mo><msub><mi>y</mi><mn>1</mn></msub><mo>sin</mo><mi>θ</mi></mrow><annotation encoding="application/x-tex">r(\theta) = x_1 \cos\theta + y_1 \sin\theta</annotation></semantics></math>を描きます。</p></li>
-</ul></li>
-<li><p><strong>フィルタ補正逆投影法（再構成）</strong>:</p></li>
-</ol>
-<p>単純な逆投影では<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi>r</mi></mrow><annotation encoding="application/x-tex">1/r</annotation></semantics></math>のボケが生じます。Frank
-Nattererによるランプフィルタで畳み込み処理を行うことで、内部構造を正確に復元します（物体内部
-で<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≈</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\approx 1</annotation></semantics></math>、外部で<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>）。</p>
-<h2 id="プライバシーとデータ保持">プライバシーとデータ保持</h2>
-<p>設定は端末内（<code>SharedPreferences</code> /
-<code>localStorage</code>）にのみ保存されます。個人情報は一切収集されません。</p>
+<li><p>シノグラム空間の1点
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>r</mi><mn>0</mn></msub><mo>,</mo><msub><mi>θ</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(r_0, \theta_0)</annotation></semantics></math>
+は、オブジェクト空間の1本の直線に対応 します。</p></li>
+<li><p>オブジェクト空間の1点
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mn>0</mn></msub><mo>,</mo><msub><mi>y</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(x_0, y_0)</annotation></semantics></math>
+は、その点を通るすべての直線に対応し、
+シノグラム空間で正弦波を描きます：</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>x</mi><mn>0</mn></msub><mrow><mi>cos</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msub><mi>y</mi><mn>0</mn></msub><mrow><mi>sin</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">r(\theta) = x_0 \cos(\theta) + y_0 \sin(\theta)</annotation></semantics></math></p></li>
+</ul>
+<h3 id="円形ファントムの線積分">4. 円形ファントムの線積分</h3>
+<p>密度
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>、半径
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>r</mi><mi>p</mi></msub><annotation encoding="application/x-tex">r_p</annotation></semantics></math>、中心
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mn>0</mn></msub><mo>,</mo><msub><mi>y</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(x_0, y_0)</annotation></semantics></math>
+の円形ディスクについて、
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><mi>s</mi><mo>=</mo><mi>r</mi><mo>−</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mn>0</mn></msub><mrow><mi>cos</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msub><mi>y</mi><mn>0</mn></msub><mrow><mi>sin</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\Delta s = r - (x_0 \cos(\theta) + y_0 \sin(\theta))</annotation></semantics></math>
+とすると、線積分は弦の長さです：</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ψ</mi><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Δ</mi><mi>s</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mo stretchy="true" form="prefix">{</mo><mtable><mtr><mtd columnalign="left" style="text-align: left"><mn>2</mn><msqrt><mrow><msubsup><mi>r</mi><mi>p</mi><mn>2</mn></msubsup><mo>−</mo><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Δ</mi><mi>s</mi><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow></msqrt></mtd><mtd columnalign="left" style="text-align: left"><mo stretchy="false" form="prefix">|</mo><mi mathvariant="normal">Δ</mi><mi>s</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><msub><mi>r</mi><mi>p</mi></msub><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> のとき</mtext></mrow></mtd></mtr><mtr><mtd columnalign="left" style="text-align: left"><mn>0</mn></mtd><mtd columnalign="left" style="text-align: left"><mtext mathvariant="normal">それ以外</mtext></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">\psi(\Delta s) = \begin{cases} 2\sqrt{r_p^2 - (\Delta s)^2} &amp; |\Delta s| &lt; r_p \text{ のとき} \\ 0 &amp; \text{それ以外} \end{cases}</annotation></semantics></math></p>
+<p>複数のファントムはシノグラム上で線形に加算されます。</p>
+<h3 id="逆投影とフィルタ補正逆投影fbp">5.
+逆投影とフィルタ補正逆投影（FBP）</h3>
+<p>点
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(x, y)</annotation></semantics></math>
+の双対正弦波に沿ってシノグラム値を合計すると、未フィルタ逆投影が
+得られます：</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℬ</mi><mo stretchy="false" form="prefix">[</mo><mi>g</mi><mo stretchy="false" form="postfix">]</mo><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msubsup><mo>∫</mo><mn>0</mn><mrow><mn>2</mn><mi>π</mi></mrow></msubsup><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mrow><mi>cos</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>y</mi><mrow><mi>sin</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>θ</mi></mrow><annotation encoding="application/x-tex">\mathcal{B}[g](x, y) = \int_0^{2\pi} g(x \cos(\theta) + y \sin(\theta), \theta) \, d\theta</annotation></semantics></math></p>
+<p>未フィルタ逆投影には
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">|</mo><mi>r</mi><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">1/|r|</annotation></semantics></math>
+のボケが生じます。各投影に <strong>Frank Natterer の
+離散ランプフィルタ核</strong>（帯域幅
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>=</mo><mi>π</mi><mi>Q</mi></mrow><annotation encoding="application/x-tex">b = \pi Q</annotation></semantics></math>）を畳み込むことでボケを除去します：</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mi>b</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>l</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><msup><mi>b</mi><mn>2</mn></msup><mrow><msup><mi>π</mi><mn>4</mn></msup><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mn>4</mn><msup><mi>l</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mspace width="1.0em"></mspace><mo stretchy="false" form="prefix">(</mo><mi>l</mi><mo>∈</mo><mi>ℤ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">w_b(l) = \frac{b^2}{\pi^4 (1 - 4 l^2)} \quad (l \in \mathbb{Z})</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>w</mi><mi>b</mi></msub><mo>*</mo><mi>g</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo>,</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>h</mi><munderover><mo>∑</mo><mrow><mi>l</mi><mo>=</mo><mi>−</mi><mi>L</mi></mrow><mi>L</mi></munderover><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo>−</mo><mi>l</mi><mi>h</mi><mo>,</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><msub><mi>w</mi><mi>b</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>l</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(w_b * g)(r, \theta) = h \sum_{l = -L}^{L} g(r - l h, \theta) \, w_b(l)</annotation></semantics></math></p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>w</mi><mi>b</mi></msub><annotation encoding="application/x-tex">w_b</annotation></semantics></math>
+の負のサイドローブが
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">|</mo><mi>r</mi><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">1/|r|</annotation></semantics></math>
+の広がりを打ち消し、ファントム内部で
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>≈</mo><mn>1.0</mn></mrow><annotation encoding="application/x-tex">f(x, y) \approx 1.0</annotation></semantics></math>、外部で
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≈</mo><mn>0.0</mn></mrow><annotation encoding="application/x-tex">\approx 0.0</annotation></semantics></math>
+を正確に再構成します。</p>
+<h2 id="ui操作リファレンス">UI・操作リファレンス</h2>
+<h3 id="オブジェクト空間">オブジェクト空間</h3>
+<ul>
+<li><p><strong>プローブモード</strong>:
+クリックまたはドラッグで緑色のプローブ点
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(x, y)</annotation></semantics></math>
+を配置し、 シノグラム空間に双対正弦波を表示します。</p></li>
+<li><p><strong>ファントムモード</strong>:
+赤いファントムディスクを単位円内でドラッグして移動します。</p></li>
+<li><p><strong>追加 / 削除（<code>+</code> / ゴミ箱）</strong>:
+複数のファントムディスクを追加または選択中の
+ディスクを削除します（ステージ 4〜7）。</p></li>
+</ul>
+<h3 id="シノグラムラドン空間">シノグラム（ラドン空間）</h3>
+<ul>
+<li><p><strong>メインヒートマップ</strong>:
+クリックまたはドラッグで1本のX線
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo>,</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(r, \theta)</annotation></semantics></math>
+を選択 します。</p></li>
+<li><p><strong>右端バー</strong>: 固定角
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math>
+の平行X線群を表示します。</p></li>
+<li><p><strong>下端バー</strong>: 半径
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>r</mi><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">|r|</annotation></semantics></math>
+の円に接する直線群を表示します。</p></li>
+</ul>
+<h3 id="d-プロファイルグラフステージ-57">1D プロファイルグラフ（ステージ
+5〜7）</h3>
+<ul>
+<li><p>選択中のプローブに沿った 1D
+断面と逆投影積分をリアルタイム表示します。</p></li>
+<li><p><strong>スキャン再生 / 一時停止</strong>: 平行線群を
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\theta \in [0, 2\pi)</annotation></semantics></math>
+にわたり掃引 します。</p></li>
+</ul>
+<h3
+id="ツールバー設定ショートカット">ツールバー、設定、ショートカット</h3>
+<ul>
+<li><p><strong>フィルタ（<code>[F]</code>）</strong>: 未フィルタ
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>g</mi><annotation encoding="application/x-tex">g</annotation></semantics></math>
+とフィルタ済み
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mi>b</mi></msub><mo>*</mo><mi>g</mi></mrow><annotation encoding="application/x-tex">w_b * g</annotation></semantics></math>
+を切り替えます。</p></li>
+<li><p><strong>ステージ移動</strong>:
+<strong>前へ</strong>、<strong>次へ</strong>、<strong>スキップ</strong>、または番号チップ（<code>1</code>〜<code>7</code>）。</p></li>
+<li><p><strong>設定</strong>:
+テーマ（ダーク、ライト、システム）、カラーマップ（クラシック、グレー
+スケール、Viridis、Inferno）、サンプリング解像度（<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>×</mo><mi>Q</mi></mrow><annotation encoding="application/x-tex">P \times Q</annotation></semantics></math>）、座標ガイド。</p></li>
+<li><p><strong>キーボードショートカット</strong>:
+<code>[Enter]</code>/<code>[N]</code>
+次のステップ/ステージ、<code>[→]</code> 次の
+ステージ、<code>[P]</code>/<code>[←]</code>
+前のステージ、<code>[1]</code>〜<code>[7]</code>
+ステージ移動、<code>[スペース]</code> 再生/一時停止、<code>[F]</code>
+フィルタ切替。</p></li>
+</ul>
+<h2 id="背景と参考文献">背景と参考文献</h2>
+<ul>
+<li><p><strong>Fred Gylys-Colwell</strong> による 1998/2006 年オリジナル
+Java アプレット （1998年2月26日 ボール州立大学にて発表）。</p></li>
+<li><p>Frank Natterer, <em>The Mathematics of Computerized
+Tomography</em>, SIAM Classics in Applied Mathematics, 2001.</p></li>
+<li><p>ソースコード: <a
+href="https://github.com/fredgc/cat">https://github.com/fredgc/cat</a></p></li>
+<li><p>イシュー報告: <a
+href="https://github.com/fredgc/cat/issues">https://github.com/fredgc/cat/issues</a></p></li>
+<li><p>その他のアプリ: <a
+href="https://www.gchouse.org">www.gchouse.org</a></p></li>
+</ul>
 </body>
 </html>

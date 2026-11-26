@@ -30,10 +30,16 @@ class ObjectCanvas extends StatefulWidget {
   final bool showPhantom;
   final bool interactive;
   final bool showGuides;
+  final bool verticalControls;
 
   /// Inset margin in pixels from the canvas square edge to the unit circle.
-  /// Leaves room in the top corners for mode selection controls.
+  /// Leaves room in the top corners for horizontal mode selection controls.
   static const double unitMargin = 38.0;
+
+  /// Reduced inset margin used when canvases are stacked vertically and
+  /// controls are arranged vertically in the side margins, allowing a larger
+  /// unit circle and phantom disk.
+  static const double compactUnitMargin = 10.0;
 
   const ObjectCanvas({
     super.key,
@@ -41,6 +47,7 @@ class ObjectCanvas extends StatefulWidget {
     this.showPhantom = true,
     this.interactive = true,
     this.showGuides = true,
+    this.verticalControls = false,
   });
 
   @override
@@ -52,11 +59,15 @@ class _ObjectCanvasState extends State<ObjectCanvas> {
   double _dragOffsetNormX = 0.0;
   double _dragOffsetNormY = 0.0;
 
+  double get _effectiveUnitMargin => widget.verticalControls
+      ? ObjectCanvas.compactUnitMargin
+      : ObjectCanvas.unitMargin;
+
   void _handlePointerDown(Offset localPosition, Size size) {
     if (!widget.interactive) return;
 
     final double side = math.min(size.width, size.height);
-    final double unitRadius = side * 0.5 - ObjectCanvas.unitMargin;
+    final double unitRadius = math.max(1.0, side * 0.5 - _effectiveUnitMargin);
     final Offset center = Offset(side * 0.5, side * 0.5);
 
     // Convert pixel coordinates to normalized [-1.0, 1.0]
@@ -117,7 +128,7 @@ class _ObjectCanvasState extends State<ObjectCanvas> {
     if (!widget.interactive) return;
 
     final double side = math.min(size.width, size.height);
-    final double unitRadius = side * 0.5 - ObjectCanvas.unitMargin;
+    final double unitRadius = math.max(1.0, side * 0.5 - _effectiveUnitMargin);
     final Offset center = Offset(side * 0.5, side * 0.5);
 
     final double normX = ((localPosition.dx - center.dx) / unitRadius).clamp(
@@ -159,15 +170,48 @@ class _ObjectCanvasState extends State<ObjectCanvas> {
             );
             if (size <= 0) return const SizedBox.shrink();
 
+            final bool placeAddAtBottom =
+                !widget.verticalControls && constraints.maxWidth < 230;
+            final l10n = context.l10n;
+
+            final Widget addButton = IconButton.filledTonal(
+              onPressed: widget.interactive
+                  ? () => widget.engine.addPhantom()
+                  : null,
+              icon: const Icon(Icons.add, size: 16),
+              tooltip: l10n.addPhantomTooltip,
+              visualDensity: VisualDensity.compact,
+              padding: EdgeInsets.zero,
+              constraints: const BoxConstraints.tightFor(
+                width: 28,
+                height: 28,
+              ),
+            );
+
+            final Widget deleteButton = IconButton.outlined(
+              onPressed:
+                  widget.interactive && widget.engine.phantoms.length > 1
+                      ? () => widget.engine.removeSelectedPhantom()
+                      : null,
+              icon: const Icon(Icons.delete_outline, size: 16),
+              tooltip: l10n.deletePhantomTooltip,
+              visualDensity: VisualDensity.compact,
+              padding: EdgeInsets.zero,
+              constraints: const BoxConstraints.tightFor(
+                width: 28,
+                height: 28,
+              ),
+            );
+
             return Semantics(
-              label: context.l10n.objectCanvasSemantics,
-              child: Center(
-                child: SizedBox(
-                  width: size,
-                  height: size,
-                  child: Stack(
-                    children: [
-                      GestureDetector(
+              label: l10n.objectCanvasSemantics,
+              child: Stack(
+                children: [
+                  Center(
+                    child: SizedBox(
+                      width: size,
+                      height: size,
+                      child: GestureDetector(
                         onTapDown: (details) => _handlePointerDown(
                           details.localPosition,
                           Size(size, size),
@@ -190,110 +234,203 @@ class _ObjectCanvasState extends State<ObjectCanvas> {
                               showPhantom: widget.showPhantom,
                               showGuides: widget.showGuides,
                               isLight: isLight,
+                              unitMargin: _effectiveUnitMargin,
                             ),
                           ),
                         ),
                       ),
-                      if (widget.showPhantom)
-                        Positioned(
-                          top: 6,
-                          left: 6,
-                          child: SegmentedButton<ObjectInteractionMode>(
-                            showSelectedIcon: false,
-                            segments: const [
-                              ButtonSegment(
-                                value: ObjectInteractionMode.probe,
-                                icon: Icon(Icons.colorize, size: 12),
-                                label: Text(
-                                  'Probe',
-                                  style: TextStyle(fontSize: 11),
+                    ),
+                  ),
+                  if (widget.showPhantom)
+                    Positioned(
+                      top: 6,
+                      left: 6,
+                      child: widget.verticalControls
+                          ? _VerticalModeSwitch(
+                              key: const Key('objectModeSwitch'),
+                              selected: widget.engine.objectInteractionMode,
+                              probeLabel: l10n.modeProbe,
+                              phantomLabel: l10n.modePhantom,
+                              onChanged: widget.engine.setObjectInteractionMode,
+                            )
+                          : SegmentedButton<ObjectInteractionMode>(
+                              key: const Key('objectModeSwitch'),
+                              showSelectedIcon: false,
+                              segments: [
+                                ButtonSegment(
+                                  value: ObjectInteractionMode.probe,
+                                  icon: const Icon(Icons.colorize, size: 12),
+                                  label: Text(
+                                    l10n.modeProbe,
+                                    style: const TextStyle(fontSize: 11),
+                                  ),
                                 ),
-                              ),
-                              ButtonSegment(
-                                value: ObjectInteractionMode.phantom,
-                                icon: Icon(
-                                  Icons.circle,
-                                  size: 12,
-                                  color: Colors.redAccent,
+                                ButtonSegment(
+                                  value: ObjectInteractionMode.phantom,
+                                  icon: const Icon(
+                                    Icons.circle,
+                                    size: 12,
+                                    color: Colors.redAccent,
+                                  ),
+                                  label: Text(
+                                    l10n.modePhantom,
+                                    style: const TextStyle(fontSize: 11),
+                                  ),
                                 ),
-                                label: Text(
-                                  'Phantom',
-                                  style: TextStyle(fontSize: 11),
+                              ],
+                              selected: {widget.engine.objectInteractionMode},
+                              onSelectionChanged: (selection) {
+                                widget.engine.setObjectInteractionMode(
+                                  selection.first,
+                                );
+                              },
+                              style: ButtonStyle(
+                                visualDensity: const VisualDensity(
+                                  horizontal: -4,
+                                  vertical: -4,
                                 ),
-                              ),
-                            ],
-                            selected: {widget.engine.objectInteractionMode},
-                            onSelectionChanged: (selection) {
-                              widget.engine.setObjectInteractionMode(
-                                selection.first,
-                              );
-                            },
-                            style: ButtonStyle(
-                              visualDensity: const VisualDensity(
-                                horizontal: -4,
-                                vertical: -4,
-                              ),
-                              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                              padding: WidgetStateProperty.all(
-                                const EdgeInsets.symmetric(
-                                  horizontal: 6,
-                                  vertical: 2,
+                                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                padding: WidgetStateProperty.all(
+                                  const EdgeInsets.symmetric(
+                                    horizontal: 6,
+                                    vertical: 2,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ),
-                      if (widget.showPhantom)
-                        Positioned(
-                          top: 6,
-                          right: 6,
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              IconButton.filledTonal(
-                                onPressed: widget.interactive
-                                    ? () => widget.engine.addPhantom()
-                                    : null,
-                                icon: const Icon(Icons.add, size: 16),
-                                tooltip: 'Add phantom disk',
-                                visualDensity: VisualDensity.compact,
-                                padding: EdgeInsets.zero,
-                                constraints: const BoxConstraints.tightFor(
-                                  width: 28,
-                                  height: 28,
-                                ),
-                              ),
-                              const SizedBox(width: 4),
-                              IconButton.outlined(
-                                onPressed:
-                                    widget.interactive &&
-                                        widget.engine.phantoms.length > 1
-                                    ? () =>
-                                          widget.engine.removeSelectedPhantom()
-                                    : null,
-                                icon: const Icon(
-                                  Icons.delete_outline,
-                                  size: 16,
-                                ),
-                                tooltip: 'Delete selected phantom',
-                                visualDensity: VisualDensity.compact,
-                                padding: EdgeInsets.zero,
-                                constraints: const BoxConstraints.tightFor(
-                                  width: 28,
-                                  height: 28,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                    ],
-                  ),
-                ),
+                    ),
+                  if (widget.showPhantom)
+                    Positioned(
+                      top: placeAddAtBottom ? null : 6,
+                      bottom: placeAddAtBottom ? 6 : null,
+                      right: 6,
+                      child: widget.verticalControls
+                          ? Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                addButton,
+                                const SizedBox(height: 4),
+                                deleteButton,
+                              ],
+                            )
+                          : Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                addButton,
+                                const SizedBox(width: 4),
+                                deleteButton,
+                              ],
+                            ),
+                    ),
+                ],
               ),
             );
           },
         );
       },
+    );
+  }
+}
+
+/// Compact vertical segmented switch for toggling between Probe and Phantom
+/// modes in narrow / mobile layouts where canvases are stacked vertically.
+class _VerticalModeSwitch extends StatelessWidget {
+  final ObjectInteractionMode selected;
+  final String probeLabel;
+  final String phantomLabel;
+  final ValueChanged<ObjectInteractionMode> onChanged;
+
+  const _VerticalModeSwitch({
+    super.key,
+    required this.selected,
+    required this.probeLabel,
+    required this.phantomLabel,
+    required this.onChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final bool isProbe = selected == ObjectInteractionMode.probe;
+
+    Widget buildSegment({
+      required ObjectInteractionMode mode,
+      required bool isSelected,
+      required Icon icon,
+      required String label,
+      required BorderRadius borderRadius,
+    }) {
+      return Material(
+        color: isSelected ? scheme.secondaryContainer : Colors.transparent,
+        borderRadius: borderRadius,
+        child: InkWell(
+          onTap: () => onChanged(mode),
+          borderRadius: borderRadius,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 5),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                icon,
+                const SizedBox(width: 4),
+                Text(
+                  label,
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+                    color: isSelected
+                        ? scheme.onSecondaryContainer
+                        : scheme.onSurface,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+
+    return Container(
+      decoration: BoxDecoration(
+        color: scheme.surface.withValues(alpha: 0.88),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: scheme.outline),
+      ),
+      child: IntrinsicWidth(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            buildSegment(
+              mode: ObjectInteractionMode.probe,
+              isSelected: isProbe,
+              icon: Icon(
+                Icons.colorize,
+                size: 12,
+                color: isProbe ? scheme.onSecondaryContainer : scheme.onSurface,
+              ),
+              label: probeLabel,
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(11),
+              ),
+            ),
+            Divider(height: 1, thickness: 1, color: scheme.outline),
+            buildSegment(
+              mode: ObjectInteractionMode.phantom,
+              isSelected: !isProbe,
+              icon: const Icon(
+                Icons.circle,
+                size: 12,
+                color: Colors.redAccent,
+              ),
+              label: phantomLabel,
+              borderRadius: const BorderRadius.vertical(
+                bottom: Radius.circular(11),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -304,12 +441,14 @@ class ObjectCanvasPainter extends CustomPainter {
   final bool showPhantom;
   final bool showGuides;
   final bool isLight;
+  final double unitMargin;
 
   ObjectCanvasPainter({
     required this.engine,
     required this.showPhantom,
     this.showGuides = true,
     this.isLight = false,
+    this.unitMargin = ObjectCanvas.unitMargin,
   });
 
   @override
@@ -332,7 +471,7 @@ class ObjectCanvasPainter extends CustomPainter {
     canvas.drawRect(bounds, borderPaint);
 
     final Offset center = Offset(side * 0.5, side * 0.5);
-    final double unitRadius = side * 0.5 - ObjectCanvas.unitMargin;
+    final double unitRadius = math.max(1.0, side * 0.5 - unitMargin);
 
     // Helper functions to map from normalized [-1, 1] to screen pixels
     Offset toScreen(double x, double y) {

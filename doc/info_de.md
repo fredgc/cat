@@ -1,71 +1,135 @@
 ---
-title: Über die Computertomographie-Demonstration
+title: CT-Scan Mathematik- & UI-Referenz
 ---
 
 Das **Computertomographie-Demonstrationswerkzeug** ist eine interaktive
-pädagogische Anwendung zur Veranschaulichung der Mathematik und Mechanismen
-hinter der Computertomographie (CT) und der Radon-Transformation.
+Referenz für die Computertomographie (CT), die Radon-Transformation und die
+gefilterte Rückprojektion (FBP).
 
-## Geschichte & Motivation
+## Mathematische Referenz
 
-Diese Anwendung ist inspiriert vom ursprünglichen Java-Applet aus den Jahren
-1998/2006 von **Fred Gylys-Colwell**. Der Vortrag wurde erstmals am
+### 1. Röntgenabschwächung & Linienintegrale
 
-26. Februar 1998 gehalten.
+Ein Röntgenstrahl entlang einer Geraden $L$ durch ein Objekt verliert nach dem
+Beer-Lambertschen Gesetz an Intensität:
 
-Diese Anwendung ist in Dart mit Flutter geschrieben. Der Quellcode ist
-auf GitHub verfügbar:
-[https://github.com/fredgc/cat](https://github.com/fredgc/cat).
+$$I = I_0 \exp\left(-\int_L f(x, y) \, ds\right)$$
 
-Haben Sie einen Fehler gefunden oder Vorschläge?
-[Erstellen Sie ein Problem auf GitHub](https://github.com/fredgc/cat/issues).
+Der Vergleich von transmittierter Intensität $I$ und Ausgangsintensität $I_0$
+liefert das Linienintegral des Absorptionskoeffizienten $f(x, y)$:
 
-Weitere Anwendungen und Zeichenwerkzeuge finden Sie unter
-[www.gchouse.org](https://www.gchouse.org).
+$$g(L) = -\ln\left(\frac{I}{I_0}\right) = \int_L f(x, y) \, ds$$
 
-## Die Mathematik hinter der Computertomographie
+### 2. Linienparametrisierung & Radon-Transformation
 
-Eine Röntgen-Computertomographie erzeugt nichtinvasiv eine
-2D-Querschnittsansicht des Inneren eines Objekts oder menschlichen Körpers von
-außen.
+Jede Gerade in der 2D-Ebene $[-1, 1] \times [-1, 1]$ wird durch ihren
+vorzeichenbehafteten Abstand $r \in [-1, 1]$ zum Ursprung und ihren
+Normalenwinkel $\theta \in [0, 2\pi)$ parametrisiert:
 
-1. **Röntgenabsorption & Linienintegrale**:
+$$x \cos(\theta) + y \sin(\theta) = r$$
 
-Ein Röntgenstrahl verläuft entlang einer geraden Linie $L$ durch den Körper.
-Der Anteil der absorbierten Strahlung entspricht dem Linienintegral des
-Absorptionskoeffizienten $f(x, y)$ entlang der Linie $L$:
+Die **Radon-Transformation** $\mathcal{R}[f](r, \theta) = g(r, \theta)$ erfasst
+alle Linienintegrale als 2D-Datensatz (**Sinogramm**) auf einem
+$2Q \times 2P$-Gitter ($h = 1/Q$, $r_i = (i - Q)/Q$, $\theta_j = \pi j / P$).
 
-   $$g(L) = \int_L f(x, y) \, ds$$
+### 3. Sinogramm-Dualität
 
-2. **Parametrisierung von Geraden**:
+- Ein einzelner Punkt $(r_0, \theta_0)$ im Sinogrammraum entspricht einer
+  einzelnen geraden Röntgenlinie im Objektraum.
 
-Jede Gerade in der Ebene wird durch ihren vorzeichenbehafteten Abstand $r$ vom
-Ursprung und ihren Normalenwinkel $\theta \in [0, 2\pi)$ parametrisiert:
+- Ein einzelner Punkt $(x_0, y_0)$ im Objektraum entspricht allen Geraden durch
+  diesen Punkt und bildet eine Sinuskurve im Sinogrammraum:
 
-   $$x \cos\theta + y \sin\theta = r$$
+  $$r(\theta) = x_0 \cos(\theta) + y_0 \sin(\theta)$$
 
-Die Radon-Transformation $\mathcal{R}[f](r, \theta)$ erfasst die
-Linienintegrale für alle $(r, \theta)$.
+### 4. Linienintegral einer kreisförmigen Phantomscheibe
 
-3. **Sinogramm-Dualität**:
+Für eine Kreisscheibe mit konstanter Dichte $1$, Radius $r_p$ und Mittelpunkt
+$(x_0, y_0)$ sei $\Delta s = r - (x_0 \cos(\theta) + y_0 \sin(\theta))$. Das
+Linienintegral ist die Sehnenlänge:
 
-   - Ein einzelner Punkt im Sinogrammraum $(r_0, \theta_0)$ repräsentiert eine
-     einzelne Linie im Objektraum.
+$$\psi(\Delta s) = \begin{cases} 2\sqrt{r_p^2 - (\Delta s)^2} & \text{für } |\Delta s| < r_p \\ 0 & \text{sonst} \end{cases}$$
 
-   - Ein einzelner Punkt $(x_1, y_1)$ im Objektraum entspricht einer
-     Sinuskurve $r(\theta) = x_1 \cos\theta + y_1 \sin\theta$ im
-     Sinogrammraum, die alle Linien durch $(x_1, y_1)$ darstellt.
+Mehrere Phantome addieren sich im Sinogramm linear.
 
-4. **Gefilterte Rückprojektion (Rekonstruktion)**:
+### 5. Rückprojektion & Gefilterte Rückprojektion (FBP)
 
-Die einfache Rückprojektion verschmiert Projektionenüber die Bildebene und
-erzeugt eine $1/r$-Unschärfe. Durch Faltung jeder Projektion mit einem Rampen-
-bzw. Hochpassfilter (hergeleitet von Frank Natterer) rekonstruiert die
-Rückprojektion der gefilterten Daten die inneren Strukturen exakt ($f(x, y)
-\approx 1$ im Objekt, $0$ außerhalb).
+Die Summation der Sinogrammwerte entlang der dualen Sinuskurve von $(x, y)$
+ergibt die ungefilterte Rückprojektion:
 
-## Datenschutz und Datenaufbewahrung
+$$\mathcal{B}[g](x, y) = \int_0^{2\pi} g(x \cos(\theta) + y \sin(\theta), \theta) \, d\theta$$
 
-Diese Anwendung speichert Benutzereinstellungen ausschließlich lokal auf Ihrem
-Gerät (`SharedPreferences` / `localStorage`). Es werden keine
-personenbezogenen Daten erhoben.
+Die ungefilterte Rückprojektion erzeugt eine $1/|r|$-Unschärfe. Durch Faltung
+jeder Projektion mit **Frank Natterers diskretem Rampenkern** (Bandbreite
+$b = \pi Q$) wird diese Unschärfe aufgehoben:
+
+$$w_b(l) = \frac{b^2}{\pi^4 (1 - 4 l^2)} \quad (l \in \mathbb{Z})$$
+
+$$(w_b * g)(r, \theta) = h \sum_{l = -L}^{L} g(r - l h, \theta) \, w_b(l)$$
+
+Die negativen Nebenkeulen von $w_b$ kompensieren die $1/|r|$-Verschmierung und
+rekonstruieren $f(x, y) \approx 1.0$ innerhalb und $\approx 0.0$ außerhalb der
+Phantomscheiben.
+
+## UI- & Steuerungsreferenz
+
+### Objektraum
+
+- **Sondenmodus**: Klicken oder ziehen, um den grünen Sondenpunkt $(x, y)$ zu
+  setzen und seine duale Sinuskurve im Sinogramm anzuzeigen.
+
+- **Phantommodus**: Rote Phantomscheiben innerhalb des Einheitskreises
+  verschieben.
+
+- **Hinzufügen / Löschen (`+` / Papierkorb)**: Weitere Phantomscheiben
+  hinzufügen oder das ausgewählte Phantom löschen (Stufen 4–7).
+
+### Sinogrammraum (Radon-Raum)
+
+- **Haupt-Heatmap**: Klicken oder ziehen für einen einzelnen Röntgenstrahl
+  $(r, \theta)$.
+
+- **Rechte Randleiste**: Klicken oder ziehen für parallele Röntgenstrahlen bei
+  festem Winkel $\theta$.
+
+- **Untere Randleiste**: Klicken oder ziehen für Tangenten an einen Kreis mit
+  Radius $|r|$.
+
+### 1D-Profildiagramm (Stufen 5–7)
+
+- Zeigt den 1D-Querschnitt entlang der aktiven Sonde sowie das aktuelle
+  Rückprojektionsintegral.
+
+- **Scan starten / Pause**: Schwenkt die parallele Strahlenfamilie über
+  $\theta \in [0, 2\pi)$.
+
+### Symbolleiste, Einstellungen & Tastaturkürzel
+
+- **Filter (`[F]`)**: Wechselt zwischen ungefiltertem Sinogramm $g$ und
+  gefiltertem Sinogramm $w_b * g$.
+
+- **Stufennavigation**: **Zurück**, **Weiter**, **Überspringen** oder die
+  Stufen-Buttons (`1`–`7`).
+
+- **Einstellungen**: Design (Dunkel, Hell, System), Farbtabelle (Klassisch,
+  Graustufen, Viridis, Inferno), Abtastauflösung ($P \times Q$) und
+  Koordinatenhilfslinien.
+
+- **Tastaturkürzel**: `[Enter]`/`[N]` nächster Schritt/Stufe, `[→]` nächste
+  Stufe, `[P]`/`[←]` vorherige Stufe, `[1]`–`[7]` Stufenauswahl, `[Leertaste]`
+  Scan starten/pausieren, `[F]` Filter umschalten.
+
+## Hintergrund & Literatur
+
+- Ursprüngliches Java-Applet (1998/2006) von **Fred Gylys-Colwell**, vorgestellt
+  an der Ball State University am 26. Februar 1998.
+
+- Frank Natterer, *The Mathematics of Computerized Tomography*, SIAM Classics
+  in Applied Mathematics, 2001.
+
+- Quellcode: [https://github.com/fredgc/cat](https://github.com/fredgc/cat)
+
+- Fehlerberichte:
+  [https://github.com/fredgc/cat/issues](https://github.com/fredgc/cat/issues)
+
+- Weitere Apps und Werkzeuge: [www.gchouse.org](https://www.gchouse.org)

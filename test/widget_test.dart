@@ -30,7 +30,8 @@ void main() {
     // Graph canvas should NOT be visible in Stage 1
     expect(find.byType(GraphCanvas), findsNothing);
 
-    // Advance to Stage 2
+    // Advance to Stage 2 (Stage 1 has 1 step, so Next advances stage and Skip is hidden)
+    expect(find.text('Skip'), findsNothing);
     await tester.tap(find.text('Next'));
     await tester.pumpAndSettle();
     expect(
@@ -38,14 +39,15 @@ void main() {
       findsOneWidget,
     );
     expect(find.byType(RadonCanvas), findsOneWidget);
+    expect(find.text('Skip'), findsOneWidget);
 
-    // Advance to Stage 3
-    await tester.tap(find.text('Next'));
+    // Skip to Stage 3
+    await tester.tap(find.text('Skip'));
     await tester.pumpAndSettle();
     expect(find.textContaining('Stage 3: Point Duality'), findsOneWidget);
 
-    // Advance to Stage 4 (phantom and sinogram become visible)
-    await tester.tap(find.text('Next'));
+    // Skip to Stage 4 (phantom and sinogram become visible)
+    await tester.tap(find.text('Skip'));
     await tester.pumpAndSettle();
     expect(
       find.textContaining('Stage 4: Object Produces Shadow'),
@@ -53,8 +55,8 @@ void main() {
     );
     expect(find.byType(GraphCanvas), findsNothing);
 
-    // Advance to Stage 5 (GraphCanvas appears, probe starts outside phantom)
-    await tester.tap(find.text('Next'));
+    // Skip to Stage 5 (GraphCanvas appears, probe starts outside phantom)
+    await tester.tap(find.text('Skip'));
     await tester.pumpAndSettle();
     expect(
       find.textContaining('Stage 5: Cross Section of Data'),
@@ -66,8 +68,8 @@ void main() {
       findsOneWidget,
     );
 
-    // Advance to Stage 6 (Filtered reconstruction)
-    await tester.tap(find.text('Next'));
+    // Skip to Stage 6 (Filtered reconstruction)
+    await tester.tap(find.text('Skip'));
     await tester.pumpAndSettle();
     expect(
       find.textContaining('Stage 6: Filtered Data Reconstruction'),
@@ -75,11 +77,12 @@ void main() {
     );
     expect(find.byType(GraphCanvas), findsOneWidget);
 
-    // Advance to Stage 7 (Free Play)
-    await tester.tap(find.text('Next'));
+    // Skip to Stage 7 (Free Play — last stage, Skip is hidden)
+    await tester.tap(find.text('Skip'));
     await tester.pumpAndSettle();
     expect(find.textContaining('Stage 7: Free Play'), findsOneWidget);
     expect(find.byType(GraphCanvas), findsOneWidget);
+    expect(find.text('Skip'), findsNothing);
 
     // Test chip jump back to Stage 1
     await tester.tap(find.widgetWithText(ChoiceChip, '1'));
@@ -139,7 +142,15 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.textContaining('Stage 3: Point Duality'), findsOneWidget);
 
-    // Key 'n' advances to Stage 4
+    // Key 'n' advances instruction step (1/3 -> 2/3 -> 3/3) and then Stage 4
+    expect(find.text('1/3'), findsOneWidget);
+    await tester.sendKeyEvent(LogicalKeyboardKey.keyN);
+    await tester.pumpAndSettle();
+    expect(find.textContaining('Stage 3: Point Duality'), findsOneWidget);
+    expect(find.text('2/3'), findsOneWidget);
+    await tester.sendKeyEvent(LogicalKeyboardKey.keyN);
+    await tester.pumpAndSettle();
+    expect(find.text('3/3'), findsOneWidget);
     await tester.sendKeyEvent(LogicalKeyboardKey.keyN);
     await tester.pumpAndSettle();
     expect(
@@ -234,8 +245,8 @@ void main() {
         findsOneWidget,
       );
 
-      // Advance to Stage 3
-      await tester.tap(find.text('Next'));
+      // Skip to Stage 3
+      await tester.tap(find.text('Skip'));
       await tester.pumpAndSettle();
       expect(find.text('Points Trace Sinusoids in Sinogram'), findsOneWidget);
 
@@ -306,44 +317,57 @@ void main() {
       findsOneWidget,
     );
 
-    // Tap next instruction step
-    await tester.tap(find.byTooltip('Next instruction step'));
+    // Tap Next to advance to step 2/3
+    expect(find.text('Skip'), findsOneWidget);
+    await tester.tap(find.text('Next'));
     await tester.pumpAndSettle();
 
     // Now showing 2/3 and Step 2 text
     expect(find.text('2/3'), findsOneWidget);
+    expect(find.text('Skip'), findsOneWidget);
     expect(
       find.textContaining('Step 2 of 3: Drag left and right in the Sinogram'),
       findsOneWidget,
     );
 
-    // Tap next instruction step
-    await tester.tap(find.byTooltip('Next instruction step'));
+    // Tap Next to advance to step 3/3 (last step -> Skip hides)
+    await tester.tap(find.text('Next'));
     await tester.pumpAndSettle();
 
     // Now showing 3/3 and Step 3 text
     expect(find.text('3/3'), findsOneWidget);
+    expect(find.text('Skip'), findsNothing);
     expect(
       find.textContaining('Step 3 of 3: Drag up and down in the Sinogram'),
       findsOneWidget,
     );
 
-    // Tap previous instruction step
-    await tester.tap(find.byTooltip('Previous instruction step'));
+    // Tap Previous to go back to step 2/3 (Skip reappears)
+    await tester.tap(find.text('Previous'));
     await tester.pumpAndSettle();
 
     expect(find.text('2/3'), findsOneWidget);
+    expect(find.text('Skip'), findsOneWidget);
     expect(
       find.textContaining('Step 2 of 3: Drag left and right in the Sinogram'),
       findsOneWidget,
     );
 
-    // Advance stage to Stage 3 -> instruction step resets to 1 (1/3)
-    await tester.tap(find.text('Next'));
+    // Skip to Stage 3 -> instruction step resets to 1 (1/3)
+    await tester.tap(find.text('Skip'));
     await tester.pumpAndSettle();
     expect(find.text('1/3'), findsOneWidget);
     expect(
       find.textContaining('Step 1 of 3: Click or drag in Object Space'),
+      findsOneWidget,
+    );
+
+    // Tap Previous from Stage 3 step 1/3 -> returns to Stage 2 last step (3/3)
+    await tester.tap(find.text('Previous'));
+    await tester.pumpAndSettle();
+    expect(find.text('3/3'), findsOneWidget);
+    expect(
+      find.textContaining('Step 3 of 3: Drag up and down in the Sinogram'),
       findsOneWidget,
     );
   });
@@ -702,9 +726,9 @@ void main() {
       );
       final Offset playCuePos = tester.getCenter(playCueFinder);
 
-      // Cue should be hovering over the play button
-      expect(playCuePos.dx, closeTo(playButtonRect.left + 15.0, 15.0));
-      expect(playCuePos.dy, lessThan(playButtonRect.center.dy));
+      // Cue should be hovering near the center of the play button
+      expect(playCuePos.dx, closeTo(playButtonRect.center.dx, 5.0));
+      expect(playCuePos.dy, closeTo(playButtonRect.center.dy, 5.0));
 
       // Tapping the Play Scan button starts scan rotation and dismisses cue
       await tester.tap(find.text('Play Scan [Space]'));
@@ -798,6 +822,166 @@ void main() {
           tester.widget<CustomPaint>(graphCustomPaintFinder.first).painter
               as GraphCanvasPainter;
       expect(darkGraphPainter.isLight, isFalse);
+    },
+  );
+
+  testWidgets('StageStepper auto-scrolls stage numbers in narrow viewport', (
+    WidgetTester tester,
+  ) async {
+    tester.view.physicalSize = const Size(450, 800);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await tester.pumpWidget(const CatApp());
+    await tester.pumpAndSettle();
+
+    final scrollViewFinder = find.byWidgetPredicate(
+      (w) => w is SingleChildScrollView && w.scrollDirection == Axis.horizontal,
+    );
+    expect(scrollViewFinder, findsOneWidget);
+
+    final viewportRect = tester.getRect(scrollViewFinder);
+    final chip7Finder = find.widgetWithText(ChoiceChip, '7');
+    final chip1Finder = find.widgetWithText(ChoiceChip, '1');
+
+    // Initially on Stage 1, chip 7 should be off-screen to the right.
+    expect(tester.getRect(chip7Finder).right, greaterThan(viewportRect.right));
+
+    // Advance to Stage 7 (Next from Stage 1, then Skip through Stages 2..6).
+    await tester.tap(find.text('Next'));
+    await tester.pumpAndSettle();
+    for (int i = 0; i < 5; i++) {
+      await tester.tap(find.text('Skip'));
+      await tester.pumpAndSettle();
+    }
+
+    // Chip 7 should now be scrolled into the visible viewport.
+    final chip7Rect = tester.getRect(chip7Finder);
+    expect(chip7Rect.left, greaterThanOrEqualTo(viewportRect.left - 1.0));
+    expect(chip7Rect.right, lessThanOrEqualTo(viewportRect.right + 1.0));
+
+    // Return to Stage 1 using keyboard left-arrow stage shortcut.
+    for (int i = 0; i < 6; i++) {
+      await tester.sendKeyEvent(LogicalKeyboardKey.arrowLeft);
+      await tester.pumpAndSettle();
+    }
+
+    // Chip 1 should now be scrolled back into the visible viewport.
+    final chip1Rect = tester.getRect(chip1Finder);
+    expect(chip1Rect.left, greaterThanOrEqualTo(viewportRect.left - 1.0));
+    expect(chip1Rect.right, lessThanOrEqualTo(viewportRect.right + 1.0));
+  });
+
+  testWidgets(
+    'Stage 6 narrow layout separates integral readout from Play button',
+    (WidgetTester tester) async {
+      tester.view.physicalSize = const Size(360, 800);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      await tester.pumpWidget(const CatApp());
+      await tester.pumpAndSettle();
+
+      // Jump directly to Stage 6 via keyboard shortcut
+      await tester.sendKeyEvent(LogicalKeyboardKey.digit6);
+      await tester.pumpAndSettle();
+
+      final integralTextFinder = find.descendant(
+        of: find.byType(GraphCanvas),
+        matching: find.textContaining('Integral'),
+      );
+      expect(integralTextFinder, findsOneWidget);
+
+      final playButtonFinder = find.descendant(
+        of: find.byType(GraphCanvas),
+        matching: find.text('Play Scan'),
+      );
+      expect(playButtonFinder, findsOneWidget);
+
+      final textRect = tester.getRect(integralTextFinder);
+      final playRect = tester.getRect(playButtonFinder);
+
+      // Play button must sit below the integral readout with no overlap.
+      expect(playRect.top, greaterThanOrEqualTo(textRect.bottom));
+      expect(textRect.overlaps(playRect), isFalse);
+
+      // Tapping Play Scan still toggles scan animation in narrow mode.
+      await tester.tap(playButtonFinder);
+      await tester.pump(const Duration(milliseconds: 50));
+      expect(
+        find.descendant(
+          of: find.byType(GraphCanvas),
+          matching: find.text('Pause'),
+        ),
+        findsOneWidget,
+      );
+      await tester.tap(find.text('Pause'));
+      await tester.pump();
+    },
+  );
+
+  testWidgets(
+    'Narrow mode ObjectCanvas uses vertical Probe/Phantom switch and larger disk',
+    (WidgetTester tester) async {
+      tester.view.physicalSize = const Size(360, 800);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      await tester.pumpWidget(const CatApp());
+      await tester.pumpAndSettle();
+
+      // Jump to Stage 7 (Free Play, editing phantoms)
+      await tester.sendKeyEvent(LogicalKeyboardKey.digit7);
+      await tester.pumpAndSettle();
+
+      final switchFinder = find.byKey(const Key('objectModeSwitch'));
+      final addFinder = find.byTooltip('Add phantom disk');
+
+      expect(switchFinder, findsOneWidget);
+      expect(find.byType(SegmentedButton<ObjectInteractionMode>), findsNothing);
+      expect(addFinder, findsOneWidget);
+
+      // Probe label sits vertically above Phantom label
+      final probeRect = tester.getRect(find.text('Probe'));
+      final phantomRect = tester.getRect(find.text('Phantom'));
+      expect(probeRect.bottom, lessThanOrEqualTo(phantomRect.top));
+
+      final switchRect = tester.getRect(switchFinder);
+      final addRect = tester.getRect(addFinder);
+
+      expect(switchRect.overlaps(addRect), isFalse);
+      expect(addRect.left, greaterThanOrEqualTo(switchRect.right));
+
+      // Narrow mode uses the compact unit margin so the disk is larger
+      final objectCustomPaint = tester.widget<CustomPaint>(
+        find
+            .descendant(
+              of: find.byType(ObjectCanvas),
+              matching: find.byType(CustomPaint),
+            )
+            .first,
+      );
+      final painter = objectCustomPaint.painter as ObjectCanvasPainter;
+      expect(painter.unitMargin, ObjectCanvas.compactUnitMargin);
+      expect(painter.unitMargin, lessThan(ObjectCanvas.unitMargin));
+
+      // Tapping Probe switches interaction mode
+      final objectCanvas = tester.widget<ObjectCanvas>(
+        find.byType(ObjectCanvas),
+      );
+      expect(
+        objectCanvas.engine.objectInteractionMode,
+        ObjectInteractionMode.phantom,
+      );
+      await tester.tap(find.text('Probe'));
+      await tester.pumpAndSettle();
+      expect(
+        objectCanvas.engine.objectInteractionMode,
+        ObjectInteractionMode.probe,
+      );
     },
   );
 }

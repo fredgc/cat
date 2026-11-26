@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>Apie kompiuterinės tomografijos demonstraciją</title>
+  <title>KT matematikos ir sąsajos žinynas</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -25,78 +25,160 @@
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title">Apie kompiuterinės tomografijos demonstraciją</h1>
+<h1 class="title">KT matematikos ir sąsajos žinynas</h1>
 </header>
-<p><strong>Kompiuterinės tomografijos demonstracinisįrankis</strong> yra
-interaktyvi mokomoji programa, skirta iliustruoti kompiuterinės
-tomografijos (KT) ir Radono transformacijos matematikąbei veikimo
-principus.</p>
-<h2 id="istorija-ir-motyvacija">Istorija ir motyvacija</h2>
-<p>Ši programa sukurta remiantis <strong>Fred Gylys-Colwell</strong>
-1998/2006 m. originaliu „Java“apletu. Pirmasis pranešimas buvo
-pristatytas 1998 m. vasario 26 d.</p>
-<p>Programa parašyta„Dart“ir„Flutter“. Atviras pradinis kodas
-pasiekiamas „GitHub“: <a
-href="https://github.com/fredgc/cat">https://github.com/fredgc/cat</a>.</p>
-<p>Pastebėjote klaidą ar turite pasiūlymą? <a
-href="https://github.com/fredgc/cat/issues">Registruokite problemą
-„GitHub“</a>.</p>
-<p>Kitas programas rasite <a
-href="https://www.gchouse.org">www.gchouse.org</a>.</p>
-<h2 id="matematika-už-kompiuterinės-tomografijos">Matematika už
-kompiuterinės tomografijos</h2>
-<p>Rentgeno kompiuterinėtomografija neinvaziniu būdu atkuria objekto
-vidinį2D skerspjūvį.</p>
-<ol type="1">
-<li><strong>Rentgeno spinduliųslopinimas ir tiesiniai
-integralai</strong>:</li>
-</ol>
-<p>Rentgeno spindulys siunčiamas tiese
+<p><strong>Kompiuterinės tomografijos demonstracija</strong> yra
+interaktyvus kompiuterinės tomografijos (KT), Radono transformacijos ir
+filtruotos atgalinės projekcijos (FBP) žinynas.</p>
+<h2 id="matematinis-žinynas">Matematinis žinynas</h2>
+<h3 id="rentgeno-slopinimas-ir-tiesiniai-integralai">1. Rentgeno
+slopinimas ir tiesiniai integralai</h3>
+<p>Rentgeno spindulys, einantis tiese
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>
-per kūną. Sugertos spinduliuotės dalis atitinka sugerties koeficiento
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">f(x, y)</annotation></semantics></math>
-tiesinįintegralątiese
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>L</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mo>∫</mo><mi>L</mi></msub><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="true" form="postfix">)</mo></mrow><mspace width="0.167em"></mspace><mi>d</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">g(L) = \int_L f(x, y) \, ds</annotation></semantics></math></p>
-<ol start="2" type="1">
-<li><strong>Tiesiųparametrizavimas</strong>:</li>
-</ol>
-<p>Kiekviena plokštumos tiesėparametrizuojama atstumu
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>
+per objektą, silpnėja pagal Bero-Lamberto dėsnį:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mo>=</mo><msub><mi>I</mi><mn>0</mn></msub><mrow><mi>exp</mi><mo>&#8289;</mo></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>−</mi><msub><mo>∫</mo><mi>L</mi></msub><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>s</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">I = I_0 \exp\left(-\int_L f(x, y) \, ds\right)</annotation></semantics></math></p>
+<p>Palyginus praėjusį intensyvumą
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>I</mi><annotation encoding="application/x-tex">I</annotation></semantics></math>
+su pradiniu
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>I</mi><mn>0</mn></msub><annotation encoding="application/x-tex">I_0</annotation></semantics></math>,
+gaunamas sugerties koeficiento
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f(x, y)</annotation></semantics></math>
+tiesinis integralas:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>L</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>−</mi><mrow><mi>ln</mi><mo>&#8289;</mo></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mi>I</mi><msub><mi>I</mi><mn>0</mn></msub></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mo>∫</mo><mi>L</mi></msub><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">g(L) = -\ln\left(\frac{I}{I_0}\right) = \int_L f(x, y) \, ds</annotation></semantics></math></p>
+<h3 id="tiesių-parametrizavimas-ir-radono-transformacija">2. Tiesių
+parametrizavimas ir Radono transformacija</h3>
+<p>Kiekviena tiesė 2D plokštumoje
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mi>−</mi><mn>1</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">]</mo><mo>×</mo><mo stretchy="false" form="prefix">[</mo><mi>−</mi><mn>1</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[-1, 1] \times [-1, 1]</annotation></semantics></math>
+parametrizuojama statmenu atstumu
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mi>−</mi><mn>1</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">r \in [-1, 1]</annotation></semantics></math>
 nuo pradžios taško ir normalės kampu
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\theta \in [0, 2\pi)</annotation></semantics></math>:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>cos</mo><mi>θ</mi><mo>+</mo><mi>y</mi><mo>sin</mo><mi>θ</mi><mo>=</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">x \cos\theta + y \sin\theta = r</annotation></semantics></math></p>
-<p>Radono transformacija
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℛ</mi><mrow><mo stretchy="true" form="prefix">[</mo><mi>f</mi><mo stretchy="true" form="postfix">]</mo></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>r</mi><mo>,</mo><mi>θ</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal{R}[f](r, \theta)</annotation></semantics></math>
-užrašo tiesinius integralus visiems
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">(</mo><mi>r</mi><mo>,</mo><mi>θ</mi><mo stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(r, \theta)</annotation></semantics></math>.</p>
-<ol start="3" type="1">
-<li><p><strong>Sinogramos dvilypumas</strong>:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mrow><mi>cos</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>y</mi><mrow><mi>sin</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">x \cos(\theta) + y \sin(\theta) = r</annotation></semantics></math></p>
+<p><strong>Radono transformacija</strong>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℛ</mi><mo stretchy="false" form="prefix">[</mo><mi>f</mi><mo stretchy="false" form="postfix">]</mo><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo>,</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo>,</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal{R}[f](r, \theta) = g(r, \theta)</annotation></semantics></math>
+įrašo visus tiesinius integralus kaip 2D duomenų rinkinį
+(<strong>sinogramą</strong>)
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>Q</mi><mo>×</mo><mn>2</mn><mi>P</mi></mrow><annotation encoding="application/x-tex">2Q \times 2P</annotation></semantics></math>
+tinklelyje
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>=</mo><mn>1</mn><mi>/</mi><mi>Q</mi></mrow><annotation encoding="application/x-tex">h = 1/Q</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mi>i</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo>−</mo><mi>Q</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mi>Q</mi></mrow><annotation encoding="application/x-tex">r_i = (i - Q)/Q</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>θ</mi><mi>j</mi></msub><mo>=</mo><mi>π</mi><mi>j</mi><mi>/</mi><mi>P</mi></mrow><annotation encoding="application/x-tex">\theta_j = \pi j / P</annotation></semantics></math>).</p>
+<h3 id="sinogramos-dvilypumas">3. Sinogramos dvilypumas</h3>
 <ul>
-<li><p>Vienas taškas sinogramos erdvėje
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>r</mi><mn>0</mn></msub><mo>,</mo><msub><mi>θ</mi><mn>0</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(r_0, \theta_0)</annotation></semantics></math>
-atitinka tiesęobjekto erdvėje.</p></li>
-<li><p>Objekto erdvės taškas
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>x</mi><mn>1</mn></msub><mo>,</mo><msub><mi>y</mi><mn>1</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(x_1, y_1)</annotation></semantics></math>
-atitinka
-sinusoidę<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>θ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mi>x</mi><mn>1</mn></msub><mo>cos</mo><mi>θ</mi><mo>+</mo><msub><mi>y</mi><mn>1</mn></msub><mo>sin</mo><mi>θ</mi></mrow><annotation encoding="application/x-tex">r(\theta) = x_1 \cos\theta + y_1 \sin\theta</annotation></semantics></math>
-sinogramos erdvėje.</p></li>
-</ul></li>
-<li><p><strong>Filtruota atgalinėprojekcija
-(rekonstrukcija)</strong>:</p></li>
-</ol>
-<p>Paprasta atgalinėprojekcija išsklaido duomenis ir sukelia
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi>r</mi></mrow><annotation encoding="application/x-tex">1/r</annotation></semantics></math>
-suliejimą. Atlikus sąsūkąsu Frank Natterer filtro branduoliu, filtruota
-atgalinė projekcija tiksliai rekonstruoja
-vidinęstruktūrą(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>≈</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">f(x, y) \approx 1</annotation></semantics></math>
-viduje,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>
-išorėje).</p>
-<h2 id="privatumas-ir-duomenų-saugojimas">Privatumas ir duomenų
-saugojimas</h2>
-<p>Vartotojo nustatymai saugomi tik lokaliai jūsųįrenginyje
-(<code>SharedPreferences</code> / <code>localStorage</code>). Jokie
-asmens duomenys nerenkami.</p>
+<li><p>Vienas taškas
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>r</mi><mn>0</mn></msub><mo>,</mo><msub><mi>θ</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(r_0, \theta_0)</annotation></semantics></math>
+sinogramos erdvėje atitinka vieną tiesę objekto erdvėje.</p></li>
+<li><p>Vienas taškas
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mn>0</mn></msub><mo>,</mo><msub><mi>y</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(x_0, y_0)</annotation></semantics></math>
+objekto erdvėje atitinka visas per jį einančias tieses ir sinogramos
+erdvėje brėžia sinusoidę:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>x</mi><mn>0</mn></msub><mrow><mi>cos</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msub><mi>y</mi><mn>0</mn></msub><mrow><mi>sin</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">r(\theta) = x_0 \cos(\theta) + y_0 \sin(\theta)</annotation></semantics></math></p></li>
+</ul>
+<h3 id="apskrito-fantomo-tiesinis-integralas">4. Apskrito fantomo
+tiesinis integralas</h3>
+<p>Apskritam diskui, kurio tankis
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>,
+spindulys
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>r</mi><mi>p</mi></msub><annotation encoding="application/x-tex">r_p</annotation></semantics></math>,
+o centras
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mn>0</mn></msub><mo>,</mo><msub><mi>y</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(x_0, y_0)</annotation></semantics></math>,
+tegul
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><mi>s</mi><mo>=</mo><mi>r</mi><mo>−</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mn>0</mn></msub><mrow><mi>cos</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msub><mi>y</mi><mn>0</mn></msub><mrow><mi>sin</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\Delta s = r - (x_0 \cos(\theta) + y_0 \sin(\theta))</annotation></semantics></math>.
+Tiesinis integralas lygus stygos ilgiui:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ψ</mi><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Δ</mi><mi>s</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mo stretchy="true" form="prefix">{</mo><mtable><mtr><mtd columnalign="left" style="text-align: left"><mn>2</mn><msqrt><mrow><msubsup><mi>r</mi><mi>p</mi><mn>2</mn></msubsup><mo>−</mo><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Δ</mi><mi>s</mi><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow></msqrt></mtd><mtd columnalign="left" style="text-align: left"><mrow><mtext mathvariant="normal">jei </mtext><mspace width="0.333em"></mspace></mrow><mo stretchy="false" form="prefix">|</mo><mi mathvariant="normal">Δ</mi><mi>s</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><msub><mi>r</mi><mi>p</mi></msub></mtd></mtr><mtr><mtd columnalign="left" style="text-align: left"><mn>0</mn></mtd><mtd columnalign="left" style="text-align: left"><mtext mathvariant="normal">kitaip</mtext></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">\psi(\Delta s) = \begin{cases} 2\sqrt{r_p^2 - (\Delta s)^2} &amp; \text{jei } |\Delta s| &lt; r_p \\ 0 &amp; \text{kitaip} \end{cases}</annotation></semantics></math></p>
+<p>Keli fantomai sinogramoje sumuojasi tiesiškai.</p>
+<h3 id="atgalinė-projekcija-ir-filtruota-atgalinė-projekcija-fbp">5.
+Atgalinė projekcija ir filtruota atgalinė projekcija (FBP)</h3>
+<p>Sinogramos reikšmių sumavimas išilgai taško
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(x, y)</annotation></semantics></math>
+sinusoidės yra nefiltruota atgalinė projekcija:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℬ</mi><mo stretchy="false" form="prefix">[</mo><mi>g</mi><mo stretchy="false" form="postfix">]</mo><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msubsup><mo>∫</mo><mn>0</mn><mrow><mn>2</mn><mi>π</mi></mrow></msubsup><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mrow><mi>cos</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>y</mi><mrow><mi>sin</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>θ</mi></mrow><annotation encoding="application/x-tex">\mathcal{B}[g](x, y) = \int_0^{2\pi} g(x \cos(\theta) + y \sin(\theta), \theta) \, d\theta</annotation></semantics></math></p>
+<p>Nefiltruota atgalinė projekcija sukelia
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">|</mo><mi>r</mi><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">1/|r|</annotation></semantics></math>
+suliejimą. Kiekvienos projekcijos sąsūka su <strong>Frank Natterer
+diskrečiuoju rampos filtro branduoliu</strong> (juostos plotis
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>=</mo><mi>π</mi><mi>Q</mi></mrow><annotation encoding="application/x-tex">b = \pi Q</annotation></semantics></math>)
+šį suliejimą panaikina:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mi>b</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>l</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><msup><mi>b</mi><mn>2</mn></msup><mrow><msup><mi>π</mi><mn>4</mn></msup><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mn>4</mn><msup><mi>l</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mspace width="1.0em"></mspace><mo stretchy="false" form="prefix">(</mo><mi>l</mi><mo>∈</mo><mi>ℤ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">w_b(l) = \frac{b^2}{\pi^4 (1 - 4 l^2)} \quad (l \in \mathbb{Z})</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>w</mi><mi>b</mi></msub><mo>*</mo><mi>g</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo>,</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>h</mi><munderover><mo>∑</mo><mrow><mi>l</mi><mo>=</mo><mi>−</mi><mi>L</mi></mrow><mi>L</mi></munderover><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo>−</mo><mi>l</mi><mi>h</mi><mo>,</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><msub><mi>w</mi><mi>b</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>l</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(w_b * g)(r, \theta) = h \sum_{l = -L}^{L} g(r - l h, \theta) \, w_b(l)</annotation></semantics></math></p>
+<p>Neigiami
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>w</mi><mi>b</mi></msub><annotation encoding="application/x-tex">w_b</annotation></semantics></math>
+šoniniai sparnai tiksliai atkuria
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>≈</mo><mn>1.0</mn></mrow><annotation encoding="application/x-tex">f(x, y) \approx 1.0</annotation></semantics></math>
+fantomo viduje ir
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≈</mo><mn>0.0</mn></mrow><annotation encoding="application/x-tex">\approx 0.0</annotation></semantics></math>
+išorėje.</p>
+<h2 id="sąsajos-ir-valdymo-žinynas">Sąsajos ir valdymo žinynas</h2>
+<h3 id="objekto-erdvė">Objekto erdvė</h3>
+<ul>
+<li><p><strong>Zondo režimas</strong>: Spustelėkite arba vilkite, kad
+padėtumėte žalią zondo tašką
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(x, y)</annotation></semantics></math>
+ir matytumėte jo sinusoidę sinogramoje.</p></li>
+<li><p><strong>Fantomo režimas</strong>: Vilkite raudonus fantomo diskus
+vienetiniame apskritime.</p></li>
+<li><p><strong>Pridėti / Ištrinti (<code>+</code> /
+šiukšliadėžė)</strong>: Pridėkite kelis fantomo diskus arba pašalinkite
+pasirinktą (4–7 etapai).</p></li>
+</ul>
+<h3 id="sinogramos-radono-erdvė">Sinogramos (Radono) erdvė</h3>
+<ul>
+<li><p><strong>Pagrindinė diagrama</strong>: Spustelėkite arba vilkite,
+kad pasirinktumėte vieną spindulį
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo>,</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(r, \theta)</annotation></semantics></math>.</p></li>
+<li><p><strong>Dešinioji juosta</strong>: Lygiagrečių spindulių šeima
+esant fiksuotam kampui
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math>.</p></li>
+<li><p><strong>Apatinė juosta</strong>: Tiesės, liečiančios apskritimą
+su spinduliu
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>r</mi><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">|r|</annotation></semantics></math>.</p></li>
+</ul>
+<h3 id="d-profilio-grafikas-57-etapai">1D profilio grafikas (5–7
+etapai)</h3>
+<ul>
+<li><p>Rodo 1D skerspjūvį pagal aktyvų zondą ir skaičiuoja atgalinės
+projekcijos integralą realiuoju laiku.</p></li>
+<li><p><strong>Paleisti skenavimą / Pristabdyti</strong>: Suka
+lygiagrečių spindulių šeimą per
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\theta \in [0, 2\pi)</annotation></semantics></math>.</p></li>
+</ul>
+<h3 id="įrankių-juosta-nustatymai-ir-trumpiniai">Įrankių juosta,
+nustatymai ir trumpiniai</h3>
+<ul>
+<li><p><strong>Filtras (<code>[F]</code>)</strong>: Perjungia tarp
+nefiltruotos
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>g</mi><annotation encoding="application/x-tex">g</annotation></semantics></math>
+ir filtruotos
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mi>b</mi></msub><mo>*</mo><mi>g</mi></mrow><annotation encoding="application/x-tex">w_b * g</annotation></semantics></math>
+sinogramos.</p></li>
+<li><p><strong>Etapų naršymas</strong>: <strong>Ankstesnis</strong>,
+<strong>Kitas</strong>, <strong>Praleisti</strong> arba etapų mygtukai
+(<code>1</code>–<code>7</code>).</p></li>
+<li><p><strong>Nustatymai</strong>: Tema (Tamsi, Šviesi, Sistemos),
+Spalvų paletė (Klasikinė, Pilki atspalviai, Viridis, Inferno),
+Diskretizavimo raiška
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>×</mo><mi>Q</mi></mrow><annotation encoding="application/x-tex">P \times Q</annotation></semantics></math>)
+ir Koordinačių gairės.</p></li>
+<li><p><strong>Klaviatūros trumpiniai</strong>:
+<code>[Enter]</code>/<code>[N]</code> kitas žingsnis/etapas,
+<code>[→]</code> kitas etapas, <code>[P]</code>/<code>[←]</code>
+ankstesnis etapas, <code>[1]</code>–<code>[7]</code> perėjimas į etapą,
+<code>[Tarpas]</code> paleisti/pristabdyti, <code>[F]</code> perjungti
+filtrą.</p></li>
+</ul>
+<h2 id="kilmė-ir-šaltiniai">Kilmė ir šaltiniai</h2>
+<ul>
+<li><p>Originalus 1998/2006 m. „Java“ apletas, autorius <strong>Fred
+Gylys-Colwell</strong>, pristatytas Ball State universitete 1998 m.
+vasario 26 d.</p></li>
+<li><p>Frank Natterer, <em>The Mathematics of Computerized
+Tomography</em>, SIAM Classics in Applied Mathematics, 2001.</p></li>
+<li><p>Pradinis kodas: <a
+href="https://github.com/fredgc/cat">https://github.com/fredgc/cat</a></p></li>
+<li><p>Klaidų pranešimai: <a
+href="https://github.com/fredgc/cat/issues">https://github.com/fredgc/cat/issues</a></p></li>
+<li><p>Daugiau programų: <a
+href="https://www.gchouse.org">www.gchouse.org</a></p></li>
+</ul>
 </body>
 </html>

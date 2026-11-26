@@ -21,6 +21,9 @@ class AppLocalizationsPt extends AppLocalizations {
   String get aboutTooltip => 'Sobre';
 
   @override
+  String get addPhantomTooltip => 'Adicionar disco fantoma';
+
+  @override
   String get appTitle => 'Demonstração de Tomografia Computadorizada';
 
   @override
@@ -45,6 +48,9 @@ class AppLocalizationsPt extends AppLocalizations {
   String get colormapViridis => 'Viridis';
 
   @override
+  String get deletePhantomTooltip => 'Excluir fantoma selecionado';
+
+  @override
   String get done => 'Concluído';
 
   @override
@@ -60,6 +66,15 @@ class AppLocalizationsPt extends AppLocalizations {
   String get githubButton => 'GitHub (fredgc/cat)';
 
   @override
+  String get graphAxisAngle => 'Ângulo θ ∈ [0, 2π)';
+
+  @override
+  String get graphAxisRadialOffset => 'Deslocamento radial r ∈ [-1, 1]';
+
+  @override
+  String get graphAxisRayPath => 'Trajeto ao longo do raio s ∈ [-1, 1]';
+
+  @override
   String get graphCanvasSemantics =>
       'Gráfico de perfil 1D exibindo seções transversais e a integral de retroprojeção.';
 
@@ -67,8 +82,17 @@ class AppLocalizationsPt extends AppLocalizations {
   String get graphFilteredPrefix => 'Filtrado wb * g: ';
 
   @override
+  String get graphLegendFiltered => '— Filtrado (kernel rampa)';
+
+  @override
+  String get graphLegendUnfilteredPoint => '— Sem filtro g(θ)';
+
+  @override
+  String get graphLegendUnfilteredTheta => '— Sem filtro P_θ(r)';
+
+  @override
   String graphLineTrajectory(String r, String theta, String val) {
-    return 'Ray Absorption (Green) | Linha (r = $r, θ = $theta) | Absorção total: $val';
+    return 'Absorção do raio (Verde) | Linha (r = $r, θ = $theta) | Absorção total: $val';
   }
 
   @override
@@ -79,7 +103,12 @@ class AppLocalizationsPt extends AppLocalizations {
     String val,
     String status,
   ) {
-    return '${prefix}Point Trajectory ($x, $y) | Integral sobre θ: $val $status';
+    return '${prefix}Trajetória do ponto ($x, $y) | Integral sobre θ: $val $status';
+  }
+
+  @override
+  String graphRawValue(String val) {
+    return '[Bruto: $val]';
   }
 
   @override
@@ -97,7 +126,7 @@ class AppLocalizationsPt extends AppLocalizations {
   }
 
   @override
-  String get graphUnfilteredPrefix => 'Sem filtro g: ';
+  String get graphUnfilteredPrefix => 'Sem filtro: ';
 
   @override
   String get insidePhantom => '(dentro do fantoma)';
@@ -107,7 +136,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get keyboardShortcutsList =>
-      '• [Enter]: Próximo passo de instrução ou etapa seguinte\n• [N] / [→]: Próxima etapa\n• [P] / [←]: Etapa anterior\n• [1] - [7]: Ir para etapa 1 a 7\n• [Espaço]: Reproduzir / Pausar rotação de varredura angular\n• [F]: Alternar modo de reconstrução filtrada';
+      '• [Enter] / [N]: Próximo passo de instrução ou etapa seguinte\n• [→]: Próxima etapa\n• [P] / [←]: Etapa anterior\n• [1] - [7]: Ir para etapa 1 a 7\n• [Espaço]: Reproduzir / Pausar rotação de varredura angular\n• [F]: Alternar modo de reconstrução filtrada';
 
   @override
   String get keyboardShortcutsTitle => 'Atalhos do teclado:';
@@ -122,6 +151,15 @@ class AppLocalizationsPt extends AppLocalizations {
   String get languageSpanish => 'Español';
 
   @override
+  String get modePhantom => 'Fantoma';
+
+  @override
+  String get modeProbe => 'Sonda';
+
+  @override
+  String get moreInfoButton => 'Mais informações';
+
+  @override
   String get next => 'Próximo';
 
   @override
@@ -132,7 +170,22 @@ class AppLocalizationsPt extends AppLocalizations {
       'Espaço do objeto. Plano cartesiano interativo mostrando linhas de projeção de raios X e o fantoma.';
 
   @override
+  String get openInBrowser => 'Abrir no navegador';
+
+  @override
   String get outsidePhantom => '(fora do fantoma)';
+
+  @override
+  String get pauseScan => 'Pausar';
+
+  @override
+  String get pauseScanWide => 'Pausar [Espaço]';
+
+  @override
+  String get playScan => 'Iniciar varredura';
+
+  @override
+  String get playScanWide => 'Iniciar varredura [Espaço]';
 
   @override
   String get previous => 'Anterior';
@@ -194,12 +247,18 @@ class AppLocalizationsPt extends AppLocalizations {
   String get showGuidesTitle => 'Exibir guias de coordenadas';
 
   @override
+  String get skip => 'Pular';
+
+  @override
+  String get skipStageTooltip => 'Pular para a próxima etapa';
+
+  @override
   String get stage1Description =>
       'A tomografia computadorizada (TC) reconstrói em 2D o interior de um objeto de forma não invasiva, transmitindo raios X por meio de todos os ângulos θ. Detectores medem a intensidade transmitida, fornecendo segundo a lei de Beer-Lambert a integral de linha do coeficiente de absorção f(x, y) ao longo de cada linha L: g(L) = ∫_L f ds.';
 
   @override
   String get stage1Instruction1 =>
-      'Clique ou arraste no Espaço do Objeto para visualizar todas as linhas que passam por esse ponto. Clique em \"Próximo\" ou na Etapa 2 acima para prosseguir.';
+      'Clique em \"Próximo\" acima para continuar para a próxima etapa.';
 
   @override
   String get stage1NarrowDescription =>
@@ -207,7 +266,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get stage1NarrowInstruction1 =>
-      'Toque ou arraste no Espaço do Objeto para ver as linhas. Toque em \"Próximo\" ou na Etapa 2 para continuar.';
+      'Toque em \"Próximo\" acima para continuar para a próxima etapa.';
 
   @override
   String get stage1NarrowSubtitle => 'Visão geral e Transformada de Radon';
@@ -351,15 +410,19 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get stage5Instruction1 =>
-      'Passo 1 de 3: Clique dentro do disco do fantoma à esquerda. Observe o valor elevado da retroprojeção no gráfico inferior.';
+      'Passo 1 de 4: Arraste a sonda para dentro do disco fantoma à esquerda. Observe como a integral de retroprojeção no gráfico inferior aumenta.';
 
   @override
   String get stage5Instruction2 =>
-      'Passo 2 de 3: Clique fora do disco do fantoma. Observe a queda dos valores 1D e da integral.';
+      'Passo 2 de 4: Clique em qualquer lugar do sinograma para selecionar um único raio X. Observe o pulso verde indicando a intensidade de absorção ao longo desse raio.';
 
   @override
   String get stage5Instruction3 =>
-      'Passo 3 de 3: Clique nas barras de borda do sinograma à direita para examinar seções com θ ou r constantes.';
+      'Passo 3 de 4: Clique na barra lateral direita do sinograma para ver uma família paralela de raios X em todo r com ângulo fixo θ (curva ciano).';
+
+  @override
+  String get stage5Instruction4 =>
+      'Passo 4 de 4: Clique em \"Iniciar varredura\" ou pressione [Espaço] para varrer a família paralela por todos os ângulos θ, animando a curva de projeção 1D.';
 
   @override
   String get stage5NarrowDescription =>
@@ -367,15 +430,19 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get stage5NarrowInstruction1 =>
-      'Passo 1 de 3: Clique dentro do fantoma acima. Veja a integral alta abaixo.';
+      'Passo 1 de 4: Arraste a sonda para dentro do fantoma acima. Observe o aumento da integral de retroprojeção.';
 
   @override
   String get stage5NarrowInstruction2 =>
-      'Passo 2 de 3: Clique fora do fantoma. Veja os valores reduzirem.';
+      'Passo 2 de 4: Clique no sinograma para selecionar um único raio e observe o pulso verde de absorção.';
 
   @override
   String get stage5NarrowInstruction3 =>
-      'Passo 3 de 3: Clique nas barras de borda do sinograma abaixo.';
+      'Passo 3 de 4: Clique na barra direita do sinograma para ver uma família paralela de raios X com ângulo fixo θ (curva ciano).';
+
+  @override
+  String get stage5NarrowInstruction4 =>
+      'Passo 4 de 4: Toque em \"Iniciar varredura\" para varrer a família paralela por todos os ângulos θ.';
 
   @override
   String get stage5NarrowSubtitle => 'Perfis 1D e retroprojeção';
@@ -395,11 +462,15 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get stage6Instruction1 =>
-      'Passo 1 de 2: Clique dentro do disco do fantoma. Observe os lobos de borda nítidos no perfil 1D e a integral reconstruída ≈ 1.0.';
+      'Passo 1 de 3: Observe no gráfico inferior a família paralela: a curva laranja mostra o resultado filtrado com lobos negativos nítidos que cancelam o desfoque.';
 
   @override
   String get stage6Instruction2 =>
-      'Passo 2 de 2: Clique fora do disco do fantoma. Os lobos negativos cancelam o desfoque (integral ≈ 0.0).';
+      'Passo 2 de 3: Clique em \"Iniciar varredura\" ou pressione [Espaço] para observar as projeções filtradas variando conforme o ângulo gira.';
+
+  @override
+  String get stage6Instruction3 =>
+      'Passo 3 de 3: Clique em pontos de sonda no Espaço do Objeto. A retroprojeção filtrada reconstrói a atenuação interior exata: ≈ 1.0 dentro e ≈ 0.0 fora.';
 
   @override
   String get stage6NarrowDescription =>
@@ -407,11 +478,15 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get stage6NarrowInstruction1 =>
-      'Passo 1 de 2: Clique no fantoma. Observe os lobos nítidos e a integral ≈ 1.0.';
+      'Passo 1 de 3: O gráfico inferior exibe a curva filtrada laranja com lobos negativos nítidos que cancelam o desfoque.';
 
   @override
   String get stage6NarrowInstruction2 =>
-      'Passo 2 de 2: Clique fora do fantoma. Lobos negativos cancelam desfoque (integral ≈ 0.0).';
+      'Passo 2 de 3: Toque em \"Iniciar varredura\" para observar as projeções filtradas girando dinamicamente.';
+
+  @override
+  String get stage6NarrowInstruction3 =>
+      'Passo 3 de 3: Toque em pontos no Espaço do Objeto. A retroprojeção filtrada reconstrói ≈ 1.0 dentro e ≈ 0.0 fora.';
 
   @override
   String get stage6NarrowSubtitle => 'Retroprojeção Filtrada (FBP)';
@@ -427,8 +502,53 @@ class AppLocalizationsPt extends AppLocalizations {
   String get stage6Title => 'Reconstrução de dados filtrados';
 
   @override
+  String get stage7Description =>
+      'No modo Livre, crie suas próprias cenas usando vários discos fantoma. Adicione discos com \"+\", arraste-os para a posição desejada e observe como cada disco adiciona uma faixa senoidal ao sinograma. Use a Retroprojeção Filtrada para reconstruir suas cenas e verificar as densidades internas.';
+
+  @override
+  String get stage7Instruction1 =>
+      'Passo 1 de 3: Toque em \"+\" no canto superior direito do Espaço do Objeto para criar mais discos fantoma. Selecione e arraste os discos para qualquer lugar dentro do círculo.';
+
+  @override
+  String get stage7Instruction2 =>
+      'Passo 2 de 3: Inspecione o sinograma. Observe como cada fantoma gera seu próprio traço senoidal e as áreas sobrepostas se somam linearmente.';
+
+  @override
+  String get stage7Instruction3 =>
+      'Passo 3 de 3: Mude para o modo \"Sonda\" no Espaço do Objeto para testar retroprojeções pontuais. Alterne o Filtro [F] para ver como os lobos negativos reconstroem cada fantoma.';
+
+  @override
+  String get stage7NarrowDescription =>
+      'Crie cenas personalizadas com vários discos fantoma. Use \"+\" para adicionar discos, arraste-os e explore seus sinogramas aditivos e a reconstrução FBP.';
+
+  @override
+  String get stage7NarrowInstruction1 =>
+      'Passo 1 de 3: Toque em \"+\" no Espaço do Objeto para criar discos fantoma e arraste-os dentro do círculo.';
+
+  @override
+  String get stage7NarrowInstruction2 =>
+      'Passo 2 de 3: Inspecione o sinograma para ver como vários fantomas se somam linearmente no espaço de Radon.';
+
+  @override
+  String get stage7NarrowInstruction3 =>
+      'Passo 3 de 3: Mude para o modo \"Sonda\" e alterne o Filtro [F] para reconstruir seus fantomas personalizados.';
+
+  @override
+  String get stage7NarrowSubtitle => 'Sandbox multi-fantoma';
+
+  @override
+  String get stage7NarrowTitle => 'Modo livre';
+
+  @override
+  String get stage7Subtitle =>
+      'Construa cenas multi-fantoma e explore a reconstrução';
+
+  @override
+  String get stage7Title => 'Modo livre e fantomas personalizados';
+
+  @override
   String stageIndicator(int stageNumber) {
-    return 'Etapa $stageNumber de 6';
+    return 'Etapa $stageNumber de 7';
   }
 
   @override
@@ -438,9 +558,6 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get switchLanguageTooltip => 'Mudar idioma';
-
-  @override
-  String get moreInfoButton => 'Mais informações';
 
   @override
   String get termsOfServiceButton => 'Termos de Serviço';
@@ -456,6 +573,11 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get themeSystem => 'Sistema';
+
+  @override
+  String unableToLoadDocument(String title) {
+    return 'Não foi possível carregar o documento $title.';
+  }
 
   @override
   String versionLabel(String version) {

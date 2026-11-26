@@ -12,6 +12,10 @@
   "@aboutTooltip": {
     "description": "Tooltip for the About action button in the app bar"
   },
+  "addPhantomTooltip": "Add phantom disk",
+  "@addPhantomTooltip": {
+    "description": "Tooltip for button that adds a new phantom disk in Object Space"
+  },
   "appTitle": "CAT Scan Demonstration",
   "@appTitle": {
     "description": "Title displayed on the application header"
@@ -44,6 +48,10 @@
   "@colormapViridis": {
     "description": "Display name for the Viridis colormap"
   },
+  "deletePhantomTooltip": "Delete selected phantom",
+  "@deletePhantomTooltip": {
+    "description": "Tooltip for button that deletes the selected phantom disk"
+  },
   "done": "Done",
   "@done": {
     "description": "Button label to close settings dialog"
@@ -64,6 +72,18 @@
   "@githubButton": {
     "description": "Button link to GitHub repository"
   },
+  "graphAxisAngle": "Angle θ ∈ [0, 2π)",
+  "@graphAxisAngle": {
+    "description": "X-axis label in 1D graph when plotting against projection angle theta"
+  },
+  "graphAxisRadialOffset": "Radial offset r ∈ [-1, 1]",
+  "@graphAxisRadialOffset": {
+    "description": "X-axis label in 1D graph when plotting against radial offset r"
+  },
+  "graphAxisRayPath": "Path along ray s ∈ [-1, 1]",
+  "@graphAxisRayPath": {
+    "description": "X-axis label in 1D graph when plotting absorption along a single ray"
+  },
   "graphCanvasSemantics": "1D profile plot showing cross sections and backprojection integral.",
   "@graphCanvasSemantics": {
     "description": "Accessibility semantic label for the 1D profile plot canvas"
@@ -71,6 +91,18 @@
   "graphFilteredPrefix": "Filtered wb * g: ",
   "@graphFilteredPrefix": {
     "description": "Prefix in graph header when filtered reconstruction is active"
+  },
+  "graphLegendFiltered": "— Filtered (Ramp kernel)",
+  "@graphLegendFiltered": {
+    "description": "Legend label for the filtered curve in dual-curve graph mode"
+  },
+  "graphLegendUnfilteredPoint": "— Unfiltered g(θ)",
+  "@graphLegendUnfilteredPoint": {
+    "description": "Legend label for the unfiltered point trajectory curve"
+  },
+  "graphLegendUnfilteredTheta": "— Unfiltered P_θ(r)",
+  "@graphLegendUnfilteredTheta": {
+    "description": "Legend label for the unfiltered parallel projection curve"
   },
   "graphLineTrajectory": "Ray Absorption (Green) | Line (r = {r}, θ = {theta}) | Total Absorption: {val}",
   "@graphLineTrajectory": {
@@ -113,6 +145,16 @@
       "status": {
         "type": "String",
         "example": "(inside phantom)"
+      }
+    }
+  },
+  "graphRawValue": "[Raw: {val}]",
+  "@graphRawValue": {
+    "description": "Bracketed unfiltered backprojection value shown beside the filtered value",
+    "placeholders": {
+      "val": {
+        "type": "String",
+        "example": "0.420"
       }
     }
   },
@@ -168,7 +210,7 @@
   "@issuesButton": {
     "description": "Button link to report GitHub issues"
   },
-  "keyboardShortcutsList": "• [Enter]: Advance instruction step or next stage\n• [N] / [→]: Next stage\n• [P] / [←]: Previous stage\n• [1] - [7]: Jump to stage 1 through 7\n• [Space]: Play / Pause angle sweep rotation\n• [F]: Toggle filtered reconstruction mode",
+  "keyboardShortcutsList": "• [Enter] / [N]: Advance instruction step or next stage\n• [→]: Next stage\n• [P] / [←]: Previous stage\n• [1] - [7]: Jump to stage 1 through 7\n• [Space]: Play / Pause angle sweep rotation\n• [F]: Toggle filtered reconstruction mode",
   "@keyboardShortcutsList": {
     "description": "List of available keyboard shortcuts in the about dialog"
   },
@@ -188,9 +230,21 @@
   "@languageSpanish": {
     "description": "Menu option for Spanish language"
   },
+  "modePhantom": "Phantom",
+  "@modePhantom": {
+    "description": "Segment label for Phantom dragging mode in Object Space"
+  },
+  "modeProbe": "Probe",
+  "@modeProbe": {
+    "description": "Segment label for Probe point mode in Object Space"
+  },
+  "moreInfoButton": "More Info",
+  "@moreInfoButton": {
+    "description": "Button linking to info.html documentation"
+  },
   "next": "Next",
   "@next": {
-    "description": "Button label to navigate to the next stage"
+    "description": "Button label to navigate to the next step or stage"
   },
   "nextStepTooltip": "Next instruction step",
   "@nextStepTooltip": {
@@ -200,13 +254,33 @@
   "@objectCanvasSemantics": {
     "description": "Accessibility semantic label for the Object Space coordinate canvas"
   },
+  "openInBrowser": "Open in browser",
+  "@openInBrowser": {
+    "description": "Action button to open a document in a browser tab"
+  },
   "outsidePhantom": "(outside phantom)",
   "@outsidePhantom": {
     "description": "Status suffix indicating the probe point lies outside the phantom disk"
   },
+  "pauseScan": "Pause",
+  "@pauseScan": {
+    "description": "Compact button label to pause angle sweep animation"
+  },
+  "pauseScanWide": "Pause [Space]",
+  "@pauseScanWide": {
+    "description": "Wide button label with shortcut hint to pause angle sweep animation"
+  },
+  "playScan": "Play Scan",
+  "@playScan": {
+    "description": "Compact button label to start angle sweep animation"
+  },
+  "playScanWide": "Play Scan [Space]",
+  "@playScanWide": {
+    "description": "Wide button label with shortcut hint to start angle sweep animation"
+  },
   "previous": "Previous",
   "@previous": {
-    "description": "Button label to navigate to the previous stage"
+    "description": "Button label to navigate to the previous step or stage"
   },
   "previousStepTooltip": "Previous instruction step",
   "@previousStepTooltip": {
@@ -280,11 +354,19 @@
   "@showGuidesTitle": {
     "description": "Title label for coordinate guides switch in settings"
   },
+  "skip": "Skip",
+  "@skip": {
+    "description": "Compact button label to skip remaining steps and jump to the next stage"
+  },
+  "skipStageTooltip": "Skip to next stage",
+  "@skipStageTooltip": {
+    "description": "Tooltip on the skip button to jump directly to the next stage"
+  },
   "stage1Description": "An X-Ray CAT scan (Computed Axial Tomography) non-invasively reconstructs the 2D interior of an object by transmitting X-ray beams through it from all angles θ. Detectors measure transmitted intensity, which by the Beer-Lambert law yields the mathematical line integral of the absorption coefficient f(x, y) along each line L: g(L) = ∫_L f ds. The core tomography challenge is inverting these line integrals to recover the interior.",
   "@stage1Description": {
     "description": "Full description text for Stage 1 in wide layout"
   },
-  "stage1Instruction1": "Click or drag in Object Space to see all lines passing through that point. Click \"Next\" or Stage 2 above to continue.",
+  "stage1Instruction1": "Click 'Next' above to continue to the next stage.",
   "@stage1Instruction1": {
     "description": "Interaction prompt for Stage 1 in wide layout"
   },
@@ -292,7 +374,7 @@
   "@stage1NarrowDescription": {
     "description": "Concise description text for Stage 1 in narrow layout"
   },
-  "stage1NarrowInstruction1": "Tap or drag in Object Space to see lines through that point. Tap \"Next\" or Stage 2 above to continue.",
+  "stage1NarrowInstruction1": "Tap 'Next' above to continue to the next stage.",
   "@stage1NarrowInstruction1": {
     "description": "Interaction prompt for Stage 1 in narrow layout"
   },
@@ -448,33 +530,41 @@
   "@stage5Description": {
     "description": "Full description text for Stage 5 in wide layout"
   },
-  "stage5Instruction1": "Step 1 of 3: Click inside the phantom disk on the left. Notice the large backprojection integral value on the bottom graph.",
+  "stage5Instruction1": "Step 1 of 4: Drag the probe inside the phantom disk on the left. Notice how the backprojection integral on the bottom graph increases.",
   "@stage5Instruction1": {
     "description": "Step 1 interaction prompt for Stage 5 in wide layout"
   },
-  "stage5Instruction2": "Step 2 of 3: Click outside the phantom disk. Observe how the 1D profile values drop and the backprojection integral becomes small.",
+  "stage5Instruction2": "Step 2 of 4: Click anywhere in the Sinogram to select a single X-ray ray. Notice the green pulse showing absorption intensity along that ray.",
   "@stage5Instruction2": {
     "description": "Step 2 interaction prompt for Stage 5 in wide layout"
   },
-  "stage5Instruction3": "Step 3 of 3: Click the sinogram border bars on the right to examine 1D cross sections along constant θ or r.",
+  "stage5Instruction3": "Step 3 of 4: Click the right border bar in the Sinogram to view a parallel family of X-rays across all r at fixed angle θ (cyan curve).",
   "@stage5Instruction3": {
     "description": "Step 3 interaction prompt for Stage 5 in wide layout"
+  },
+  "stage5Instruction4": "Step 4 of 4: Click \"Play Scan\" or press [Space] to sweep the parallel family across all angles θ, animating the live 1D projection curve.",
+  "@stage5Instruction4": {
+    "description": "Step 4 interaction prompt for Stage 5 in wide layout"
   },
   "stage5NarrowDescription": "The bottom graph displays the 1D cross section of g(r, θ) along the probe trajectory. Summing these projections over all angles (backprojection) yields a large integral inside the phantom and a smaller integral outside, but unfiltered backprojection produces a blurry 1/|r| image.",
   "@stage5NarrowDescription": {
     "description": "Concise description text for Stage 5 in narrow layout"
   },
-  "stage5NarrowInstruction1": "Step 1 of 3: Click inside the phantom disk on the top. Notice the large backprojection integral on the bottom graph.",
+  "stage5NarrowInstruction1": "Step 1 of 4: Drag the probe inside the phantom disk on the top. Notice how the backprojection integral increases.",
   "@stage5NarrowInstruction1": {
     "description": "Step 1 interaction prompt for Stage 5 in narrow layout"
   },
-  "stage5NarrowInstruction2": "Step 2 of 3: Click outside the phantom disk. Observe how profile values drop and the integral becomes small.",
+  "stage5NarrowInstruction2": "Step 2 of 4: Click in the Sinogram to select a single ray. Notice the green pulse showing absorption intensity along that ray.",
   "@stage5NarrowInstruction2": {
     "description": "Step 2 interaction prompt for Stage 5 in narrow layout"
   },
-  "stage5NarrowInstruction3": "Step 3 of 3: Click the sinogram border bars on the bottom to examine 1D cross sections along constant θ or r.",
+  "stage5NarrowInstruction3": "Step 3 of 4: Click the right border bar in the Sinogram to view a parallel family of X-rays at fixed angle θ (cyan curve).",
   "@stage5NarrowInstruction3": {
     "description": "Step 3 interaction prompt for Stage 5 in narrow layout"
+  },
+  "stage5NarrowInstruction4": "Step 4 of 4: Tap \"Play Scan\" to sweep the parallel family across all angles θ, animating the live 1D projection curve.",
+  "@stage5NarrowInstruction4": {
+    "description": "Step 4 interaction prompt for Stage 5 in narrow layout"
   },
   "stage5NarrowSubtitle": "1D Profiles & Backprojection",
   "@stage5NarrowSubtitle": {
@@ -496,25 +586,33 @@
   "@stage6Description": {
     "description": "Full description text for Stage 6 in wide layout"
   },
-  "stage6Instruction1": "Step 1 of 2: Click inside the phantom disk. Observe the sharp edge lobes in the 1D profile and the reconstructed integral ≈ 1.0.",
+  "stage6Instruction1": "Step 1 of 3: Check the bottom graph for the parallel family: the orange curve shows the filtered result with sharp negative lobes that cancel blur.",
   "@stage6Instruction1": {
     "description": "Step 1 interaction prompt for Stage 6 in wide layout"
   },
-  "stage6Instruction2": "Step 2 of 2: Click outside the phantom disk. Notice how the negative side lobes cancel the smearing, yielding integral ≈ 0.0.",
+  "stage6Instruction2": "Step 2 of 3: Click \"Play Scan\" or press [Space] to watch the filtered projections dynamically sweep as the projection angle rotates.",
   "@stage6Instruction2": {
     "description": "Step 2 interaction prompt for Stage 6 in wide layout"
+  },
+  "stage6Instruction3": "Step 3 of 3: Click probe points in Object Space. Notice that filtered backprojection reconstructs exact interior attenuation: ≈ 1.0 inside and ≈ 0.0 outside.",
+  "@stage6Instruction3": {
+    "description": "Step 3 interaction prompt for Stage 6 in wide layout"
   },
   "stage6NarrowDescription": "High-pass filtering the projections with Frank Natterer’s discrete filter kernel w_b(l) = b² / (π⁴(1 - 4l²)) sharpens the sinogram. Backprojecting the filtered data reconstructs the exact interior attenuation values: ≈ 1.0 inside the phantom and ≈ 0.0 outside.",
   "@stage6NarrowDescription": {
     "description": "Concise description text for Stage 6 in narrow layout"
   },
-  "stage6NarrowInstruction1": "Step 1 of 2: Click inside the phantom disk. Observe the sharp edge lobes in the 1D profile and integral ≈ 1.0.",
+  "stage6NarrowInstruction1": "Step 1 of 3: The bottom graph displays the orange filtered curve with sharp negative lobes that cancel out blur.",
   "@stage6NarrowInstruction1": {
     "description": "Step 1 interaction prompt for Stage 6 in narrow layout"
   },
-  "stage6NarrowInstruction2": "Step 2 of 2: Click outside the phantom disk. Negative side lobes cancel smearing, yielding integral ≈ 0.0.",
+  "stage6NarrowInstruction2": "Step 2 of 3: Tap \"Play Scan\" to watch the filtered projections dynamically sweep as the projection angle rotates.",
   "@stage6NarrowInstruction2": {
     "description": "Step 2 interaction prompt for Stage 6 in narrow layout"
+  },
+  "stage6NarrowInstruction3": "Step 3 of 3: Tap probe points in Object Space. Filtered backprojection reconstructs exact attenuation: ≈ 1.0 inside and ≈ 0.0 outside.",
+  "@stage6NarrowInstruction3": {
+    "description": "Step 3 interaction prompt for Stage 6 in narrow layout"
   },
   "stage6NarrowSubtitle": "Filtered Backprojection (FBP)",
   "@stage6NarrowSubtitle": {
@@ -532,7 +630,55 @@
   "@stage6Title": {
     "description": "Title for Stage 6 in wide layout"
   },
-  "stageIndicator": "Stage {stageNumber} of 6",
+  "stage7Description": "In Free Play mode, design your own scenes using multiple phantom disks. Add disks with \"+\", drag them into position, and observe how each disk contributes an additive sinusoidal band to the sinogram. Use Filtered Backprojection to reconstruct your custom scenes and verify interior densities.",
+  "@stage7Description": {
+    "description": "Full description text for Stage 7 in wide layout"
+  },
+  "stage7Instruction1": "Step 1 of 3: Tap \"+ Add\" in the top-right of Object Space to create additional phantom disks. Select and drag disks to position them anywhere inside the circle.",
+  "@stage7Instruction1": {
+    "description": "Step 1 interaction prompt for Stage 7 in wide layout"
+  },
+  "stage7Instruction2": "Step 2 of 3: Inspect the Sinogram. Notice how each phantom generates its own sinusoidal trace, and overlapping areas sum linearly.",
+  "@stage7Instruction2": {
+    "description": "Step 2 interaction prompt for Stage 7 in wide layout"
+  },
+  "stage7Instruction3": "Step 3 of 3: Switch to \"Probe\" mode in Object Space to test point backprojections. Toggle the Filter [F] to observe how negative lobes reconstruct each individual phantom.",
+  "@stage7Instruction3": {
+    "description": "Step 3 interaction prompt for Stage 7 in wide layout"
+  },
+  "stage7NarrowDescription": "Design custom scenes with multiple phantom disks. Use \"+\" to add disks, drag them into position, and explore their additive sinograms and filtered backprojection reconstruction.",
+  "@stage7NarrowDescription": {
+    "description": "Concise description text for Stage 7 in narrow layout"
+  },
+  "stage7NarrowInstruction1": "Step 1 of 3: Tap \"+ Add\" in Object Space to create phantom disks. Drag them into position inside the circle.",
+  "@stage7NarrowInstruction1": {
+    "description": "Step 1 interaction prompt for Stage 7 in narrow layout"
+  },
+  "stage7NarrowInstruction2": "Step 2 of 3: Inspect the Sinogram to see how multiple phantoms sum linearly in Radon space.",
+  "@stage7NarrowInstruction2": {
+    "description": "Step 2 interaction prompt for Stage 7 in narrow layout"
+  },
+  "stage7NarrowInstruction3": "Step 3 of 3: Switch to \"Probe\" mode and toggle Filter [F] to reconstruct your custom phantoms.",
+  "@stage7NarrowInstruction3": {
+    "description": "Step 3 interaction prompt for Stage 7 in narrow layout"
+  },
+  "stage7NarrowSubtitle": "Multi-Phantom Sandbox",
+  "@stage7NarrowSubtitle": {
+    "description": "Subtitle for Stage 7 in narrow layout"
+  },
+  "stage7NarrowTitle": "Free Play",
+  "@stage7NarrowTitle": {
+    "description": "Short title for Stage 7 in narrow layout"
+  },
+  "stage7Subtitle": "Construct Multi-Phantom Scenes and Explore Reconstruction",
+  "@stage7Subtitle": {
+    "description": "Subtitle for Stage 7 in wide layout"
+  },
+  "stage7Title": "Free Play & Custom Phantoms",
+  "@stage7Title": {
+    "description": "Title for Stage 7 in wide layout"
+  },
+  "stageIndicator": "Stage {stageNumber} of 7",
   "@stageIndicator": {
     "description": "Stage number pill indicator in narrative card",
     "placeholders": {
@@ -560,10 +706,6 @@
   "@switchLanguageTooltip": {
     "description": "Tooltip for language switcher popup menu in app bar"
   },
-  "moreInfoButton": "More Info",
-  "@moreInfoButton": {
-    "description": "Button linking to info.html documentation"
-  },
   "termsOfServiceButton": "Terms of Service",
   "@termsOfServiceButton": {
     "description": "Button link opening terms of service"
@@ -583,6 +725,16 @@
   "themeSystem": "System",
   "@themeSystem": {
     "description": "Segment label for system theme mode"
+  },
+  "unableToLoadDocument": "Unable to load {title} document.",
+  "@unableToLoadDocument": {
+    "description": "Error message shown when a documentation asset fails to load",
+    "placeholders": {
+      "title": {
+        "type": "String",
+        "example": "Privacy Policy"
+      }
+    }
   },
   "versionLabel": "Version {version}",
   "@versionLabel": {

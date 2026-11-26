@@ -15,10 +15,13 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get aboutSummary =>
-      '氡变换（Radon Transform）、线积分、正弦图对偶性以及 Frank Natterer 滤波反投影（FBP）的交互式可视化。';
+      '拉东变换（Radon Transform）、线积分、正弦图对偶性以及 Frank Natterer 滤波反投影（FBP）的交互式可视化。';
 
   @override
   String get aboutTooltip => '关于';
+
+  @override
+  String get addPhantomTooltip => '添加模型圆盘';
 
   @override
   String get appTitle => '计算机断层扫描演示';
@@ -45,6 +48,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get colormapViridis => '翠绿 (Viridis)';
 
   @override
+  String get deletePhantomTooltip => '删除选中的模型';
+
+  @override
   String get done => '完成';
 
   @override
@@ -60,14 +66,32 @@ class AppLocalizationsZh extends AppLocalizations {
   String get githubButton => 'GitHub (fredgc/cat)';
 
   @override
+  String get graphAxisAngle => '角度 θ ∈ [0, 2π)';
+
+  @override
+  String get graphAxisRadialOffset => '径向偏移 r ∈ [-1, 1]';
+
+  @override
+  String get graphAxisRayPath => '沿射线路径 s ∈ [-1, 1]';
+
+  @override
   String get graphCanvasSemantics => '一维轮廓图，显示横截面和反投影积分。';
 
   @override
   String get graphFilteredPrefix => '滤波 wb * g: ';
 
   @override
+  String get graphLegendFiltered => '— 滤波（斜坡核）';
+
+  @override
+  String get graphLegendUnfilteredPoint => '— 未滤波 g(θ)';
+
+  @override
+  String get graphLegendUnfilteredTheta => '— 未滤波 P_θ(r)';
+
+  @override
   String graphLineTrajectory(String r, String theta, String val) {
-    return 'Ray Absorption (Green) | 直线 (r = $r, θ = $theta) | 总吸收量: $val';
+    return '射线吸收（绿）| 直线 (r = $r, θ = $theta) | 总吸收量: $val';
   }
 
   @override
@@ -78,7 +102,12 @@ class AppLocalizationsZh extends AppLocalizations {
     String val,
     String status,
   ) {
-    return '${prefix}Point Trajectory ($x, $y) | 关于 θ 的积分: $val $status';
+    return '$prefix点轨迹 ($x, $y) | 关于 θ 的积分: $val $status';
+  }
+
+  @override
+  String graphRawValue(String val) {
+    return '[原始值: $val]';
   }
 
   @override
@@ -95,7 +124,7 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String get graphUnfilteredPrefix => '未滤波 g: ';
+  String get graphUnfilteredPrefix => '未滤波: ';
 
   @override
   String get insidePhantom => '(模型内部)';
@@ -105,7 +134,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get keyboardShortcutsList =>
-      '• [Enter]: 下一步说明或下一阶段\n• [N] / [→]: 下一阶段\n• [P] / [←]: 上一阶段\n• [1] - [7]: 跳转至第 1 至 7 阶段\n• [空格]: 播放 / 暂停角度扫描旋转\n• [F]: 切换滤波重建模式';
+      '• [Enter] / [N]: 下一步说明或下一阶段\n• [→]: 下一阶段\n• [P] / [←]: 上一阶段\n• [1] - [7]: 跳转至第 1 至 7 阶段\n• [空格]: 播放 / 暂停角度扫描旋转\n• [F]: 切换滤波重建模式';
 
   @override
   String get keyboardShortcutsTitle => '键盘快捷键：';
@@ -120,6 +149,15 @@ class AppLocalizationsZh extends AppLocalizations {
   String get languageSpanish => 'Español';
 
   @override
+  String get modePhantom => '模型';
+
+  @override
+  String get modeProbe => '探针';
+
+  @override
+  String get moreInfoButton => '更多信息';
+
+  @override
   String get next => '下一步';
 
   @override
@@ -129,7 +167,22 @@ class AppLocalizationsZh extends AppLocalizations {
   String get objectCanvasSemantics => '物体空间。显示 X 射线投影线和模型的交互式坐标平面。';
 
   @override
+  String get openInBrowser => '在浏览器中打开';
+
+  @override
   String get outsidePhantom => '(模型外部)';
+
+  @override
+  String get pauseScan => '暂停';
+
+  @override
+  String get pauseScanWide => '暂停 [空格]';
+
+  @override
+  String get playScan => '播放扫描';
+
+  @override
+  String get playScanWide => '播放扫描 [空格]';
 
   @override
   String get previous => '上一步';
@@ -141,7 +194,8 @@ class AppLocalizationsZh extends AppLocalizations {
   String get privacyPolicyButton => '隐私政策';
 
   @override
-  String get radonCanvasSemantics => '正弦图氡空间。二维投影数据显示，垂直轴为角度 theta，水平轴为径向距离 r。';
+  String get radonCanvasSemantics =>
+      '正弦图拉东空间。二维投影数据显示，垂直轴为角度 theta，水平轴为径向距离 r。';
 
   @override
   String get replayAnimationCueTooltip => '重放动画提示';
@@ -189,28 +243,33 @@ class AppLocalizationsZh extends AppLocalizations {
   String get showGuidesTitle => '显示坐标参考线';
 
   @override
+  String get skip => '跳过';
+
+  @override
+  String get skipStageTooltip => '跳到下一阶段';
+
+  @override
   String get stage1Description =>
       'X 射线计算机断层扫描（CT）通过从所有角度 θ 发射穿透物体的射线，非侵入式地重建其二维内部结构。探测器测量透射强度，根据比尔-朗伯定律得出吸收系数 f(x, y) 沿每条直线 L 的数学线积分：g(L) = ∫_L f ds。断层成像的核心挑战正是反演这些线积分以恢复内部结构。';
 
   @override
-  String get stage1Instruction1 =>
-      '在物体空间中点击或拖动，以查看穿过该点的所有射线。点击上方的“下一步”或阶段 2 继续。';
+  String get stage1Instruction1 => '点击上方的“下一步”以继续进入下一阶段。';
 
   @override
   String get stage1NarrowDescription =>
       'CT 通过从多个角度 θ 穿透射线，非侵入式重建二维内部结构。探测器测量吸收强度，生成沿每条直线 L 的线积分 f(x, y)：g(L) = ∫_L f ds。';
 
   @override
-  String get stage1NarrowInstruction1 => '在物体空间点击或拖动以查看射线。点击“下一步”或阶段 2 继续。';
+  String get stage1NarrowInstruction1 => '点击上方的“下一步”以继续进入下一阶段。';
 
   @override
-  String get stage1NarrowSubtitle => '概述与氡变换';
+  String get stage1NarrowSubtitle => '概述与拉东变换';
 
   @override
   String get stage1NarrowTitle => 'CT 概述';
 
   @override
-  String get stage1Subtitle => '概述与氡变换';
+  String get stage1Subtitle => '概述与拉东变换';
 
   @override
   String get stage1Title => '计算机轴向断层扫描';
@@ -331,26 +390,39 @@ class AppLocalizationsZh extends AppLocalizations {
       '底部图表显示正弦图 g(r, θ) 的一维横截面。特别地，沿点 (x, y) 的正弦曲线检查投影并对所有角度 θ 求和称为反投影：∫₀²π g(x·cos θ + y·sin θ, θ) dθ。如果点位于模型圆盘内，积分值很大；如果在外部，则很小。然而，未滤波的反投影会产生 1/|r| 的模糊点扩散。';
 
   @override
-  String get stage5Instruction1 => '第 1 步（共 3 步）：在左侧模型圆盘内部点击。观察底部图表中较大的反投影积分值。';
+  String get stage5Instruction1 =>
+      '第 1 步（共 4 步）：将探针拖入左侧的模型圆盘内部。观察底部图表中的反投影积分如何增大。';
 
   @override
-  String get stage5Instruction2 => '第 2 步（共 3 步）：在模型圆盘外部点击。观察一维轮廓值下降且反投影积分变小。';
+  String get stage5Instruction2 =>
+      '第 2 步（共 4 步）：点击正弦图中的任意位置以选择单条 X 射线。观察显示该射线沿线吸收强度的绿色脉冲。';
 
   @override
-  String get stage5Instruction3 => '第 3 步（共 3 步）：点击右侧正弦图边框条，查看恒定 θ 或 r 处的一维截面。';
+  String get stage5Instruction3 =>
+      '第 3 步（共 4 步）：点击正弦图右侧边框条，查看固定角度 θ 下跨越所有 r 的平行 X 射线族（青色曲线）。';
+
+  @override
+  String get stage5Instruction4 =>
+      '第 4 步（共 4 步）：点击“播放扫描”或按 [空格] 键，让平行射线族扫过所有角度 θ，动态展示实时一维投影曲线。';
 
   @override
   String get stage5NarrowDescription =>
       '底部图表显示 g(r, θ) 的一维截面。反投影在模型内部产生大积分，但未滤波会导致 1/|r| 模糊图像。';
 
   @override
-  String get stage5NarrowInstruction1 => '第 1 步（共 3 步）：点击顶部模型内部。观察底部的大积分值。';
+  String get stage5NarrowInstruction1 =>
+      '第 1 步（共 4 步）：将探针拖入顶部的模型圆盘内。观察反投影积分增大。';
 
   @override
-  String get stage5NarrowInstruction2 => '第 2 步（共 3 步）：点击模型外部。观察数值明显下降。';
+  String get stage5NarrowInstruction2 =>
+      '第 2 步（共 4 步）：点击正弦图选择单条射线，观察显示沿线吸收强度的绿色脉冲。';
 
   @override
-  String get stage5NarrowInstruction3 => '第 3 步（共 3 步）：点击底部正弦图边框条查看一维截面。';
+  String get stage5NarrowInstruction3 =>
+      '第 3 步（共 4 步）：点击正弦图右侧边框条，查看固定角度 θ 下的平行射线族（青色曲线）。';
+
+  @override
+  String get stage5NarrowInstruction4 => '第 4 步（共 4 步）：点击“播放扫描”让平行射线族扫过所有角度 θ。';
 
   @override
   String get stage5NarrowSubtitle => '一维轮廓与反投影';
@@ -370,21 +442,31 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get stage6Instruction1 =>
-      '第 1 步（共 2 步）：点击模型圆盘内部。观察一维轮廓中清晰的边缘旁瓣和重建积分 ≈ 1.0。';
+      '第 1 步（共 3 步）：查看底部图表中的平行射线族：橙色曲线显示带锐利负旁瓣的滤波结果，用于抵消模糊。';
 
   @override
-  String get stage6Instruction2 => '第 2 步（共 2 步）：点击模型圆盘外部。负旁瓣完全抵消模糊（积分 ≈ 0.0）。';
+  String get stage6Instruction2 =>
+      '第 2 步（共 3 步）：点击“播放扫描”或按 [空格] 键，观察随着投影角度旋转，滤波后的投影如何动态变化。';
+
+  @override
+  String get stage6Instruction3 =>
+      '第 3 步（共 3 步）：在物体空间中点击探针点。滤波反投影精确重建内部衰减值：模型内 ≈ 1.0，外部 ≈ 0.0。';
 
   @override
   String get stage6NarrowDescription =>
       '使用 Frank Natterer 离散滤波器核 w_b(l) = b² / (π⁴(1 - 4l²)) 进行高通滤波可锐化正弦图。滤波反投影能精确重建内部衰减值：模型内 ≈ 1.0，外部 ≈ 0.0。';
 
   @override
-  String get stage6NarrowInstruction1 => '第 1 步（共 2 步）：点击模型内部。观察锐利旁瓣和积分 ≈ 1.0。';
+  String get stage6NarrowInstruction1 =>
+      '第 1 步（共 3 步）：底部图表显示带锐利负旁瓣的橙色滤波曲线，用于消除模糊。';
 
   @override
   String get stage6NarrowInstruction2 =>
-      '第 2 步（共 2 步）：点击模型外部。负旁瓣抵消模糊（积分 ≈ 0.0）。';
+      '第 2 步（共 3 步）：点击“播放扫描”观察滤波投影随角度旋转的动态变化。';
+
+  @override
+  String get stage6NarrowInstruction3 =>
+      '第 3 步（共 3 步）：在物体空间点击探针点。滤波反投影精确重建内部 ≈ 1.0，外部 ≈ 0.0。';
 
   @override
   String get stage6NarrowSubtitle => '滤波反投影 (FBP)';
@@ -399,8 +481,52 @@ class AppLocalizationsZh extends AppLocalizations {
   String get stage6Title => '滤波数据重建';
 
   @override
+  String get stage7Description =>
+      '在自由探索模式中，使用多个模型圆盘设计您自己的场景。使用“+”添加圆盘并将其拖动到合适位置，观察每个圆盘如何在正弦图中叠加出各自的正弦阴影带。使用滤波反投影重建自定义场景并验证内部密度。';
+
+  @override
+  String get stage7Instruction1 =>
+      '第 1 步（共 3 步）：点击物体空间右上角的“+”以添加更多模型圆盘。选择并将圆盘拖动到圆内任意位置。';
+
+  @override
+  String get stage7Instruction2 =>
+      '第 2 步（共 3 步）：观察正弦图。每个模型都会生成自己的正弦轨迹，重叠区域按线性相加。';
+
+  @override
+  String get stage7Instruction3 =>
+      '第 3 步（共 3 步）：在物体空间切换到“探针”模式测试点反投影。切换滤波 [F] 观察负旁瓣如何重建各个独立模型。';
+
+  @override
+  String get stage7NarrowDescription =>
+      '使用多个模型圆盘设计自定义场景。使用“+”添加圆盘、拖动定位，并探索叠加正弦图与滤波反投影重建。';
+
+  @override
+  String get stage7NarrowInstruction1 =>
+      '第 1 步（共 3 步）：在物体空间点击“+”添加模型圆盘，并将其拖动到圆内合适位置。';
+
+  @override
+  String get stage7NarrowInstruction2 =>
+      '第 2 步（共 3 步）：观察正弦图，查看多个模型如何在拉东空间中线性相加。';
+
+  @override
+  String get stage7NarrowInstruction3 =>
+      '第 3 步（共 3 步）：切换到“探针”模式并切换滤波 [F] 以重建您的自定义模型。';
+
+  @override
+  String get stage7NarrowSubtitle => '多模型沙盒';
+
+  @override
+  String get stage7NarrowTitle => '自由探索';
+
+  @override
+  String get stage7Subtitle => '构建多模型场景并探索重建过程';
+
+  @override
+  String get stage7Title => '自由探索与自定义模型';
+
+  @override
   String stageIndicator(int stageNumber) {
-    return '阶段 $stageNumber / 6';
+    return '阶段 $stageNumber / 7';
   }
 
   @override
@@ -410,9 +536,6 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get switchLanguageTooltip => '切换语言';
-
-  @override
-  String get moreInfoButton => '更多信息';
 
   @override
   String get termsOfServiceButton => '服务条款';
@@ -428,6 +551,11 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get themeSystem => '跟随系统';
+
+  @override
+  String unableToLoadDocument(String title) {
+    return '无法加载$title文档。';
+  }
 
   @override
   String versionLabel(String version) {

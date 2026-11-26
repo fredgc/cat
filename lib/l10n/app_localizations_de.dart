@@ -21,6 +21,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get aboutTooltip => 'Über';
 
   @override
+  String get addPhantomTooltip => 'Phantomscheibe hinzufügen';
+
+  @override
   String get appTitle => 'Computertomographie-Demonstration';
 
   @override
@@ -45,6 +48,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get colormapViridis => 'Viridis';
 
   @override
+  String get deletePhantomTooltip => 'Ausgewähltes Phantom löschen';
+
+  @override
   String get done => 'Fertig';
 
   @override
@@ -60,11 +66,29 @@ class AppLocalizationsDe extends AppLocalizations {
   String get githubButton => 'GitHub (fredgc/cat)';
 
   @override
+  String get graphAxisAngle => 'Winkel θ ∈ [0, 2π)';
+
+  @override
+  String get graphAxisRadialOffset => 'Radialer Abstand r ∈ [-1, 1]';
+
+  @override
+  String get graphAxisRayPath => 'Weg entlang Strahl s ∈ [-1, 1]';
+
+  @override
   String get graphCanvasSemantics =>
       '1D-Profildiagramm mit Querschnitten und Rückprojektionsintegral.';
 
   @override
   String get graphFilteredPrefix => 'Gefiltert wb * g: ';
+
+  @override
+  String get graphLegendFiltered => '— Gefiltert (Rampenkern)';
+
+  @override
+  String get graphLegendUnfilteredPoint => '— Ungefiltert g(θ)';
+
+  @override
+  String get graphLegendUnfilteredTheta => '— Ungefiltert P_θ(r)';
 
   @override
   String graphLineTrajectory(String r, String theta, String val) {
@@ -83,6 +107,11 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
+  String graphRawValue(String val) {
+    return '[Roh: $val]';
+  }
+
+  @override
   String get graphSelectPrompt =>
       'Wählen Sie einen Punkt oder eine Linie aus, um den 1D-Querschnitt anzuzeigen.';
 
@@ -97,7 +126,7 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
-  String get graphUnfilteredPrefix => 'Ungefiltert g: ';
+  String get graphUnfilteredPrefix => 'Ungefiltert: ';
 
   @override
   String get insidePhantom => '(innerhalb des Phantoms)';
@@ -107,7 +136,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get keyboardShortcutsList =>
-      '• [Enter]: Anleitungsschritt oder nächste Stufe\n• [N] / [→]: Nächste Stufe\n• [P] / [←]: Vorherige Stufe\n• [1] - [7]: Zu Stufe 1 bis 7 springen\n• [Leertaste]: Winkelrotations-Scan abspielen / pausieren\n• [F]: Gefilterten Rekonstruktionsmodus umschalten';
+      '• [Enter] / [N]: Anleitungsschritt oder nächste Stufe\n• [→]: Nächste Stufe\n• [P] / [←]: Vorherige Stufe\n• [1] - [7]: Zu Stufe 1 bis 7 springen\n• [Leertaste]: Winkelrotations-Scan abspielen / pausieren\n• [F]: Gefilterten Rekonstruktionsmodus umschalten';
 
   @override
   String get keyboardShortcutsTitle => 'Tastaturkürzel:';
@@ -122,6 +151,15 @@ class AppLocalizationsDe extends AppLocalizations {
   String get languageSpanish => 'Español';
 
   @override
+  String get modePhantom => 'Phantom';
+
+  @override
+  String get modeProbe => 'Sonde';
+
+  @override
+  String get moreInfoButton => 'Weitere Informationen';
+
+  @override
   String get next => 'Weiter';
 
   @override
@@ -132,7 +170,22 @@ class AppLocalizationsDe extends AppLocalizations {
       'Objektraum. Interaktive Koordinatenebene, die Röntgenprojektionslinien und das Phantom zeigt.';
 
   @override
+  String get openInBrowser => 'Im Browser öffnen';
+
+  @override
   String get outsidePhantom => '(außerhalb des Phantoms)';
+
+  @override
+  String get pauseScan => 'Pause';
+
+  @override
+  String get pauseScanWide => 'Pause [Leertaste]';
+
+  @override
+  String get playScan => 'Scan starten';
+
+  @override
+  String get playScanWide => 'Scan starten [Leertaste]';
 
   @override
   String get previous => 'Zurück';
@@ -194,12 +247,18 @@ class AppLocalizationsDe extends AppLocalizations {
   String get showGuidesTitle => 'Koordinatenhilfslinien anzeigen';
 
   @override
+  String get skip => 'Überspringen';
+
+  @override
+  String get skipStageTooltip => 'Zur nächsten Stufe springen';
+
+  @override
   String get stage1Description =>
       'Ein Röntgen-Computertomograph (CT) rekonstruiert das 2D-Innere eines Objekts nichtinvasiv, indem er Röntgenstrahlen aus allen Winkeln θ durch das Objekt sendet. Detektoren messen die übertragene Intensität, die nach dem Beer-Lambertschen Gesetz das Linienintegral des Absorptionskoeffizienten f(x, y) entlang jeder Linie L ergibt: g(L) = ∫_L f ds.';
 
   @override
   String get stage1Instruction1 =>
-      'Klicken oder ziehen Sie im Objektraum, um alle Linien zu sehen, die durch diesen Punkt verlaufen. Klicken Sie auf „Weiter“ oder Stufe 2 oben, um fortzufahren.';
+      'Klicken Sie oben auf „Weiter“, um zur nächsten Stufe fortzufahren.';
 
   @override
   String get stage1NarrowDescription =>
@@ -207,7 +266,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get stage1NarrowInstruction1 =>
-      'Tippen oder ziehen Sie im Objektraum, um Linien zu sehen. Tippen Sie auf „Weiter“ oder Stufe 2, um fortzufahren.';
+      'Tippen Sie oben auf „Weiter“, um zur nächsten Stufe fortzufahren.';
 
   @override
   String get stage1NarrowSubtitle => 'Überblick & Radon-Transformation';
@@ -351,15 +410,19 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get stage5Instruction1 =>
-      'Schritt 1 von 3: Klicken Sie in die Phantomscheibe links. Beachten Sie den hohen Rückprojektionswert im unteren Diagramm.';
+      'Schritt 1 von 4: Ziehen Sie die Sonde in die Phantomscheibe links. Beobachten Sie, wie das Rückprojektionsintegral im unteren Diagramm ansteigt.';
 
   @override
   String get stage5Instruction2 =>
-      'Schritt 2 von 3: Klicken Sie außerhalb der Phantomscheibe. Beachten Sie das Abfallen der 1D-Werte und des Integrals.';
+      'Schritt 2 von 4: Klicken Sie irgendwo ins Sinogramm, um einen einzelnen Röntgenstrahl auszuwählen. Beachten Sie den grünen Impuls der Absorptionsintensität entlang dieses Strahls.';
 
   @override
   String get stage5Instruction3 =>
-      'Schritt 3 von 3: Klicken Sie auf die Randleisten des Sinogramms rechts für Querschnitte bei konstantem θ oder r.';
+      'Schritt 3 von 4: Klicken Sie auf die rechte Randleiste im Sinogramm, um eine parallele Strahlenfamilie über alle r bei festem Winkel θ anzuzeigen (cyanfarbene Kurve).';
+
+  @override
+  String get stage5Instruction4 =>
+      'Schritt 4 von 4: Klicken Sie auf „Scan starten“ oder drücken Sie [Leertaste], um die parallele Familie über alle Winkel θ zu schwenken und die 1D-Projektionskurve zu animieren.';
 
   @override
   String get stage5NarrowDescription =>
@@ -367,15 +430,19 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get stage5NarrowInstruction1 =>
-      'Schritt 1 von 3: Klicken Sie in das Phantom oben. Beachten Sie das hohe Integral unten.';
+      'Schritt 1 von 4: Ziehen Sie die Sonde in die Phantomscheibe oben. Beobachten Sie den Anstieg des Integrals.';
 
   @override
   String get stage5NarrowInstruction2 =>
-      'Schritt 2 von 3: Klicken Sie außerhalb des Phantoms. Beachten Sie den Abfall der Werte.';
+      'Schritt 2 von 4: Klicken Sie ins Sinogramm für einen einzelnen Strahl. Beachten Sie den grünen Absorptionsimpuls.';
 
   @override
   String get stage5NarrowInstruction3 =>
-      'Schritt 3 von 3: Klicken Sie auf die Ränder des Sinogramms unten für Querschnitte.';
+      'Schritt 3 von 4: Klicken Sie auf die rechte Randleiste im Sinogramm für parallele Strahlen bei festem Winkel θ (cyanfarbene Kurve).';
+
+  @override
+  String get stage5NarrowInstruction4 =>
+      'Schritt 4 von 4: Tippen Sie auf „Scan starten“, um die parallele Familie über alle Winkel θ zu schwenken.';
 
   @override
   String get stage5NarrowSubtitle => '1D-Profile & Rückprojektion';
@@ -395,11 +462,15 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get stage6Instruction1 =>
-      'Schritt 1 von 2: Klicken Sie in die Phantomscheibe. Beobachten Sie die scharfen Kantenkeulen und das rekonstruierte Integral ≈ 1.0.';
+      'Schritt 1 von 3: Betrachten Sie das untere Diagramm der parallelen Familie: Die orange Kurve zeigt das gefilterte Ergebnis mit scharfen negativen Nebenkeulen gegen Unschärfe.';
 
   @override
   String get stage6Instruction2 =>
-      'Schritt 2 von 2: Klicken Sie außerhalb der Phantomscheibe. Die negativen Nebenkeulen heben die Unschärfe auf (Integral ≈ 0.0).';
+      'Schritt 2 von 3: Klicken Sie auf „Scan starten“ oder drücken Sie [Leertaste], um die gefilterten Projektionen bei rotierendem Projektionswinkel zu beobachten.';
+
+  @override
+  String get stage6Instruction3 =>
+      'Schritt 3 von 3: Klicken Sie Sondenpunkte im Objektraum an. Die gefilterte Rückprojektion rekonstruiert die exakte Dämpfung: ≈ 1.0 innen und ≈ 0.0 außen.';
 
   @override
   String get stage6NarrowDescription =>
@@ -407,11 +478,15 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get stage6NarrowInstruction1 =>
-      'Schritt 1 von 2: Klicken Sie in das Phantom. Beobachten Sie scharfe Keulen und Integral ≈ 1.0.';
+      'Schritt 1 von 3: Das untere Diagramm zeigt die orange gefilterte Kurve mit negativen Nebenkeulen, die Unschärfe aufheben.';
 
   @override
   String get stage6NarrowInstruction2 =>
-      'Schritt 2 von 2: Klicken Sie außerhalb des Phantoms. Negative Keulen heben Unschärfe auf (Integral ≈ 0.0).';
+      'Schritt 2 von 3: Tippen Sie auf „Scan starten“, um die gefilterten Projektionen bei rotierendem Winkel zu beobachten.';
+
+  @override
+  String get stage6NarrowInstruction3 =>
+      'Schritt 3 von 3: Tippen Sie Sondenpunkte im Objektraum an. Gefilterte Rückprojektion liefert ≈ 1.0 innen und ≈ 0.0 außen.';
 
   @override
   String get stage6NarrowSubtitle => 'Gefilterte Rückprojektion (FBP)';
@@ -427,8 +502,53 @@ class AppLocalizationsDe extends AppLocalizations {
   String get stage6Title => 'Gefilterte Datenrekonstruktion';
 
   @override
+  String get stage7Description =>
+      'Im freien Spielmodus entwerfen Sie eigene Szenen mit mehreren Phantomscheiben. Fügen Sie Scheiben mit „+“ hinzu, ziehen Sie sie an die gewünschte Position und beobachten Sie, wie jede Scheibe ein additives Sinusband zum Sinogramm beiträgt. Nutzen Sie die gefilterte Rückprojektion, um Ihre Szenen zu rekonstruieren und die Innendichten zu prüfen.';
+
+  @override
+  String get stage7Instruction1 =>
+      'Schritt 1 von 3: Tippen Sie oben rechts im Objektraum auf „+“, um weitere Phantomscheiben zu erstellen. Wählen und ziehen Sie Scheiben an beliebige Stellen im Kreis.';
+
+  @override
+  String get stage7Instruction2 =>
+      'Schritt 2 von 3: Untersuchen Sie das Sinogramm. Jedes Phantom erzeugt eine eigene Sinusspur, und überlappende Bereiche addieren sich linear.';
+
+  @override
+  String get stage7Instruction3 =>
+      'Schritt 3 von 3: Wechseln Sie im Objektraum in den Modus „Sonde“, um Punktrückprojektionen zu testen. Schalten Sie den Filter [F] um, um zu sehen, wie negative Nebenkeulen jedes einzelne Phantom rekonstruieren.';
+
+  @override
+  String get stage7NarrowDescription =>
+      'Entwerfen Sie eigene Szenen mit mehreren Phantomscheiben. Fügen Sie mit „+“ Scheiben hinzu, verschieben Sie sie und erkunden Sie additive Sinogramme und gefilterte Rückprojektion.';
+
+  @override
+  String get stage7NarrowInstruction1 =>
+      'Schritt 1 von 3: Tippen Sie im Objektraum auf „+“, um Phantomscheiben hinzuzufügen, und ziehen Sie sie in Position.';
+
+  @override
+  String get stage7NarrowInstruction2 =>
+      'Schritt 2 von 3: Beobachten Sie im Sinogramm, wie sich mehrere Phantome im Radon-Raum linear addieren.';
+
+  @override
+  String get stage7NarrowInstruction3 =>
+      'Schritt 3 von 3: Wechseln Sie zu „Sonde“ und schalten Sie Filter [F] um, um Ihre Phantome zu rekonstruieren.';
+
+  @override
+  String get stage7NarrowSubtitle => 'Multi-Phantom-Sandbox';
+
+  @override
+  String get stage7NarrowTitle => 'Freies Spiel';
+
+  @override
+  String get stage7Subtitle =>
+      'Multi-Phantom-Szenen erstellen und Rekonstruktion erkunden';
+
+  @override
+  String get stage7Title => 'Freies Spiel & eigene Phantome';
+
+  @override
   String stageIndicator(int stageNumber) {
-    return 'Stufe $stageNumber von 6';
+    return 'Stufe $stageNumber von 7';
   }
 
   @override
@@ -438,9 +558,6 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get switchLanguageTooltip => 'Sprache wechseln';
-
-  @override
-  String get moreInfoButton => 'Weitere Informationen';
 
   @override
   String get termsOfServiceButton => 'Nutzungsbedingungen';
@@ -456,6 +573,11 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get themeSystem => 'System';
+
+  @override
+  String unableToLoadDocument(String title) {
+    return 'Dokument $title konnte nicht geladen werden.';
+  }
 
   @override
   String versionLabel(String version) {

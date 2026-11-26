@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>Acerca de la demostración de TAC</title>
+  <title>Referencia matemática y de interfaz (TAC)</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -25,88 +25,164 @@
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title">Acerca de la demostración de TAC</h1>
+<h1 class="title">Referencia matemática y de interfaz (TAC)</h1>
 </header>
 <p>La <strong>Herramienta de demostración de TAC</strong> es una
-aplicación educativa interactiva diseñada para ilustrar las matemáticas
-y la mecánica detrás de la tomografía axial computarizada (TAC) y la
-transformada de Radon.</p>
-<h2 id="historia-y-motivación">Historia y motivación</h2>
-<p>Esta aplicación estáinspirada y adaptada del applet de demostración
-original de Java de 1998/2006 creado por <strong>Fred
-Gylys-Colwell</strong>. La presentación se expuso por primera vez el 26
-de febrero de 1998.</p>
-<p>Esta aplicación está escrita en Dart con Flutter. El código fuente
-está disponible en GitHub en <a
-href="https://github.com/fredgc/cat">https://github.com/fredgc/cat</a>.</p>
-<p>¿Encontró un error o desea solicitar una función? <a
-href="https://github.com/fredgc/cat/issues">Abra un ticket en
-GitHub</a>.</p>
-<p>Puede encontrar otras aplicaciones y herramientas de dibujo en <a
-href="https://www.gchouse.org">www.gchouse.org</a>.</p>
-<h2 id="las-matemáticas-detrás-de-la-tac">Las matemáticas detrás de la
-TAC</h2>
-<p>Una tomografía axial computarizada por rayos X genera un corte
-transversal 2D del interior de un objeto o cuerpo humano desde el
-exterior sin cirugía invasiva.</p>
-<ol type="1">
-<li><strong>Atenuación de rayos X e integrales de línea</strong>:</li>
-</ol>
-<p>Un haz de rayos X se dirige a lo largo de una línea recta
+referencia interactiva sobre la tomografía axial computarizada (TAC), la
+transformada de Radon y la retroproyección filtrada (FBP).</p>
+<h2 id="referencia-matemática">Referencia matemática</h2>
+<h3 id="atenuación-de-rayos-x-e-integrales-de-línea">1. Atenuación de
+rayos X e integrales de línea</h3>
+<p>Un haz de rayos X que recorre una línea recta
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>
-a través del cuerpo. La proporción de radiación absorbida corresponde a
-la integral de línea del coeficiente de absorción
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">f(x, y)</annotation></semantics></math>
-a lo largo de la línea
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>L</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mo>∫</mo><mi>L</mi></msub><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="true" form="postfix">)</mo></mrow><mspace width="0.167em"></mspace><mi>d</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">g(L) = \int_L f(x, y) \, ds</annotation></semantics></math></p>
-<ol start="2" type="1">
-<li><strong>Parametrización de líneas</strong>:</li>
-</ol>
-<p>Cada línea en el plano se puede parametrizar mediante su distancia
-con signo
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>
-desde el origen y suángulo normal
+a través de un objeto pierde intensidad según la ley de
+Beer-Lambert:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mo>=</mo><msub><mi>I</mi><mn>0</mn></msub><mrow><mi>exp</mi><mo>&#8289;</mo></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>−</mi><msub><mo>∫</mo><mi>L</mi></msub><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>s</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">I = I_0 \exp\left(-\int_L f(x, y) \, ds\right)</annotation></semantics></math></p>
+<p>Al medir la intensidad transmitida
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>I</mi><annotation encoding="application/x-tex">I</annotation></semantics></math>
+respecto a la incidente
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>I</mi><mn>0</mn></msub><annotation encoding="application/x-tex">I_0</annotation></semantics></math>
+se obtiene la integral de línea del coeficiente de absorción
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f(x, y)</annotation></semantics></math>:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>L</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>−</mi><mrow><mi>ln</mi><mo>&#8289;</mo></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mi>I</mi><msub><mi>I</mi><mn>0</mn></msub></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mo>∫</mo><mi>L</mi></msub><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">g(L) = -\ln\left(\frac{I}{I_0}\right) = \int_L f(x, y) \, ds</annotation></semantics></math></p>
+<h3 id="parametrización-de-líneas-y-transformada-de-radon">2.
+Parametrización de líneas y transformada de Radon</h3>
+<p>Cada línea recta en el plano 2D
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mi>−</mi><mn>1</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">]</mo><mo>×</mo><mo stretchy="false" form="prefix">[</mo><mi>−</mi><mn>1</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[-1, 1] \times [-1, 1]</annotation></semantics></math>
+se parametriza por su distancia perpendicular con signo
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mi>−</mi><mn>1</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">r \in [-1, 1]</annotation></semantics></math>
+al origen y su ángulo normal
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\theta \in [0, 2\pi)</annotation></semantics></math>:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>cos</mo><mi>θ</mi><mo>+</mo><mi>y</mi><mo>sin</mo><mi>θ</mi><mo>=</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">x \cos\theta + y \sin\theta = r</annotation></semantics></math></p>
-<p>La transformada de Radon
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℛ</mi><mrow><mo stretchy="true" form="prefix">[</mo><mi>f</mi><mo stretchy="true" form="postfix">]</mo></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>r</mi><mo>,</mo><mi>θ</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal{R}[f](r, \theta)</annotation></semantics></math>
-registra las integrales de línea para todos los
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">(</mo><mi>r</mi><mo>,</mo><mi>θ</mi><mo stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(r, \theta)</annotation></semantics></math>.</p>
-<ol start="3" type="1">
-<li><p><strong>Dualidad del sinograma</strong>:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mrow><mi>cos</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>y</mi><mrow><mi>sin</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">x \cos(\theta) + y \sin(\theta) = r</annotation></semantics></math></p>
+<p>La <strong>transformada de Radon</strong>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℛ</mi><mo stretchy="false" form="prefix">[</mo><mi>f</mi><mo stretchy="false" form="postfix">]</mo><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo>,</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo>,</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal{R}[f](r, \theta) = g(r, \theta)</annotation></semantics></math>
+registra todas las integrales de línea en un conjunto 2D llamado
+<strong>sinograma</strong>, discretizado en una malla
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>Q</mi><mo>×</mo><mn>2</mn><mi>P</mi></mrow><annotation encoding="application/x-tex">2Q \times 2P</annotation></semantics></math>
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>=</mo><mn>1</mn><mi>/</mi><mi>Q</mi></mrow><annotation encoding="application/x-tex">h = 1/Q</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mi>i</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo>−</mo><mi>Q</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mi>Q</mi></mrow><annotation encoding="application/x-tex">r_i = (i - Q)/Q</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>θ</mi><mi>j</mi></msub><mo>=</mo><mi>π</mi><mi>j</mi><mi>/</mi><mi>P</mi></mrow><annotation encoding="application/x-tex">\theta_j = \pi j / P</annotation></semantics></math>).</p>
+<h3 id="dualidad-del-sinograma">3. Dualidad del sinograma</h3>
 <ul>
-<li><p>Un solo punto en el espacio del sinograma
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>r</mi><mn>0</mn></msub><mo>,</mo><msub><mi>θ</mi><mn>0</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(r_0, \theta_0)</annotation></semantics></math>
-representa una sola línea en el espacio del objeto.</p></li>
 <li><p>Un solo punto
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>x</mi><mn>1</mn></msub><mo>,</mo><msub><mi>y</mi><mn>1</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(x_1, y_1)</annotation></semantics></math>
-en el espacio del objeto corresponde a una curva sinusoidal
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>θ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mi>x</mi><mn>1</mn></msub><mo>cos</mo><mi>θ</mi><mo>+</mo><msub><mi>y</mi><mn>1</mn></msub><mo>sin</mo><mi>θ</mi></mrow><annotation encoding="application/x-tex">r(\theta) = x_1 \cos\theta + y_1 \sin\theta</annotation></semantics></math>
-en el espacio del sinograma que representa todas las líneas que pasan
-por
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>x</mi><mn>1</mn></msub><mo>,</mo><msub><mi>y</mi><mn>1</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(x_1, y_1)</annotation></semantics></math>.</p></li>
-</ul></li>
-<li><p><strong>Retroproyección filtrada
-(reconstrucción)</strong>:</p></li>
-</ol>
-<p>La retroproyección simple dispersa las proyecciones sobre el plano de
-la imagen, provocando un desenfoque de
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi>r</mi></mrow><annotation encoding="application/x-tex">1/r</annotation></semantics></math>.
-Al convolucionar cada proyección con un filtro de rampa o paso alto
-(derivado por Frank Natterer), la retroproyección de los datos filtrados
-reconstruye con precisión los rasgos interiores
-(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>≈</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">f(x, y) \approx 1</annotation></semantics></math>
-dentro del objeto y
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>
-fuera).</p>
-<h2 id="privacidad-y-retención-de-datos">Privacidad y retención de
-datos</h2>
-<p>Este programa le permite personalizar ajustes que se guardan
-localmente en su dispositivo (mediante SharedPreferences /
-LocalStorage). No se recopilan datos personales.</p>
-<p>En Android, los ajustes locales se eliminan al desinstalar la
-aplicación. En la web, los ajustes se eliminan al borrar los datos
-locales del navegador.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>r</mi><mn>0</mn></msub><mo>,</mo><msub><mi>θ</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(r_0, \theta_0)</annotation></semantics></math>
+en el Espacio del Sinograma corresponde a una línea recta de rayos X en
+el Espacio del Objeto.</p></li>
+<li><p>Un solo punto
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mn>0</mn></msub><mo>,</mo><msub><mi>y</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(x_0, y_0)</annotation></semantics></math>
+en el Espacio del Objeto corresponde a todas las líneas que pasan por
+él, trazando una sinusoide en el Espacio del Sinograma:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>x</mi><mn>0</mn></msub><mrow><mi>cos</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msub><mi>y</mi><mn>0</mn></msub><mrow><mi>sin</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">r(\theta) = x_0 \cos(\theta) + y_0 \sin(\theta)</annotation></semantics></math></p></li>
+</ul>
+<h3 id="integral-de-línea-de-un-fantoma-circular">4. Integral de línea
+de un fantoma circular</h3>
+<p>Para un disco circular de densidad uniforme
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>,
+radio
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>r</mi><mi>p</mi></msub><annotation encoding="application/x-tex">r_p</annotation></semantics></math>
+y centro
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mn>0</mn></msub><mo>,</mo><msub><mi>y</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(x_0, y_0)</annotation></semantics></math>,
+sea
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><mi>s</mi><mo>=</mo><mi>r</mi><mo>−</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mn>0</mn></msub><mrow><mi>cos</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msub><mi>y</mi><mn>0</mn></msub><mrow><mi>sin</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\Delta s = r - (x_0 \cos(\theta) + y_0 \sin(\theta))</annotation></semantics></math>.
+La integral de línea a través del disco es la longitud de la cuerda:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ψ</mi><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Δ</mi><mi>s</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mo stretchy="true" form="prefix">{</mo><mtable><mtr><mtd columnalign="left" style="text-align: left"><mn>2</mn><msqrt><mrow><msubsup><mi>r</mi><mi>p</mi><mn>2</mn></msubsup><mo>−</mo><mo stretchy="false" form="prefix">(</mo><mi mathvariant="normal">Δ</mi><mi>s</mi><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow></msqrt></mtd><mtd columnalign="left" style="text-align: left"><mrow><mtext mathvariant="normal">si </mtext><mspace width="0.333em"></mspace></mrow><mo stretchy="false" form="prefix">|</mo><mi mathvariant="normal">Δ</mi><mi>s</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><msub><mi>r</mi><mi>p</mi></msub></mtd></mtr><mtr><mtd columnalign="left" style="text-align: left"><mn>0</mn></mtd><mtd columnalign="left" style="text-align: left"><mtext mathvariant="normal">en otro caso</mtext></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">\psi(\Delta s) = \begin{cases} 2\sqrt{r_p^2 - (\Delta s)^2} &amp; \text{si } |\Delta s| &lt; r_p \\ 0 &amp; \text{en otro caso} \end{cases}</annotation></semantics></math></p>
+<p>Varios fantomas se suman linealmente en el sinograma.</p>
+<h3 id="retroproyección-y-retroproyección-filtrada-fbp">5.
+Retroproyección y retroproyección filtrada (FBP)</h3>
+<p>Sumar los valores del sinograma a lo largo de la sinusoide dual de
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(x, y)</annotation></semantics></math>
+da la retroproyección sin filtrar:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℬ</mi><mo stretchy="false" form="prefix">[</mo><mi>g</mi><mo stretchy="false" form="postfix">]</mo><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msubsup><mo>∫</mo><mn>0</mn><mrow><mn>2</mn><mi>π</mi></mrow></msubsup><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mrow><mi>cos</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>y</mi><mrow><mi>sin</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>θ</mi></mrow><annotation encoding="application/x-tex">\mathcal{B}[g](x, y) = \int_0^{2\pi} g(x \cos(\theta) + y \sin(\theta), \theta) \, d\theta</annotation></semantics></math></p>
+<p>La retroproyección sin filtrar difumina los rasgos con una función de
+dispersión
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">|</mo><mi>r</mi><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">1/|r|</annotation></semantics></math>.
+Para eliminar este desenfoque, cada proyección se convoluciona con el
+<strong>núcleo discreto de filtro en rampa de Frank Natterer</strong>
+(ancho de banda
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>=</mo><mi>π</mi><mi>Q</mi></mrow><annotation encoding="application/x-tex">b = \pi Q</annotation></semantics></math>):</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mi>b</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>l</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><msup><mi>b</mi><mn>2</mn></msup><mrow><msup><mi>π</mi><mn>4</mn></msup><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mn>4</mn><msup><mi>l</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mspace width="1.0em"></mspace><mo stretchy="false" form="prefix">(</mo><mi>l</mi><mo>∈</mo><mi>ℤ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">w_b(l) = \frac{b^2}{\pi^4 (1 - 4 l^2)} \quad (l \in \mathbb{Z})</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>w</mi><mi>b</mi></msub><mo>*</mo><mi>g</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo>,</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>h</mi><munderover><mo>∑</mo><mrow><mi>l</mi><mo>=</mo><mi>−</mi><mi>L</mi></mrow><mi>L</mi></munderover><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo>−</mo><mi>l</mi><mi>h</mi><mo>,</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><msub><mi>w</mi><mi>b</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>l</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(w_b * g)(r, \theta) = h \sum_{l = -L}^{L} g(r - l h, \theta) \, w_b(l)</annotation></semantics></math></p>
+<p>Los lóbulos laterales negativos de
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>w</mi><mi>b</mi></msub><annotation encoding="application/x-tex">w_b</annotation></semantics></math>
+cancelan el emborronamiento
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">|</mo><mi>r</mi><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">1/|r|</annotation></semantics></math>
+y reconstruyen
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>≈</mo><mn>1.0</mn></mrow><annotation encoding="application/x-tex">f(x, y) \approx 1.0</annotation></semantics></math>
+dentro de cada fantoma y
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≈</mo><mn>0.0</mn></mrow><annotation encoding="application/x-tex">\approx 0.0</annotation></semantics></math>
+fuera.</p>
+<h2 id="referencia-de-interfaz-y-controles">Referencia de interfaz y
+controles</h2>
+<h3 id="espacio-del-objeto">Espacio del Objeto</h3>
+<ul>
+<li><p><strong>Modo Sonda</strong>: Haz clic o arrastra para situar el
+punto de sondeo verde
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(x, y)</annotation></semantics></math>
+y trazar su sinusoide dual en el sinograma.</p></li>
+<li><p><strong>Modo Fantoma</strong>: Arrastra los discos fantoma rojos
+para reposicionarlos dentro del círculo unitario.</p></li>
+<li><p><strong>Añadir / Eliminar (<code>+</code> / papelera)</strong>:
+Añade varios discos fantoma o elimina el seleccionado (Etapas
+4–7).</p></li>
+</ul>
+<h3 id="espacio-del-sinograma-radon">Espacio del Sinograma (Radon)</h3>
+<ul>
+<li><p><strong>Mapa de calor principal</strong>: Haz clic o arrastra
+para seleccionar un único rayo X
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo>,</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(r, \theta)</annotation></semantics></math>.</p></li>
+<li><p><strong>Barra derecha</strong>: Haz clic o arrastra para mostrar
+una familia paralela de rayos X con ángulo fijo
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math>.</p></li>
+<li><p><strong>Barra inferior</strong>: Haz clic o arrastra para mostrar
+las rectas tangentes a un círculo de radio
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>r</mi><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">|r|</annotation></semantics></math>.</p></li>
+</ul>
+<h3 id="gráfico-de-perfil-1d-etapas-57">Gráfico de perfil 1D (Etapas
+5–7)</h3>
+<ul>
+<li><p>Muestra la sección transversal a lo largo de la sonda activa y
+calcula la integral de retroproyección en tiempo real.</p></li>
+<li><p><strong>Iniciar barrido / Pausar</strong>: Barre la familia
+paralela a través de
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\theta \in [0, 2\pi)</annotation></semantics></math>.</p></li>
+</ul>
+<h3 id="barra-superior-ajustes-y-atajos-de-teclado">Barra superior,
+ajustes y atajos de teclado</h3>
+<ul>
+<li><p><strong>Filtro (<code>[F]</code>)</strong>: Alterna entre el
+sinograma sin filtrar
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>g</mi><annotation encoding="application/x-tex">g</annotation></semantics></math>
+y el filtrado
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mi>b</mi></msub><mo>*</mo><mi>g</mi></mrow><annotation encoding="application/x-tex">w_b * g</annotation></semantics></math>.</p></li>
+<li><p><strong>Navegación de etapas</strong>: Usa
+<strong>Anterior</strong>, <strong>Siguiente</strong>,
+<strong>Saltar</strong> o los números de etapa
+(<code>1</code>–<code>7</code>).</p></li>
+<li><p><strong>Ajustes</strong>: Configura Tema (Oscuro, Claro,
+Sistema), Mapa de color (Clásico, Escala de grises, Viridis, Inferno),
+Resolución de muestreo
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>×</mo><mi>Q</mi></mrow><annotation encoding="application/x-tex">P \times Q</annotation></semantics></math>)
+y Guías de coordenadas.</p></li>
+<li><p><strong>Atajos de teclado</strong>:
+<code>[Enter]</code>/<code>[N]</code> siguiente paso/etapa,
+<code>[→]</code> siguiente etapa, <code>[P]</code>/<code>[←]</code>
+etapa anterior, <code>[1]</code>–<code>[7]</code> ir a etapa,
+<code>[Espacio]</code> reproducir/pausar barrido, <code>[F]</code>
+alternar filtro.</p></li>
+</ul>
+<h2 id="antecedentes-y-referencias">Antecedentes y referencias</h2>
+<ul>
+<li><p>Applet original de Java (1998/2006) de <strong>Fred
+Gylys-Colwell</strong>, presentado en la Universidad de Ball State el 26
+de febrero de 1998.</p></li>
+<li><p>Frank Natterer, <em>The Mathematics of Computerized
+Tomography</em>, SIAM Classics in Applied Mathematics, 2001.</p></li>
+<li><p>Código fuente: <a
+href="https://github.com/fredgc/cat">https://github.com/fredgc/cat</a></p></li>
+<li><p>Seguimiento de problemas: <a
+href="https://github.com/fredgc/cat/issues">https://github.com/fredgc/cat/issues</a></p></li>
+<li><p>Más aplicaciones y herramientas: <a
+href="https://www.gchouse.org">www.gchouse.org</a></p></li>
+</ul>
 </body>
 </html>

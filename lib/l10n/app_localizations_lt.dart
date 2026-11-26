@@ -21,6 +21,9 @@ class AppLocalizationsLt extends AppLocalizations {
   String get aboutTooltip => 'Apie';
 
   @override
+  String get addPhantomTooltip => 'Pridėti fantomo diską';
+
+  @override
   String get appTitle => 'Kompiuterinės tomografijos demonstracija';
 
   @override
@@ -45,6 +48,9 @@ class AppLocalizationsLt extends AppLocalizations {
   String get colormapViridis => 'Viridis';
 
   @override
+  String get deletePhantomTooltip => 'Ištrinti pasirinktą fantomą';
+
+  @override
   String get done => 'Atlikta';
 
   @override
@@ -60,6 +66,15 @@ class AppLocalizationsLt extends AppLocalizations {
   String get githubButton => 'GitHub (fredgc/cat)';
 
   @override
+  String get graphAxisAngle => 'Kampas θ ∈ [0, 2π)';
+
+  @override
+  String get graphAxisRadialOffset => 'Spindulinis poslinkis r ∈ [-1, 1]';
+
+  @override
+  String get graphAxisRayPath => 'Kelias išilgai spindulio s ∈ [-1, 1]';
+
+  @override
   String get graphCanvasSemantics =>
       '1D profilio diagrama, rodanti skerspjūvius ir atgalinės projekcijos integralą.';
 
@@ -67,8 +82,17 @@ class AppLocalizationsLt extends AppLocalizations {
   String get graphFilteredPrefix => 'Filtruota wb * g: ';
 
   @override
+  String get graphLegendFiltered => '— Filtruota (rampos branduolys)';
+
+  @override
+  String get graphLegendUnfilteredPoint => '— Nefiltruota g(θ)';
+
+  @override
+  String get graphLegendUnfilteredTheta => '— Nefiltruota P_θ(r)';
+
+  @override
   String graphLineTrajectory(String r, String theta, String val) {
-    return 'Ray Absorption (Green) | Tiesė (r = $r, θ = $theta) | Bendra absorbcija: $val';
+    return 'Spindulio absorbcija (Žalia) | Tiesė (r = $r, θ = $theta) | Bendra absorbcija: $val';
   }
 
   @override
@@ -79,7 +103,12 @@ class AppLocalizationsLt extends AppLocalizations {
     String val,
     String status,
   ) {
-    return '${prefix}Point Trajectory ($x, $y) | Integralas pagal θ: $val $status';
+    return '${prefix}Taško trajektorija ($x, $y) | Integralas pagal θ: $val $status';
+  }
+
+  @override
+  String graphRawValue(String val) {
+    return '[Nefiltr.: $val]';
   }
 
   @override
@@ -97,7 +126,7 @@ class AppLocalizationsLt extends AppLocalizations {
   }
 
   @override
-  String get graphUnfilteredPrefix => 'Nefiltruota g: ';
+  String get graphUnfilteredPrefix => 'Nefiltruota: ';
 
   @override
   String get insidePhantom => '(fantomo viduje)';
@@ -107,7 +136,7 @@ class AppLocalizationsLt extends AppLocalizations {
 
   @override
   String get keyboardShortcutsList =>
-      '• [Enter]: Kitas instrukcijos žingsnis arba etapas\n• [N] / [→]: Kitas etapas\n• [P] / [←]: Ankstesnis etapas\n• [1] - [7]: Pereiti į 1–7 etapą\n• [Tarpas]: Paleisti / Pristabdyti kampinį skenavimą\n• [F]: Perjungti filtruotos rekonstrukcijos režimą';
+      '• [Enter] / [N]: Kitas instrukcijos žingsnis arba etapas\n• [→]: Kitas etapas\n• [P] / [←]: Ankstesnis etapas\n• [1] - [7]: Pereiti į 1–7 etapą\n• [Tarpas]: Paleisti / Pristabdyti kampinį skenavimą\n• [F]: Perjungti filtruotos rekonstrukcijos režimą';
 
   @override
   String get keyboardShortcutsTitle => 'Klaviatūros trumpiniai:';
@@ -122,6 +151,15 @@ class AppLocalizationsLt extends AppLocalizations {
   String get languageSpanish => 'Español';
 
   @override
+  String get modePhantom => 'Fantomas';
+
+  @override
+  String get modeProbe => 'Zondas';
+
+  @override
+  String get moreInfoButton => 'Daugiau informacijos';
+
+  @override
   String get next => 'Kitas';
 
   @override
@@ -132,7 +170,22 @@ class AppLocalizationsLt extends AppLocalizations {
       'Objekto erdvė. Interaktyvi koordinačių plokštuma, rodanti rentgeno projekcijos tieses ir fantomą.';
 
   @override
+  String get openInBrowser => 'Atidaryti naršyklėje';
+
+  @override
   String get outsidePhantom => '(už fantomo ribų)';
+
+  @override
+  String get pauseScan => 'Pristabdyti';
+
+  @override
+  String get pauseScanWide => 'Pristabdyti [Tarpas]';
+
+  @override
+  String get playScan => 'Paleisti skenavimą';
+
+  @override
+  String get playScanWide => 'Paleisti skenavimą [Tarpas]';
 
   @override
   String get previous => 'Ankstesnis';
@@ -193,12 +246,18 @@ class AppLocalizationsLt extends AppLocalizations {
   String get showGuidesTitle => 'Rodyti koordinačių gaires';
 
   @override
+  String get skip => 'Praleisti';
+
+  @override
+  String get skipStageTooltip => 'Pereiti į kitą etapą';
+
+  @override
   String get stage1Description =>
       'Rentgeno kompiuterinė tomografija (KT) neinvaziniu būdu rekonstruoja objekto 2D vidų, siųsdama rentgeno spindulius visais kampais θ. Detektoriai matuoja praėjusią spinduliuotę, kuri pagal Bero-Lamberto dėsnį atitinka sugerties koeficiento f(x, y) tiesinį integralą išilgai kiekvienos tiesės L: g(L) = ∫_L f ds.';
 
   @override
   String get stage1Instruction1 =>
-      'Spustelėkite arba vilkite objekto erdvėje, kad pamatytumėte visas per tą tašką einančias tieses. Spustelėkite „Kitas“ arba 2 etapą viršuje.';
+      'Spustelėkite „Kitas“ viršuje, kad pereitumėte į kitą etapą.';
 
   @override
   String get stage1NarrowDescription =>
@@ -206,7 +265,7 @@ class AppLocalizationsLt extends AppLocalizations {
 
   @override
   String get stage1NarrowInstruction1 =>
-      'Palieskite arba vilkite objekto erdvėje, kad pamatytumėte tieses. Palieskite „Kitas“ arba 2 etapą viršuje.';
+      'Palieskite „Kitas“ viršuje, kad pereitumėte į kitą etapą.';
 
   @override
   String get stage1NarrowSubtitle => 'Apžvalga ir Radono transformacija';
@@ -349,15 +408,19 @@ class AppLocalizationsLt extends AppLocalizations {
 
   @override
   String get stage5Instruction1 =>
-      '1 iš 3 žingsnis: Spustelėkite fantomo disko viduje kairėje. Atkreipkite dėmesį į didelę atgalinės projekcijos reikšmę apatiniame grafike.';
+      '1 iš 4 žingsnis: Vilkite zondą į fantomo disko vidų kairėje. Stebėkite, kaip apatiniame grafike padidėja atgalinės projekcijos integralas.';
 
   @override
   String get stage5Instruction2 =>
-      '2 iš 3 žingsnis: Spustelėkite už fantomo disko ribų. Stebėkite 1D reikšmių ir integralo sumažėjimą.';
+      '2 iš 4 žingsnis: Spustelėkite bet kur sinogramoje, kad pasirinktumėte vieną rentgeno spindulį. Atkreipkite dėmesį į žalią impulsą, rodantį sugertį išilgai to spindulio.';
 
   @override
   String get stage5Instruction3 =>
-      '3 iš 3 žingsnis: Spustelėkite sinogramos kraštines juostas dešinėje, norėdami pamatyti skerspjūvius esant pastoviam θ arba r.';
+      '3 iš 4 žingsnis: Spustelėkite dešiniąją sinogramos kraštinę juostą, kad pamatytumėte lygiagrečių rentgeno spindulių šeimą per visus r esant fiksuotam kampui θ (žydra kreivė).';
+
+  @override
+  String get stage5Instruction4 =>
+      '4 iš 4 žingsnis: Spustelėkite „Paleisti skenavimą“ arba paspauskite [Tarpas], kad suktumėte lygiagrečią šeimą per visus kampus θ ir animuotumėte 1D projekcijos kreivę.';
 
   @override
   String get stage5NarrowDescription =>
@@ -365,15 +428,19 @@ class AppLocalizationsLt extends AppLocalizations {
 
   @override
   String get stage5NarrowInstruction1 =>
-      '1 iš 3 žingsnis: Spustelėkite fantome viršuje. Stebėkite didelį integralą apačioje.';
+      '1 iš 4 žingsnis: Vilkite zondą į fantomo diską viršuje. Stebėkite, kaip padidėja integralas.';
 
   @override
   String get stage5NarrowInstruction2 =>
-      '2 iš 3 žingsnis: Spustelėkite už fantomo ribų. Stebėkite verčių kritimą.';
+      '2 iš 4 žingsnis: Spustelėkite sinogramoje vienam spinduliui pasirinkti. Stebėkite žalią sugerties impulsą.';
 
   @override
   String get stage5NarrowInstruction3 =>
-      '3 iš 3 žingsnis: Spustelėkite sinogramos kraštines juostas apačioje.';
+      '3 iš 4 žingsnis: Spustelėkite dešiniąją sinogramos juostą lygiagrečiai spindulių šeimai esant fiksuotam kampui θ (žydra kreivė).';
+
+  @override
+  String get stage5NarrowInstruction4 =>
+      '4 iš 4 žingsnis: Palieskite „Paleisti skenavimą“, kad suktumėte lygiagrečią šeimą per visus kampus θ.';
 
   @override
   String get stage5NarrowSubtitle => '1D profiliai ir atgalinė projekcija';
@@ -394,11 +461,15 @@ class AppLocalizationsLt extends AppLocalizations {
 
   @override
   String get stage6Instruction1 =>
-      '1 iš 2 žingsnis: Spustelėkite fantomo diske. Stebėkite aštrias kraštų bangas ir rekonstruotą integralą ≈ 1.0.';
+      '1 iš 3 žingsnis: Apatiniame grafike stebėkite lygiagrečią šeimą: oranžinė kreivė rodo filtruotą rezultatą su aštriais neigiamais sparnais, panaikinančiais suliejimą.';
 
   @override
   String get stage6Instruction2 =>
-      '2 iš 2 žingsnis: Spustelėkite už fantomo disko. Neigiami sparnai panaikina suliejimą (integralas ≈ 0.0).';
+      '2 iš 3 žingsnis: Spustelėkite „Paleisti skenavimą“ arba paspauskite [Tarpas], kad stebėtumėte filtruotų projekcijų kitimą sukantis kampui.';
+
+  @override
+  String get stage6Instruction3 =>
+      '3 iš 3 žingsnis: Spustelėkite zondo taškus objekto erdvėje. Filtruota atgalinė projekcija tiksliai rekonstruoja vidinį slopinimą: ≈ 1.0 viduje ir ≈ 0.0 išorėje.';
 
   @override
   String get stage6NarrowDescription =>
@@ -406,11 +477,15 @@ class AppLocalizationsLt extends AppLocalizations {
 
   @override
   String get stage6NarrowInstruction1 =>
-      '1 iš 2 žingsnis: Spustelėkite fantome. Stebėkite aštrias bangas ir integralą ≈ 1.0.';
+      '1 iš 3 žingsnis: Apatinis grafikas rodo oranžinę filtruotą kreivę su neigiamais sparnais, panaikinančiais suliejimą.';
 
   @override
   String get stage6NarrowInstruction2 =>
-      '2 iš 2 žingsnis: Spustelėkite už fantomo. Neigiami sparnai panaikina suliejimą (integralas ≈ 0.0).';
+      '2 iš 3 žingsnis: Palieskite „Paleisti skenavimą“, kad stebėtumėte filtruotas projekcijas sukantis kampui.';
+
+  @override
+  String get stage6NarrowInstruction3 =>
+      '3 iš 3 žingsnis: Palieskite taškus objekto erdvėje. Filtruota atgalinė projekcija rekonstruoja ≈ 1.0 viduje ir ≈ 0.0 išorėje.';
 
   @override
   String get stage6NarrowSubtitle => 'Filtruota atgalinė projekcija (FBP)';
@@ -426,8 +501,53 @@ class AppLocalizationsLt extends AppLocalizations {
   String get stage6Title => 'Filtruota duomenų rekonstrukcija';
 
   @override
+  String get stage7Description =>
+      'Laisvo žaidimo režime kurkite savas scenas naudodami kelis fantomo diskus. Pridėkite diskų mygtuku „+“, nuvilkite juos į norimą vietą ir stebėkite, kaip kiekvienas diskas sinogramoje sukuria papildomą sinusoidinę juostą. Naudokite filtruotą atgalinę projekciją savo scenoms rekonstruoti ir vidiniam tankiui patikrinti.';
+
+  @override
+  String get stage7Instruction1 =>
+      '1 iš 3 žingsnis: Palieskite „+“ objekto erdvės viršutiniame dešiniajame kampe, kad pridėtumėte fantomo diskų. Pasirinkite ir vilkite diskus bet kur apskritime.';
+
+  @override
+  String get stage7Instruction2 =>
+      '2 iš 3 žingsnis: Apžiūrėkite sinogramą. Kiekvienas fantomas sukuria savą sinusoidinį pėdsaką, o persidengiančios sritys sumuojasi tiesiškai.';
+
+  @override
+  String get stage7Instruction3 =>
+      '3 iš 3 žingsnis: Perjunkite į „Zondas“ režimą objekto erdvėje, kad išbandytumėte taškų atgalinę projekciją. Perjunkite filtrą [F], kad pamatytumėte, kaip neigiami sparnai rekonstruoja kiekvieną fantomą.';
+
+  @override
+  String get stage7NarrowDescription =>
+      'Kurkite scenas su keliais fantomo diskais. Naudokite „+“ diskams pridėti, vilkite juos į vietą ir tyrinėkite jų sinogramas bei filtruotą rekonstrukciją.';
+
+  @override
+  String get stage7NarrowInstruction1 =>
+      '1 iš 3 žingsnis: Palieskite „+“ objekto erdvėje fantomo diskams pridėti ir nuvilkite juos apskritime.';
+
+  @override
+  String get stage7NarrowInstruction2 =>
+      '2 iš 3 žingsnis: Apžiūrėkite sinogramą, kaip keli fantomai tiesiškai sumuojasi Radono erdvėje.';
+
+  @override
+  String get stage7NarrowInstruction3 =>
+      '3 iš 3 žingsnis: Perjunkite į „Zondas“ režimą ir perjunkite filtrą [F], kad rekonstruotumėte savo fantomus.';
+
+  @override
+  String get stage7NarrowSubtitle => 'Kelių fantomų smėlio dėžė';
+
+  @override
+  String get stage7NarrowTitle => 'Laisvas žaidimas';
+
+  @override
+  String get stage7Subtitle =>
+      'Kurkite kelių fantomų scenas ir tyrinėkite rekonstrukciją';
+
+  @override
+  String get stage7Title => 'Laisvas žaidimas ir pasirinktiniai fantomai';
+
+  @override
   String stageIndicator(int stageNumber) {
-    return '$stageNumber etapas iš 6';
+    return '$stageNumber etapas iš 7';
   }
 
   @override
@@ -437,9 +557,6 @@ class AppLocalizationsLt extends AppLocalizations {
 
   @override
   String get switchLanguageTooltip => 'Pakeisti kalbą';
-
-  @override
-  String get moreInfoButton => 'Daugiau informacijos';
 
   @override
   String get termsOfServiceButton => 'Paslaugų teikimo sąlygos';
@@ -455,6 +572,11 @@ class AppLocalizationsLt extends AppLocalizations {
 
   @override
   String get themeSystem => 'Sistemos';
+
+  @override
+  String unableToLoadDocument(String title) {
+    return 'Nepavyko įkelti dokumento „$title“.';
+  }
 
   @override
   String versionLabel(String version) {
